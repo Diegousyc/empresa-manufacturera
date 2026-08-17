@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Calidad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #1abc9c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0.8rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+        .navbar-brand i { margin-right: 10px; color: #f1c40f; }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 20px;
+            transition: var(--transition);
+            margin: 0 3px;
+            font-size: 0.9rem;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background: rgba(255,255,255,0.2) !important;
+        }
+        .nav-link i { margin-right: 6px; }
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: white;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-weight: 600;
+        }
+        .card-body { padding: 1.5rem; }
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        .table thead th {
+            border: none;
+            padding: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .table tbody tr {
+            transition: var(--transition);
+        }
+        .table tbody tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .table tbody td {
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+        }
+        .btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
+        .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
+        .badge { padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; }
+        .kpi-card {
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: default;
+            height: 100%;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .kpi-card .kpi-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 2.5rem;
+            opacity: 0.25;
+        }
+        .kpi-card .kpi-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        .kpi-card .kpi-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .kpi-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .kpi-green { background: linear-gradient(135deg, #27ae60, #229954); }
+        .kpi-yellow { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .kpi-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .kpi-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .kpi-teal { background: linear-gradient(135deg, #1abc9c, #16a085); }
+        .form-control {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .chart-container .chart-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        .chart-container .chart-title i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated { animation: fadeInUp 0.6s ease; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.8rem; padding: 0.3rem 0.8rem !important; }
+            .kpi-card .kpi-number { font-size: 1.5rem; }
+            .kpi-card .kpi-icon { font-size: 2rem; }
+            .btn { padding: 0.4rem 1rem; font-size: 0.9rem; }
+        }
+        @media (max-width: 576px) {
+            .kpi-card { padding: 1rem; }
+            .kpi-card .kpi-number { font-size: 1.2rem; }
+            .table-container { padding: 0.5rem; }
+            .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-industry"></i> SISTEMA PRODUCCIÓN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/produccion"><i class="fas fa-industry"></i> Producción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/maquinas"><i class="fas fa-microchip"></i> Máquinas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/dashboard"><i class="fas fa-check-circle"></i> Calidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- TÍTULO -->
+        <div class="row">
+            <div class="col-12 text-center animated">
+                <h1 class="display-4 fw-bold text-primary">
+                    <i class="fas fa-check-circle text-secondary"></i> Gestión de Calidad
+                </h1>
+                <p class="lead text-muted">Control de calidad, inspecciones y análisis de defectos</p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <!-- KPIs DE CALIDAD -->
+        <div class="row mt-4">
+            <div class="col-md-3 col-6 mb-3 animated delay-1">
+                <div class="kpi-card kpi-blue">
+                    <i class="fas fa-clipboard-check kpi-icon"></i>
+                    <div class="kpi-label">Inspecciones</div>
+                    <div class="kpi-number" id="total-inspecciones">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-2">
+                <div class="kpi-card kpi-green">
+                    <i class="fas fa-star kpi-icon"></i>
+                    <div class="kpi-label">Calidad Promedio</div>
+                    <div class="kpi-number" id="calidad-promedio">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-3">
+                <div class="kpi-card kpi-yellow">
+                    <i class="fas fa-exclamation-triangle kpi-icon"></i>
+                    <div class="kpi-label">Defectos Totales</div>
+                    <div class="kpi-number" id="defectos-totales">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-4">
+                <div class="kpi-card kpi-red">
+                    <i class="fas fa-percent kpi-icon"></i>
+                    <div class="kpi-label">Tasa de Defectos</div>
+                    <div class="kpi-number" id="tasa-defectos">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS DE CALIDAD -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-bar"></i> Calidad por Producto
+                    </div>
+                    <div id="grafico-calidad-producto" style="height: 320px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-pie"></i> Distribución de Defectos
+                    </div>
+                    <div id="grafico-defectos-tipo" style="height: 320px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="chart-container">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-line"></i> Tendencia de Calidad
+                    </div>
+                    <div id="grafico-tendencia-calidad" style="height: 320px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLA DE INSPECCIONES -->
+        <div class="row mt-4">
+            <div class="col-md-12 animated">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i> Registro de Inspecciones
+                        <button class="btn btn-sm btn-light float-end" onclick="cargarInspecciones()">
+                            <i class="fas fa-refresh"></i> Actualizar
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-hover" id="tabla-inspecciones">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Producción</th>
+                                        <th>Producto</th>
+                                        <th>Inspector</th>
+                                        <th>Calidad</th>
+                                        <th>Defectos</th>
+                                        <th>Tipo</th>
+                                        <th>Fecha</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-inspecciones">
+                                    <tr>
+                                        <td colspan="9" class="text-center text-muted">
+                                            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULARIO PARA NUEVA INSPECCIÓN -->
+        <div class="row mt-4 mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-plus-circle"></i> Nueva Inspección de Calidad
+                    </div>
+                    <div class="card-body">
+                        <form id="form-inspeccion">
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Producción ID</label>
+                                    <input type="text" class="form-control" id="produccion_id" placeholder="PROD-0001" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Producto ID</label>
+                                    <input type="text" class="form-control" id="producto_id" placeholder="PROD-001" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Inspector</label>
+                                    <input type="text" class="form-control" id="inspector" placeholder="Nombre del inspector" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Calidad (%)</label>
+                                    <input type="number" class="form-control" id="calidad" placeholder="95" min="0" max="100" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Defectos</label>
+                                    <input type="number" class="form-control" id="defectos" placeholder="0" min="0">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Tipo de Defecto</label>
+                                    <select class="form-select" id="defectos_tipo">
+                                        <option value="Dimensional">Dimensional</option>
+                                        <option value="Superficial">Superficial</option>
+                                        <option value="Material">Material</option>
+                                        <option value="Montaje">Montaje</option>
+                                        <option value="Funcional">Funcional</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-success w-100">
+                                        <i class="fas fa-save"></i> Registrar Inspección
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="mensaje-form" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = '/api';
+
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = {
+                headers: { 'Content-Type': 'application/json', ...options.headers },
+                ...options
+            };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || error.message || 'Error en la petición');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // ============================================
+        // CARGAR INSPECCIONES
+        // ============================================
+        async function cargarInspecciones() {
+            const tbody = document.getElementById('tbody-inspecciones');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9" class="text-center text-muted">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const result = await apiRequest('/calidad?limit=100');
+                const data = result.data || [];
+
+                // Actualizar KPIs
+                const total = data.length;
+                const calidadPromedio = data.reduce((acc, item) => acc + (item.calidad || 0), 0) / (total || 1);
+                const defectosTotales = data.reduce((acc, item) => acc + (item.defectos || 0), 0);
+                const tasaDefectos = total > 0 ? (defectosTotales / (total * 10)) * 100 : 0;
+
+                document.getElementById('total-inspecciones').textContent = total;
+                document.getElementById('calidad-promedio').textContent = calidadPromedio.toFixed(1) + '%';
+                document.getElementById('defectos-totales').textContent = defectosTotales;
+                document.getElementById('tasa-defectos').textContent = tasaDefectos.toFixed(1) + '%';
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center text-muted">
+                                <i class="fas fa-inbox"></i> No hay inspecciones registradas
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                tbody.innerHTML = data.map(item => {
+                    const calidad = item.calidad || 0;
+                    const badgeClass = calidad >= 80 ? 'bg-success' : calidad >= 60 ? 'bg-warning' : 'bg-danger';
+                    return `
+                        <tr>
+                            <td><span class="badge bg-primary">${item.calidad_id || item._id}</span></td>
+                            <td>${item.produccion_id || '-'}</td>
+                            <td>${item.producto_id || '-'}</td>
+                            <td>${item.inspector || '-'}</td>
+                            <td><span class="badge ${badgeClass}">${calidad.toFixed(1)}%</span></td>
+                            <td>${item.defectos || 0}</td>
+                            <td>${item.defectos_tipo || '-'}</td>
+                            <td>${item.fecha_inspeccion ? new Date(item.fecha_inspeccion).toLocaleDateString() : '-'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" onclick="eliminarInspeccion('${item.calidad_id || item._id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Cargar gráficos
+                await cargarGraficosCalidad(data);
+
+            } catch (error) {
+                console.error('Error cargando inspecciones:', error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-danger">
+                            <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // ============================================
+        // ELIMINAR INSPECCIÓN
+        // ============================================
+        async function eliminarInspeccion(id) {
+            if (!confirm('¿Estás seguro de eliminar esta inspección?')) return;
+            try {
+                await apiRequest(`/calidad/${id}`, { method: 'DELETE' });
+                cargarInspecciones();
+            } catch (error) {
+                alert('Error al eliminar: ' + error.message);
+            }
+        }
+
+        // ============================================
+        // GRÁFICOS DE CALIDAD
+        // ============================================
+        async function cargarGraficosCalidad(data) {
+            if (data.length === 0) {
+                mostrarMensajeGraficos('No hay datos para mostrar gráficos');
+                return;
+            }
+
+            // Gráfico 1: Calidad por Producto
+            const porProducto = {};
+            data.forEach(item => {
+                if (item.producto_id) {
+                    if (!porProducto[item.producto_id]) {
+                        porProducto[item.producto_id] = { total: 0, count: 0 };
+                    }
+                    porProducto[item.producto_id].total += item.calidad || 0;
+                    porProducto[item.producto_id].count += 1;
+                }
+            });
+
+            const productos = Object.keys(porProducto);
+            const calidades = productos.map(p => porProducto[p].total / porProducto[p].count);
+
+            Plotly.newPlot('grafico-calidad-producto', [
+                {
+                    type: 'bar',
+                    x: productos,
+                    y: calidades,
+                    marker: {
+                        color: calidades.map(v => v >= 80 ? '#27ae60' : v >= 60 ? '#f39c12' : '#e74c3c'),
+                        line: { color: 'white', width: 1.5 }
+                    },
+                    text: calidades.map(v => v.toFixed(1) + '%'),
+                    textposition: 'auto'
+                }
+            ], {
+                margin: { t: 10, l: 50, r: 20, b: 40 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: 'Calidad (%)', range: [0, 100] }
+            });
+
+            // Gráfico 2: Distribución de Defectos
+            const porTipo = {};
+            data.forEach(item => {
+                const tipo = item.defectos_tipo || 'Sin especificar';
+                porTipo[tipo] = (porTipo[tipo] || 0) + (item.defectos || 0);
+            });
+
+            const coloresDefectos = ['#e74c3c', '#f39c12', '#3498db', '#2ecc71', '#9b59b6', '#95a5a6'];
+            Plotly.newPlot('grafico-defectos-tipo', [
+                {
+                    type: 'pie',
+                    labels: Object.keys(porTipo),
+                    values: Object.values(porTipo),
+                    marker: { colors: coloresDefectos.slice(0, Object.keys(porTipo).length) },
+                    textinfo: 'label+percent',
+                    hole: 0.3
+                }
+            ], {
+                margin: { t: 10, l: 10, r: 10, b: 10 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                showlegend: true
+            });
+
+            // Gráfico 3: Tendencia de Calidad
+            const porFecha = {};
+            data.forEach(item => {
+                if (item.fecha_inspeccion) {
+                    const fecha = new Date(item.fecha_inspeccion).toLocaleDateString();
+                    if (!porFecha[fecha]) {
+                        porFecha[fecha] = { total: 0, count: 0 };
+                    }
+                    porFecha[fecha].total += item.calidad || 0;
+                    porFecha[fecha].count += 1;
+                }
+            });
+
+            const fechas = Object.keys(porFecha).sort((a, b) => new Date(a) - new Date(b));
+            const tendencia = fechas.map(f => porFecha[f].total / porFecha[f].count);
+
+            Plotly.newPlot('grafico-tendencia-calidad', [
+                {
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    x: fechas,
+                    y: tendencia,
+                    name: 'Calidad',
+                    marker: { color: '#3498db', size: 10 },
+                    line: { color: '#3498db', width: 3 },
+                    fill: 'tozeroy',
+                    fillcolor: 'rgba(52, 152, 219, 0.2)'
+                }
+            ], {
+                margin: { t: 10, l: 50, r: 20, b: 40 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: 'Calidad (%)', range: [0, 100] },
+                xaxis: { title: 'Fecha' }
+            });
+        }
+
+        function mostrarMensajeGraficos(mensaje) {
+            const contenedores = ['grafico-calidad-producto', 'grafico-defectos-tipo', 'grafico-tendencia-calidad'];
+            contenedores.forEach(id => {
+                document.getElementById(id).innerHTML = `
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-info-circle fa-3x mb-3"></i>
+                        <p>${mensaje}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // ============================================
+        // FORMULARIO - NUEVA INSPECCIÓN
+        // ============================================
+        document.getElementById('form-inspeccion').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const data = {
+                calidad_id: 'CAL-' + Date.now(),
+                produccion_id: document.getElementById('produccion_id').value,
+                producto_id: document.getElementById('producto_id').value,
+                inspector: document.getElementById('inspector').value,
+                calidad: parseFloat(document.getElementById('calidad').value),
+                defectos: parseInt(document.getElementById('defectos').value) || 0,
+                defectos_tipo: document.getElementById('defectos_tipo').value,
+                fecha_inspeccion: new Date().toISOString(),
+                especificaciones_cumplidas: parseFloat(document.getElementById('calidad').value) >= 80,
+                acciones_correctivas: [],
+                observaciones: null
+            };
+
+            try {
+                const result = await apiRequest('/calidad', { method: 'POST', body: JSON.stringify(data) });
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> Inspección registrada exitosamente
+                    </div>
+                `;
+                this.reset();
+                cargarInspecciones();
+            } catch (error) {
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                    </div>
+                `;
+            }
+        });
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarInspecciones();
+            setInterval(cargarInspecciones, 30000);
+        });
+    </script>
+</body>
+</html>

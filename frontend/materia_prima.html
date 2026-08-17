@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Materia Prima</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+    <style>
+        /* ============================================
+           ESTILOS GENERALES
+           ============================================ */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #1abc9c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0.5rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .navbar-brand i { margin-right: 10px; color: #f1c40f; }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.4rem 0.8rem !important;
+            border-radius: 20px;
+            transition: var(--transition);
+            margin: 0 2px;
+            font-size: 0.8rem;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background: rgba(255,255,255,0.2) !important;
+        }
+        .nav-link i { margin-right: 5px; }
+        .navbar-nav {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ============================================
+           TARJETAS
+           ============================================ */
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: white;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-weight: 600;
+        }
+        .card-body { padding: 1.5rem; }
+
+        /* ============================================
+           TABLAS
+           ============================================ */
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        .table thead th {
+            border: none;
+            padding: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .table tbody tr {
+            transition: var(--transition);
+        }
+        .table tbody tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .table tbody td {
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+        }
+
+        /* ============================================
+           BOTONES
+           ============================================ */
+        .btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
+
+        /* ============================================
+           BADGES
+           ============================================ */
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           KPIs
+           ============================================ */
+        .kpi-card {
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: default;
+            height: 100%;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .kpi-card .kpi-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 2.5rem;
+            opacity: 0.25;
+        }
+        .kpi-card .kpi-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        .kpi-card .kpi-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .kpi-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .kpi-green { background: linear-gradient(135deg, #27ae60, #229954); }
+        .kpi-yellow { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .kpi-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .kpi-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .kpi-teal { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+        /* ============================================
+           FORMULARIOS
+           ============================================ */
+        .form-control {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .form-label {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        .form-select {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+        }
+
+        /* ============================================
+           GRÁFICOS
+           ============================================ */
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        .chart-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .chart-container .chart-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        .chart-container .chart-title i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        .chart-container .click-hint {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .chart-container:hover .click-hint {
+            opacity: 1;
+        }
+
+        /* ============================================
+           MODAL DE GRÁFICOS
+           ============================================ */
+        .modal-grafico {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+        }
+        .modal-grafico .modal-titulo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .modal-grafico .modal-descripcion {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+        .modal-grafico .modal-contenido {
+            min-height: 500px;
+        }
+        .modal-grafico .modal-estadisticas {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .modal-grafico .modal-estadisticas .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .modal-grafico .modal-estadisticas .stat-item:last-child {
+            border-bottom: none;
+        }
+        .modal-grafico .modal-estadisticas .stat-label {
+            color: #7f8c8d;
+        }
+        .modal-grafico .modal-estadisticas .stat-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+            .kpi-card .kpi-number { font-size: 1.5rem; }
+            .kpi-card .kpi-icon { font-size: 2rem; }
+            .btn { padding: 0.4rem 1rem; font-size: 0.9rem; }
+            .modal-grafico .modal-contenido { min-height: 300px; }
+        }
+        @media (max-width: 576px) {
+            .kpi-card { padding: 1rem; }
+            .kpi-card .kpi-number { font-size: 1.2rem; }
+            .table-container { padding: 0.5rem; }
+            .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
+            .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
+            .modal-grafico .modal-contenido { min-height: 250px; }
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated { animation: fadeInUp 0.6s ease; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .alert-warning { background: #fff3cd; border-color: #ffecb5; color: #856404; }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    NAVBAR CON 8 MÓDULOS - UNIFICADO
+    ============================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-industry"></i> SISTEMA PRODUCCIÓN
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/materia-prima"><i class="fas fa-cubes"></i> Materia Prima</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/maquinas"><i class="fas fa-microchip"></i> Máquinas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/produccion"><i class="fas fa-industry"></i> Producción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calidad"><i class="fas fa-check-circle"></i> Calidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/paros"><i class="fas fa-stop-circle"></i> Paros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reportes"><i class="fas fa-file-alt"></i> Reportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    CONTENIDO DE LA PÁGINA
+    ============================================ -->
+    <div class="container mt-4">
+
+        <!-- TÍTULO -->
+        <div class="row">
+            <div class="col-12 text-center animated">
+                <h1 class="display-4 fw-bold text-primary">
+                    <i class="fas fa-cubes text-secondary"></i> Gestión de Materia Prima
+                </h1>
+                <p class="lead text-muted">Inventario, consumo y análisis de materiales</p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="row mt-4">
+            <div class="col-md-3 col-6 mb-3 animated delay-1">
+                <div class="kpi-card kpi-blue">
+                    <i class="fas fa-cubes kpi-icon"></i>
+                    <div class="kpi-label">Total Materiales</div>
+                    <div class="kpi-number" id="total-materiales">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-2">
+                <div class="kpi-card kpi-green">
+                    <i class="fas fa-check-circle kpi-icon"></i>
+                    <div class="kpi-label">En Stock</div>
+                    <div class="kpi-number" id="stock-total">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-3">
+                <div class="kpi-card kpi-yellow">
+                    <i class="fas fa-exclamation-triangle kpi-icon"></i>
+                    <div class="kpi-label">Stock Mínimo</div>
+                    <div class="kpi-number" id="stock-minimo">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-4">
+                <div class="kpi-card kpi-teal">
+                    <i class="fas fa-dollar-sign kpi-icon"></i>
+                    <div class="kpi-label">Valor Inventario</div>
+                    <div class="kpi-number" id="valor-inventario">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+        GRÁFICAS DE ANÁLISIS DE MATERIA PRIMA
+        ============================================ -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-consumo-tipo', 'Consumo por Tipo de Material', 'Gráfica de barras que muestra la cantidad total de cada tipo de material en inventario. Permite identificar qué tipos de materiales son los más utilizados en la producción.')">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-bar text-primary"></i> Consumo por Tipo de Material
+                    </div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-consumo-tipo" style="height: 280px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-consumo-nombre', 'Materiales Más Utilizados', 'Gráfica de barras que muestra los materiales con mayor cantidad en inventario. Permite identificar qué materiales son los más consumidos en el proceso productivo.')">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-bar text-success"></i> Materiales Más Utilizados
+                    </div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-consumo-nombre" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULARIO PARA NUEVO MATERIAL -->
+        <div class="row mt-4">
+            <div class="col-md-4 animated">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-plus-circle"></i> Registrar Material
+                    </div>
+                    <div class="card-body">
+                        <form id="form-material">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Acero Inoxidable 304" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tipo</label>
+                                <select class="form-select" id="tipo">
+                                    <option value="Metal">Metal</option>
+                                    <option value="Plástico">Plástico</option>
+                                    <option value="Químico">Químico</option>
+                                    <option value="Textil">Textil</option>
+                                    <option value="Alimentos">Alimentos</option>
+                                    <option value="Electrónico">Electrónico</option>
+                                    <option value="Papel">Papel</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Unidad</label>
+                                <select class="form-select" id="unidad">
+                                    <option value="kg">kg</option>
+                                    <option value="g">g</option>
+                                    <option value="L">L</option>
+                                    <option value="mL">mL</option>
+                                    <option value="unidades">Unidades</option>
+                                    <option value="m">m</option>
+                                    <option value="m²">m²</option>
+                                    <option value="piezas">Piezas</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="number" class="form-control" id="cantidad" placeholder="500" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Costo Unitario</label>
+                                    <input type="number" class="form-control" id="costo_unitario" placeholder="2.50" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Stock Mínimo</label>
+                                    <input type="number" class="form-control" id="stock_minimo" placeholder="100" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Proveedor</label>
+                                    <input type="text" class="form-control" id="proveedor" placeholder="Aceros Nacionales">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Ubicación</label>
+                                <input type="text" class="form-control" id="ubicacion" placeholder="Almacén A-1">
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-save"></i> Registrar Material
+                            </button>
+                        </form>
+                        <div id="mensaje-form" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA DE MATERIALES -->
+            <div class="col-md-8 animated">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i> Inventario de Materiales
+                        <button class="btn btn-sm btn-light float-end" onclick="cargarMateriales()">
+                            <i class="fas fa-refresh"></i> Actualizar
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-hover" id="tabla-materiales">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Tipo</th>
+                                        <th>Cantidad</th>
+                                        <th>Unidad</th>
+                                        <th>Costo</th>
+                                        <th>Stock Mínimo</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-materiales">
+                                    <tr>
+                                        <td colspan="9" class="text-center text-muted">
+                                            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================
+    MODAL PARA GRÁFICOS COMPLETOS
+    ============================================ -->
+    <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title" id="modalGraficoTitulo"><i class="fas fa-chart-bar"></i> Gráfica</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-grafico">
+                        <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
+                        <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
+                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
+                            <!-- Estadísticas se generan dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="exportarGraficoModal()">
+                        <i class="fas fa-download"></i> Exportar como PNG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ============================================
+        // CONFIGURACIÓN DE LA API
+        // ============================================
+        const API_BASE = '/api';
+        let datosMateriales = [];
+
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = {
+                headers: { 'Content-Type': 'application/json', ...options.headers },
+                ...options
+            };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || error.message || 'Error en la petición');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // ============================================
+        // ABRIR MODAL CON GRÁFICA COMPLETA
+        // ============================================
+        function abrirModalGrafico(graficoId, titulo, descripcion) {
+            const modal = new bootstrap.Modal(document.getElementById('modalGrafico'));
+            document.getElementById('modalGraficoTitulo').textContent = '📊 ' + titulo;
+            document.getElementById('modalGraficoDescripcion').textContent = descripcion;
+            
+            const container = document.getElementById('modalGraficoContenido');
+            
+            const originalDiv = document.getElementById(graficoId);
+            if (originalDiv && originalDiv.data) {
+                const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout));
+                layoutModificado.height = 500;
+                layoutModificado.margin = { t: 40, l: 80, r: 40, b: 80 };
+                layoutModificado.font = { size: 14 };
+                
+                Plotly.newPlot(container, originalDiv.data, layoutModificado);
+                generarEstadisticasModal(graficoId);
+            } else {
+                container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>';
+            }
+            
+            modal.show();
+        }
+
+        // ============================================
+        // GENERAR ESTADÍSTICAS PARA EL MODAL
+        // ============================================
+        function generarEstadisticasModal(graficoId) {
+            const container = document.getElementById('modalGraficoEstadisticas');
+            const data = datosMateriales;
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted">No hay datos para mostrar estadísticas</div>';
+                return;
+            }
+
+            let html = '<h6><i class="fas fa-chart-simple text-primary"></i> Estadísticas del análisis:</h6>';
+            
+            if (graficoId === 'grafico-consumo-tipo') {
+                const porTipo = {};
+                data.forEach(m => {
+                    const tipo = m.tipo || 'Sin tipo';
+                    porTipo[tipo] = (porTipo[tipo] || 0) + (m.cantidad || 0);
+                });
+                const total = data.length;
+                const tipos = Object.keys(porTipo);
+                const maxTipo = Object.entries(porTipo).sort((a, b) => b[1] - a[1])[0];
+                const cantidadTotal = Object.values(porTipo).reduce((a, b) => a + b, 0);
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-3 col-6"><span class="stat-label">Total materiales:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Tipos de material:</span><br><span class="stat-value">${tipos.length}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Cantidad total:</span><br><span class="stat-value">${cantidadTotal.toFixed(2)}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Tipo principal:</span><br><span class="stat-value">${maxTipo ? maxTipo[0] : '-'} (${maxTipo ? maxTipo[1].toFixed(2) : 0})</span></div>
+                    </div>
+                `;
+            } else if (graficoId === 'grafico-consumo-nombre') {
+                const materiales = data.map(m => ({
+                    nombre: m.nombre || m.material_id,
+                    cantidad: m.cantidad || 0
+                })).sort((a, b) => b.cantidad - a.cantidad);
+                
+                const total = data.length;
+                const top3 = materiales.slice(0, 3);
+                const cantidadTotal = materiales.reduce((a, b) => a + b.cantidad, 0);
+                const promedio = cantidadTotal / total;
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-3 col-6"><span class="stat-label">Total materiales:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Cantidad total:</span><br><span class="stat-value">${cantidadTotal.toFixed(2)}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Promedio por material:</span><br><span class="stat-value">${promedio.toFixed(2)}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Material principal:</span><br><span class="stat-value">${top3.length > 0 ? top3[0].nombre : '-'}</span></div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <span class="stat-label">Top 3 materiales:</span><br>
+                            <span class="stat-value">${top3.map((m, i) => `${i+1}. ${m.nombre} (${m.cantidad.toFixed(2)})`).join(' | ')}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // ============================================
+        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
+        // ============================================
+        function exportarGraficoModal() {
+            const container = document.getElementById('modalGraficoContenido');
+            Plotly.downloadImage(container, {
+                filename: 'grafico_analisis_materia_prima',
+                format: 'png',
+                width: 1200,
+                height: 800
+            });
+        }
+
+        // ============================================
+        // CARGAR MATERIALES
+        // ============================================
+        async function cargarMateriales() {
+            const tbody = document.getElementById('tbody-materiales');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9" class="text-center text-muted">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const result = await apiRequest('/materia-prima?limit=100');
+                datosMateriales = result.data || [];
+                const data = datosMateriales;
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center text-muted">
+                                <i class="fas fa-inbox"></i> No hay materiales registrados
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                // Calcular KPIs
+                const total = data.length;
+                let stockTotal = 0;
+                let stockMinimoCount = 0;
+                let valorTotal = 0;
+
+                data.forEach(m => {
+                    const cantidad = m.cantidad || 0;
+                    const costo = m.costo_unitario || 0;
+                    stockTotal += cantidad;
+                    valorTotal += cantidad * costo;
+                    if (cantidad <= (m.stock_minimo || 0)) {
+                        stockMinimoCount++;
+                    }
+                });
+
+                document.getElementById('total-materiales').textContent = total;
+                document.getElementById('stock-total').textContent = stockTotal.toFixed(2);
+                document.getElementById('stock-minimo').textContent = stockMinimoCount;
+                document.getElementById('valor-inventario').textContent = '$' + valorTotal.toFixed(2);
+
+                tbody.innerHTML = data.map(m => {
+                    const cantidad = m.cantidad || 0;
+                    const stockMinimo = m.stock_minimo || 0;
+                    let estado, badgeClass;
+                    if (cantidad <= stockMinimo) {
+                        estado = '⚠️ Stock Bajo';
+                        badgeClass = 'bg-danger';
+                    } else if (cantidad <= stockMinimo * 2) {
+                        estado = '⚠️ Atención';
+                        badgeClass = 'bg-warning';
+                    } else {
+                        estado = '✅ OK';
+                        badgeClass = 'bg-success';
+                    }
+
+                    return `
+                        <tr>
+                            <td><span class="badge bg-primary">${m.material_id || m._id}</span></td>
+                            <td><strong>${m.nombre || '-'}</strong></td>
+                            <td>${m.tipo || '-'}</td>
+                            <td>${cantidad}</td>
+                            <td>${m.unidad || '-'}</td>
+                            <td>$${m.costo_unitario?.toFixed(2) || '0.00'}</td>
+                            <td>${stockMinimo}</td>
+                            <td><span class="badge ${badgeClass}">${estado}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" onclick="eliminarMaterial('${m.material_id || m._id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Cargar gráficos
+                await cargarGraficos(data);
+
+            } catch (error) {
+                console.error('Error cargando materiales:', error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-danger">
+                            <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // ============================================
+        // CARGAR GRÁFICOS
+        // ============================================
+        async function cargarGraficos(data) {
+            if (data.length === 0) {
+                mostrarMensajeGraficos('No hay datos para mostrar gráficos');
+                return;
+            }
+
+            // ----- GRÁFICO 1: Consumo por Tipo de Material -----
+            const porTipo = {};
+            data.forEach(m => {
+                const tipo = m.tipo || 'Sin tipo';
+                porTipo[tipo] = (porTipo[tipo] || 0) + (m.cantidad || 0);
+            });
+
+            const tipos = Object.keys(porTipo);
+            const cantidades = Object.values(porTipo);
+            const coloresTipos = {
+                'Metal': '#3498db',
+                'Plástico': '#2ecc71',
+                'Químico': '#f39c12',
+                'Textil': '#e67e22',
+                'Alimentos': '#1abc9c',
+                'Electrónico': '#9b59b6',
+                'Papel': '#95a5a6',
+                'Otro': '#7f8c8d',
+                'Sin tipo': '#bdc3c7'
+            };
+            const colores = tipos.map(t => coloresTipos[t] || '#95a5a6');
+
+            Plotly.newPlot('grafico-consumo-tipo', [
+                {
+                    type: 'bar',
+                    x: tipos,
+                    y: cantidades,
+                    marker: {
+                        color: colores,
+                        line: { color: 'white', width: 1.5 }
+                    },
+                    text: cantidades.map(v => v.toFixed(2)),
+                    textposition: 'auto',
+                    hoverinfo: 'x+y',
+                    hovertemplate: '<b>%{x}</b><br>Cantidad: %{y:.2f}<extra></extra>'
+                }
+            ], {
+                margin: { t: 10, l: 50, r: 10, b: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { 
+                    title: 'Cantidad',
+                    gridcolor: 'rgba(0,0,0,0.05)'
+                },
+                xaxis: { 
+                    title: 'Tipo de Material'
+                },
+                font: { family: 'Segoe UI, sans-serif', size: 11 },
+                showlegend: false
+            });
+
+            // ----- GRÁFICO 2: Materiales Más Utilizados (Top 10) -----
+            const materiales = data.map(m => ({
+                nombre: m.nombre || m.material_id,
+                cantidad: m.cantidad || 0
+            })).sort((a, b) => b.cantidad - a.cantidad).slice(0, 10);
+
+            const nombres = materiales.map(m => m.nombre);
+            const cantidadesTop = materiales.map(m => m.cantidad);
+            const coloresTop = cantidadesTop.map(v => v > 500 ? '#e74c3c' : v > 200 ? '#f39c12' : '#27ae60');
+
+            Plotly.newPlot('grafico-consumo-nombre', [
+                {
+                    type: 'bar',
+                    x: nombres,
+                    y: cantidadesTop,
+                    marker: {
+                        color: coloresTop,
+                        line: { color: 'white', width: 1.5 }
+                    },
+                    text: cantidadesTop.map(v => v.toFixed(2)),
+                    textposition: 'auto',
+                    hoverinfo: 'x+y',
+                    hovertemplate: '<b>%{x}</b><br>Cantidad: %{y:.2f}<extra></extra>'
+                }
+            ], {
+                margin: { t: 10, l: 50, r: 10, b: 60 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { 
+                    title: 'Cantidad',
+                    gridcolor: 'rgba(0,0,0,0.05)'
+                },
+                xaxis: { 
+                    title: 'Material',
+                    tickangle: -30
+                },
+                font: { family: 'Segoe UI, sans-serif', size: 10 },
+                showlegend: false
+            });
+        }
+
+        // ============================================
+        // MOSTRAR MENSAJE EN GRÁFICOS
+        // ============================================
+        function mostrarMensajeGraficos(mensaje) {
+            const contenedores = ['grafico-consumo-tipo', 'grafico-consumo-nombre'];
+            contenedores.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = `
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-info-circle fa-3x mb-3"></i>
+                            <p>${mensaje}</p>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // ============================================
+        // ELIMINAR MATERIAL
+        // ============================================
+        async function eliminarMaterial(id) {
+            if (!confirm('¿Estás seguro de eliminar este material?')) return;
+            try {
+                await apiRequest(`/materia-prima/${id}`, { method: 'DELETE' });
+                cargarMateriales();
+            } catch (error) {
+                alert('Error al eliminar: ' + error.message);
+            }
+        }
+
+        // ============================================
+        // FORMULARIO - NUEVO MATERIAL
+        // ============================================
+        document.getElementById('form-material').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const data = {
+                material_id: 'MAT-' + Date.now(),
+                nombre: document.getElementById('nombre').value,
+                tipo: document.getElementById('tipo').value,
+                unidad: document.getElementById('unidad').value,
+                cantidad: parseFloat(document.getElementById('cantidad').value),
+                costo_unitario: parseFloat(document.getElementById('costo_unitario').value),
+                stock_minimo: parseFloat(document.getElementById('stock_minimo').value),
+                proveedor: document.getElementById('proveedor').value,
+                ubicacion: document.getElementById('ubicacion').value,
+                fecha_compra: new Date().toISOString()
+            };
+
+            try {
+                const result = await apiRequest('/materia-prima', { method: 'POST', body: JSON.stringify(data) });
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-success mt-2">
+                        <i class="fas fa-check-circle"></i> Material registrado exitosamente
+                    </div>
+                `;
+                this.reset();
+                cargarMateriales();
+                setTimeout(() => {
+                    document.getElementById('mensaje-form').innerHTML = '';
+                }, 3000);
+            } catch (error) {
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-danger mt-2">
+                        <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                    </div>
+                `;
+            }
+        });
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', cargarMateriales);
+        setInterval(cargarMateriales, 30000);
+    </script>
+</body>
+</html>

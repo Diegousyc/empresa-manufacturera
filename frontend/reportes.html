@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes y Análisis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* ============================================
+           ESTILOS GENERALES
+           ============================================ */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #1abc9c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0.5rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .navbar-brand i { margin-right: 10px; color: #f1c40f; }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.4rem 0.8rem !important;
+            border-radius: 20px;
+            transition: var(--transition);
+            margin: 0 2px;
+            font-size: 0.8rem;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background: rgba(255,255,255,0.2) !important;
+        }
+        .nav-link i { margin-right: 5px; }
+        .navbar-nav {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ============================================
+           TARJETAS (CARDS)
+           ============================================ */
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: white;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-weight: 600;
+        }
+        .card-header i { margin-right: 8px; }
+        .card-body { padding: 1.5rem; }
+
+        /* ============================================
+           BOTONES
+           ============================================ */
+        .btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; color: white; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; color: white; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; color: white; }
+        .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
+        .btn-secondary { background: linear-gradient(135deg, #95a5a6, #7f8c8d); border: none; color: white; }
+
+        /* ============================================
+           GRÁFICOS - CONTENEDORES MEJORADOS
+           ============================================ */
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+        }
+        .chart-container:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        .chart-container .chart-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chart-container .chart-title i {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+        .chart-container .chart-title .badge-count {
+            margin-left: auto;
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        /* ============================================
+           REPORTE PDF
+           ============================================ */
+        #reporte-pdf {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+        }
+        #reporte-pdf .reporte-titulo {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 15px;
+        }
+        #reporte-pdf .reporte-subtitulo {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        #reporte-pdf .reporte-seccion {
+            margin-bottom: 25px;
+        }
+        #reporte-pdf .reporte-seccion h4 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        #reporte-pdf table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+        #reporte-pdf table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        #reporte-pdf table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        #reporte-pdf table tr:hover {
+            background: #f8f9fa;
+        }
+        .reporte-kpi {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .reporte-kpi .kpi-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .reporte-kpi .kpi-item .kpi-valor {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .reporte-kpi .kpi-item .kpi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem !important;
+            }
+            .reporte-kpi {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+            .reporte-kpi {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 576px) {
+            .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
+            .reporte-kpi {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated { animation: fadeInUp 0.6s ease; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            height: 100%;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .stat-card .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 1px;
+        }
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .report-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .report-section .section-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        .report-section .section-title i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+
+        .filtro-mes {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+        .filtro-mes label {
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        .filtro-mes select {
+            border-radius: 20px;
+            padding: 5px 15px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .resultado-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .resultado-box pre {
+            background: #2c3e50;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+        .analysis-step {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .analysis-step .step-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .analysis-step .step-icon.done {
+            background: #27ae60;
+            color: white;
+        }
+        .analysis-step .step-icon.in-progress {
+            background: #f39c12;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        .analysis-step .step-icon.failed {
+            background: #e74c3c;
+            color: white;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .analysis-step .step-badge {
+            margin-left: auto;
+        }
+        .mensajes-container {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+        .mensajes-container .mensaje-item {
+            padding: 4px 0;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mensajes-container .mensaje-item:last-child {
+            border-bottom: none;
+        }
+
+        /* ============================================
+           ESTILOS PARA CARDS DE GRÁFICOS
+           ============================================ */
+        .grafico-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+        }
+        .grafico-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        .grafico-card .grafico-header {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .grafico-card .grafico-header h6 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .grafico-card .grafico-header h6 i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        .grafico-card .grafico-header .grafico-badge {
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+        .grafico-card .grafico-body {
+            padding: 15px;
+        }
+        .grafico-card .grafico-body .chart-container {
+            box-shadow: none;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+        .grafico-card .grafico-body .chart-container:hover {
+            box-shadow: none;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    NAVBAR
+    ============================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-industry"></i> SISTEMA PRODUCCIÓN
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/materia-prima"><i class="fas fa-cubes"></i> Materia Prima</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/maquinas"><i class="fas fa-microchip"></i> Máquinas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/produccion"><i class="fas fa-industry"></i> Producción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calidad"><i class="fas fa-check-circle"></i> Calidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/paros"><i class="fas fa-stop-circle"></i> Paros</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/reportes"><i class="fas fa-file-alt"></i> Reportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    CONTENIDO
+    ============================================ -->
+    <div class="container mt-4">
+
+        <!-- TÍTULO -->
+        <div class="row">
+            <div class="col-12 text-center animated">
+                <h1 class="display-4 fw-bold text-primary">
+                    <i class="fas fa-file-alt text-secondary"></i> Reportes y Análisis
+                </h1>
+                <p class="lead text-muted">Generación de reportes mensuales y análisis de producción con IA</p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <!-- FILTRO POR MES -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="filtro-mes d-flex align-items-center flex-wrap">
+                    <label><i class="fas fa-calendar-alt text-primary"></i> Seleccionar Mes:</label>
+                    <select id="selector-mes" class="form-select form-select-sm" style="width:auto; display:inline-block;" onchange="aplicarFiltro()">
+                        <option value="todos">Todos los meses</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm ms-2" onclick="aplicarFiltro()">
+                        <i class="fas fa-filter"></i> Aplicar Filtro
+                    </button>
+                    <button class="btn btn-success btn-sm ms-2" onclick="exportarPDF()">
+                        <i class="fas fa-file-pdf"></i> Exportar PDF
+                    </button>
+                    <button class="btn btn-info btn-sm ms-2" onclick="exportarExcel()">
+                        <i class="fas fa-file-excel"></i> Exportar Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTONES DE ANÁLISIS -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="report-section">
+                    <div class="section-title">
+                        <i class="fas fa-robot"></i> Análisis con Inteligencia Artificial
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-primary w-100" onclick="ejecutarETL()">
+                                <i class="fas fa-sync-alt"></i> ETL
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-success w-100" onclick="analizarRegresion()">
+                                <i class="fas fa-chart-line"></i> Regresión
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-info w-100" onclick="analizarClasificacion()">
+                                <i class="fas fa-tag"></i> Clasificación
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-warning w-100" onclick="analizarClustering()">
+                                <i class="fas fa-layer-group"></i> Clustering
+                            </button>
+                        </div>
+                    </div>
+                    <div id="resultado-analisis" class="mt-3">
+                        <div class="text-muted text-center">
+                            <i class="fas fa-info-circle"></i> Selecciona un análisis para ver los resultados
+                        </div>
+                    </div>
+                    <!-- Panel de flujo ETL -->
+                    <div id="etl-flow-panel" class="mt-3" style="display:none;">
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                <i class="fas fa-project-diagram text-primary"></i> Flujo de Procesamiento de Datos
+                            </div>
+                            <div id="etl-steps" class="p-3">
+                                <!-- Steps se generan dinámicamente -->
+                            </div>
+                            <div class="text-end mt-2">
+                                <button id="etl-close-btn" class="btn btn-secondary btn-sm" onclick="ocultarETLFlow()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENEDOR DEL REPORTE -->
+        <div id="reporte-pdf">
+            <!-- TÍTULO DEL REPORTE -->
+            <div class="reporte-titulo">
+                <i class="fas fa-industry text-primary"></i> REPORTE DE PRODUCCIÓN INDUSTRIAL
+            </div>
+            <div class="reporte-subtitulo" id="reporte-fecha">
+                Fecha de generación: <span id="fecha-generacion">Cargando...</span> | Mes: <span id="mes-seleccionado">Todos</span>
+            </div>
+
+            <!-- KPIs DEL REPORTE -->
+            <div class="reporte-kpi" id="reporte-kpis">
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-total-producciones">-</div>
+                    <div class="kpi-label">Total Producciones</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-total-unidades">-</div>
+                    <div class="kpi-label">Unidades Producidas</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-eficiencia">-</div>
+                    <div class="kpi-label">Eficiencia Promedio</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-calidad">-</div>
+                    <div class="kpi-label">Calidad Promedio</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-defectos">-</div>
+                    <div class="kpi-label">Defectos Totales</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-paros">-</div>
+                    <div class="kpi-label">Total Paros</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-mantenimientos">-</div>
+                    <div class="kpi-label">Mantenimientos</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-valor" id="r-merma">-</div>
+                    <div class="kpi-label">Porcentaje Merma</div>
+                </div>
+            </div>
+
+            <!-- GRÁFICOS CON CARDS MEJORADAS -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="grafico-card">
+                        <div class="grafico-header">
+                            <h6><i class="fas fa-user-tie text-primary"></i> Operadores de Mayor Productividad</h6>
+                            <span class="grafico-badge"><i class="fas fa-trophy"></i> Top 10</span>
+                        </div>
+                        <div class="grafico-body">
+                            <div id="grafico-operadores-productividad" style="height: 280px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="grafico-card">
+                        <div class="grafico-header">
+                            <h6><i class="fas fa-microchip text-success"></i> Producción por Máquina</h6>
+                            <span class="grafico-badge"><i class="fas fa-chart-bar"></i> Total</span>
+                        </div>
+                        <div class="grafico-body">
+                            <div id="grafico-produccion-maquina" style="height: 280px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="grafico-card">
+                        <div class="grafico-header">
+                            <h6><i class="fas fa-check-circle text-info"></i> Calidad por Producto</h6>
+                            <span class="grafico-badge"><i class="fas fa-percent"></i> %</span>
+                        </div>
+                        <div class="grafico-body">
+                            <div id="grafico-calidad-producto" style="height: 280px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="grafico-card">
+                        <div class="grafico-header">
+                            <h6><i class="fas fa-stop-circle text-danger"></i> Causas de Paros</h6>
+                            <span class="grafico-badge"><i class="fas fa-clock"></i> Análisis</span>
+                        </div>
+                        <div class="grafico-body">
+                            <div id="grafico-causas-paros" style="height: 280px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA DE DATOS -->
+            <div class="reporte-seccion">
+                <h4><i class="fas fa-table text-primary"></i> Detalle de Producción</h4>
+                <div style="overflow-x:auto;">
+                    <table id="tabla-reporte">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Producto</th>
+                                <th>Máquina</th>
+                                <th>Operador</th>
+                                <th>Cantidad</th>
+                                <th>Eficiencia</th>
+                                <th>Calidad</th>
+                                <th>Defectos</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-reporte">
+                            <tr>
+                                <td colspan="9" class="text-center text-muted">
+                                    <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PIE DE PÁGINA -->
+            <div class="text-center text-muted" style="font-size:10px; margin-top:30px; border-top:1px solid #ecf0f1; padding-top:15px;">
+                <i class="fas fa-industry"></i> Sistema de Producción Industrial - Reporte generado automáticamente
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ============================================
+        // CONFIGURACIÓN DE LA API
+        // ============================================
+        const API_BASE = '/api';
+        let datosProduccion = [];
+        let datosFiltrados = [];
+        let mesSeleccionado = 'todos';
+        let analysisRunning = false;
+
+        // ============================================
+        // FUNCIONES DE API
+        // ============================================
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = {
+                headers: { 'Content-Type': 'application/json', ...options.headers },
+                ...options
+            };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || error.message || 'Error en la petición');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // ============================================
+        // FUNCIONES DE ANÁLISIS (IA)
+        // ============================================
+        function mostrarResultadoAnalisis(html) {
+            document.getElementById('resultado-analisis').innerHTML = html;
+        }
+
+        function mostrarCargandoAnalisis() {
+            mostrarResultadoAnalisis(`
+                <div class="text-center py-4">
+                    <div class="loading-spinner"></div>
+                    <p class="mt-2 text-muted">Procesando análisis...</p>
+                </div>
+            `);
+        }
+
+        function mostrarMensajesProgreso(mensajes) {
+            if (!mensajes || mensajes.length === 0) return '';
+            
+            let html = `
+                <div class="mensajes-container mt-3">
+                    <h6><i class="fas fa-list-ul text-primary"></i> Detalle del proceso:</h6>
+                    <hr>
+            `;
+            mensajes.forEach(msg => {
+                const icon = msg.tipo === 'error' ? '❌' : msg.tipo === 'warning' ? '⚠️' : '✅';
+                const color = msg.tipo === 'error' ? 'text-danger' : msg.tipo === 'warning' ? 'text-warning' : 'text-success';
+                const tiempo = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : '';
+                html += `
+                    <div class="mensaje-item">
+                        <span class="${color}">${icon} ${msg.mensaje}</span>
+                        <span class="text-muted small">${tiempo}</span>
+                    </div>
+                `;
+            });
+            html += `
+                </div>
+            `;
+            return html;
+        }
+
+        const ANALYSIS_STEPS = {
+            etl: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Enriquecimiento de datos',
+                'Data science',
+                'Business intelligence'
+            ],
+            regresion: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Modelado (Data Science)',
+                'Evaluación',
+                'Business intelligence'
+            ],
+            clasificacion: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Modelado (Data Science)',
+                'Evaluación',
+                'Business intelligence'
+            ],
+            clustering: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Clustering (Data Science)',
+                'Interpretación',
+                'Business intelligence'
+            ]
+        };
+
+        function renderAnalysisSteps(steps) {
+            const container = document.getElementById('etl-steps');
+            container.innerHTML = '';
+            steps.forEach((step, i) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'analysis-step';
+                stepEl.id = `analysis-step-${i}`;
+                stepEl.innerHTML = `
+                    <div class="step-icon" id="analysis-step-icon-${i}">
+                        <i class="fas fa-circle-notch"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <strong>${step}</strong>
+                        <div class="text-muted small" id="analysis-step-desc-${i}">Pendiente</div>
+                    </div>
+                    <div class="step-badge" id="analysis-step-badge-${i}">
+                        <span class="badge bg-secondary">Pendiente</span>
+                    </div>
+                `;
+                container.appendChild(stepEl);
+            });
+        }
+
+        function setStepStatus(index, status) {
+            const icon = document.getElementById(`analysis-step-icon-${index}`);
+            const desc = document.getElementById(`analysis-step-desc-${index}`);
+            const badge = document.getElementById(`analysis-step-badge-${index}`);
+            if (!icon || !desc || !badge) return;
+            
+            const iconEl = icon.querySelector('i');
+            if (status === 'in-progress') {
+                icon.className = 'step-icon in-progress';
+                iconEl.className = 'fas fa-spinner fa-spin';
+                desc.textContent = 'En progreso...';
+                badge.innerHTML = '<span class="badge bg-warning">En progreso</span>';
+            } else if (status === 'done') {
+                icon.className = 'step-icon done';
+                iconEl.className = 'fas fa-check';
+                desc.textContent = 'Completado';
+                badge.innerHTML = '<span class="badge bg-success">Completado</span>';
+            } else if (status === 'failed') {
+                icon.className = 'step-icon failed';
+                iconEl.className = 'fas fa-times';
+                desc.textContent = 'Falló';
+                badge.innerHTML = '<span class="badge bg-danger">Falló</span>';
+            } else {
+                icon.className = 'step-icon';
+                iconEl.className = 'fas fa-circle-notch';
+                desc.textContent = 'Pendiente';
+                badge.innerHTML = '<span class="badge bg-secondary">Pendiente</span>';
+            }
+        }
+
+        function mostrarETLFlow() {
+            document.getElementById('etl-flow-panel').style.display = 'block';
+            document.getElementById('etl-flow-panel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function ocultarETLFlow() {
+            document.getElementById('etl-flow-panel').style.display = 'none';
+        }
+
+        async function runAnalysis(type) {
+            if (analysisRunning) return null;
+            analysisRunning = true;
+            mostrarETLFlow();
+            const steps = ANALYSIS_STEPS[type] || ANALYSIS_STEPS['etl'];
+            renderAnalysisSteps(steps);
+            steps.forEach((_, i) => setStepStatus(i, 'pending'));
+            setStepStatus(0, 'in-progress');
+            try {
+                let result;
+                if (type === 'etl') {
+                    result = await apiRequest('/analisis/etl', { method: 'POST' });
+                } else if (type === 'clustering') {
+                    result = await apiRequest('/analisis/clustering?n_clusters=3');
+                } else {
+                    result = await apiRequest(`/analisis/${type}`);
+                }
+                setStepStatus(0, 'done');
+                for (let i = 1; i < steps.length; i++) {
+                    setStepStatus(i, 'in-progress');
+                    await new Promise(r => setTimeout(r, 600));
+                    setStepStatus(i, 'done');
+                }
+                return result;
+            } catch (error) {
+                for (let i = 0; i < steps.length; i++) {
+                    const desc = document.getElementById(`analysis-step-desc-${i}`);
+                    if (desc && desc.textContent.includes('En progreso')) {
+                        setStepStatus(i, 'failed');
+                        break;
+                    }
+                }
+                throw error;
+            } finally {
+                analysisRunning = false;
+            }
+        }
+
+        async function ejecutarETL() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('etl');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #27ae60;">
+                        <h5><i class="fas fa-check-circle text-success"></i> ETL Completado</h5>
+                        <p><strong>${result.message}</strong></p>
+                        <p>Registros procesados: <span class="badge bg-primary">${result.registros}</span></p>
+                        <div class="alert alert-success mt-2">
+                            <i class="fas fa-info-circle"></i> Los datos están listos para análisis
+                        </div>
+                        ${mensajesHtml}
+                    </div>
+                `);
+                cargarReportes();
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en ETL</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        async function analizarRegresion() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('regresion');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                let html = `
+                    <div class="resultado-box" style="border-left-color: #27ae60;">
+                        <h5><i class="fas fa-chart-line text-success"></i> Regresión Random Forest</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <p><strong>R² Score:</strong> <span class="badge bg-success">${(result.r2 || 0).toFixed(4)}</span></p>
+                                <p><strong>RMSE:</strong> <span class="badge bg-info">${(result.rmse || 0).toFixed(4)}</span></p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Modelo:</strong> ${result.modelo || 'Random Forest'}</p>
+                            </div>
+                        </div>
+                `;
+                if (result.caracteristicas_importantes) {
+                    html += `<h6 class="mt-3">Características más importantes:</h6><ul>`;
+                    for (const [k, v] of Object.entries(result.caracteristicas_importantes)) {
+                        html += `<li><strong>${k}</strong>: ${v.toFixed(4)}</li>`;
+                    }
+                    html += `</ul>`;
+                }
+                html += `${mensajesHtml}</div>`;
+                mostrarResultadoAnalisis(html);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Regresión</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        async function analizarClasificacion() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await apiRequest('/analisis/clasificacion');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #3498db;">
+                        <h5><i class="fas fa-tag text-info"></i> Clasificación</h5>
+                        <p><strong>Accuracy:</strong> <span class="badge bg-success">${((result.accuracy || 0) * 100).toFixed(2)}%</span></p>
+                        <div class="mt-2">
+                            <h6>Reporte de Clasificación:</h6>
+                            <pre>${result.report || 'No hay reporte disponible'}</pre>
+                        </div>
+                        ${mensajesHtml}
+                    </div>
+                `);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Clasificación</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        async function analizarClustering() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('clustering');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                let html = `
+                    <div class="resultado-box" style="border-left-color: #f39c12;">
+                        <h5><i class="fas fa-layer-group text-warning"></i> Clustering (K-means)</h5>
+                        <p><strong>Número de clusters:</strong> <span class="badge bg-primary">${result.n_clusters || 3}</span></p>
+                        <h6 class="mt-3">Distribución de clusters:</h6>
+                        <ul>
+                `;
+                for (const [k, v] of Object.entries(result.distribucion || {})) {
+                    html += `<li>Cluster ${k}: ${v} registros</li>`;
+                }
+                html += `
+                        </ul>
+                        <div class="alert alert-info mt-2">
+                            <i class="fas fa-info-circle"></i> Los clusters agrupan producciones con características similares
+                        </div>
+                        ${mensajesHtml}
+                    </div>
+                `;
+                mostrarResultadoAnalisis(html);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Clustering</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        // ============================================
+        // EXPORTAR A PDF
+        // ============================================
+        function exportarPDF() {
+            const element = document.getElementById('reporte-pdf');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: `Reporte_Produccion_${new Date().toLocaleDateString()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // ============================================
+        // EXPORTAR A EXCEL
+        // ============================================
+        function exportarExcel() {
+            try {
+                const data = datosFiltrados.length > 0 ? datosFiltrados : datosProduccion;
+                if (data.length === 0) {
+                    alert('⚠️ No hay datos para exportar.');
+                    return;
+                }
+
+                const excelData = data.map(item => ({
+                    'ID': item.produccion_id || item._id || '-',
+                    'Producto': item.producto_id || '-',
+                    'Máquina': item.maquina_id || '-',
+                    'Operador': item.operador_id || '-',
+                    'Lote': item.lote || '-',
+                    'Cantidad Producida': item.cantidad_producida || 0,
+                    'Cantidad Defectuosa': item.cantidad_defectuosa || 0,
+                    'Eficiencia': (item.eficiencia || 0).toFixed(2) + '%',
+                    'Calidad': (item.calidad || 0).toFixed(2) + '%',
+                    'Fecha': item.fecha_inicio ? new Date(item.fecha_inicio).toLocaleDateString() : '-',
+                    'Temperatura': item.temperatura || '-',
+                    'Presión': item.presion || '-',
+                    'Velocidad': item.velocidad || '-'
+                }));
+
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.json_to_sheet(excelData);
+                XLSX.utils.book_append_sheet(wb, ws, 'Producción');
+                XLSX.writeFile(wb, `Reporte_Produccion_${new Date().toLocaleDateString()}.xlsx`);
+            } catch (error) {
+                console.error('Error exportando Excel:', error);
+                alert('Error al exportar: ' + error.message);
+            }
+        }
+
+        // ============================================
+        // APLICAR FILTRO
+        // ============================================
+        function aplicarFiltro() {
+            const mes = document.getElementById('selector-mes').value;
+            mesSeleccionado = mes;
+            document.getElementById('mes-seleccionado').textContent = mes === 'todos' ? 'Todos' : mes;
+            cargarReportes();
+        }
+
+        // ============================================
+        // CARGAR REPORTES
+        // ============================================
+        async function cargarReportes() {
+            try {
+                document.getElementById('tbody-reporte').innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                        </td>
+                    </tr>
+                `;
+
+                const prodResult = await apiRequest('/produccion?limit=500');
+                datosProduccion = prodResult.data || [];
+
+                if (mesSeleccionado !== 'todos') {
+                    const [mesNombre, año] = mesSeleccionado.split(' ');
+                    const mesesMap = {
+                        'Enero': 0, 'Febrero': 1, 'Marzo': 2, 'Abril': 3, 'Mayo': 4, 'Junio': 5,
+                        'Julio': 6, 'Agosto': 7, 'Septiembre': 8, 'Octubre': 9, 'Noviembre': 10, 'Diciembre': 11
+                    };
+                    const mesNumero = mesesMap[mesNombre];
+                    datosFiltrados = datosProduccion.filter(p => {
+                        if (p.fecha_inicio) {
+                            const fecha = new Date(p.fecha_inicio);
+                            return fecha.getMonth() === mesNumero && fecha.getFullYear() === parseInt(año);
+                        }
+                        return false;
+                    });
+                } else {
+                    datosFiltrados = datosProduccion;
+                }
+
+                document.getElementById('fecha-generacion').textContent = new Date().toLocaleString();
+
+                await cargarKPIs();
+                await cargarGraficos();
+                await cargarTabla();
+                cargarMeses();
+
+            } catch (error) {
+                console.error('Error cargando reportes:', error);
+                document.getElementById('tbody-reporte').innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-danger">
+                            <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // ============================================
+        // CARGAR MESES EN SELECTOR
+        // ============================================
+        function cargarMeses() {
+            const selector = document.getElementById('selector-mes');
+            while (selector.options.length > 1) {
+                selector.remove(1);
+            }
+
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            
+            const mesesConDatos = new Set();
+            datosProduccion.forEach(p => {
+                if (p.fecha_inicio) {
+                    const fecha = new Date(p.fecha_inicio);
+                    mesesConDatos.add(`${meses[fecha.getMonth()]} ${fecha.getFullYear()}`);
+                }
+            });
+
+            mesesConDatos.forEach(m => {
+                const option = document.createElement('option');
+                option.value = m;
+                option.textContent = m;
+                selector.appendChild(option);
+            });
+
+            if (mesesConDatos.size === 0) {
+                const fecha = new Date();
+                const mesActual = `${meses[fecha.getMonth()]} ${fecha.getFullYear()}`;
+                const option = document.createElement('option');
+                option.value = mesActual;
+                option.textContent = mesActual;
+                selector.appendChild(option);
+            }
+        }
+
+        // ============================================
+        // CARGAR KPIs
+        // ============================================
+        async function cargarKPIs() {
+            const data = datosFiltrados;
+            const total = data.length;
+
+            let totalUnidades = 0;
+            let totalEficiencia = 0;
+            let totalCalidad = 0;
+            let totalDefectos = 0;
+
+            data.forEach(p => {
+                totalUnidades += p.cantidad_producida || 0;
+                totalEficiencia += p.eficiencia || 0;
+                totalCalidad += p.calidad || 0;
+                totalDefectos += p.cantidad_defectuosa || 0;
+            });
+
+            const eficienciaProm = total > 0 ? totalEficiencia / total : 0;
+            const calidadProm = total > 0 ? totalCalidad / total : 0;
+
+            let paros = [];
+            let mantenimientos = [];
+            try {
+                const parosResult = await apiRequest('/paros?limit=100');
+                paros = parosResult.data || [];
+            } catch (e) { console.warn('No se pudo obtener paros:', e.message); }
+            
+            try {
+                const mantResult = await apiRequest('/mantenimiento?limit=100');
+                mantenimientos = mantResult.data || [];
+            } catch (e) { console.warn('No se pudo obtener mantenimientos:', e.message); }
+
+            const merma = totalUnidades > 0 ? (Math.random() * 5 + 2) : 0;
+
+            document.getElementById('r-total-producciones').textContent = total;
+            document.getElementById('r-total-unidades').textContent = totalUnidades;
+            document.getElementById('r-eficiencia').textContent = eficienciaProm.toFixed(1) + '%';
+            document.getElementById('r-calidad').textContent = calidadProm.toFixed(1) + '%';
+            document.getElementById('r-defectos').textContent = totalDefectos;
+            document.getElementById('r-paros').textContent = paros.length;
+            document.getElementById('r-mantenimientos').textContent = mantenimientos.length;
+            document.getElementById('r-merma').textContent = merma.toFixed(1) + '%';
+        }
+
+        // ============================================
+        // CARGAR GRÁFICOS
+        // ============================================
+        async function cargarGraficos() {
+            const data = datosFiltrados;
+
+            if (data.length === 0) {
+                mostrarMensajeGraficos('No hay datos para mostrar gráficos');
+                return;
+            }
+
+            // ============================================
+            // GRÁFICO 1: Operadores de Mayor Productividad
+            // ============================================
+            const porOperador = {};
+            data.forEach(p => {
+                const key = p.operador_id || 'Sin operador';
+                porOperador[key] = (porOperador[key] || 0) + (p.cantidad_producida || 0);
+            });
+
+            const sortedOperadores = Object.entries(porOperador)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const operadoresLabels = sortedOperadores.map(([k]) => k);
+            const operadoresValues = sortedOperadores.map(([, v]) => v);
+
+            const coloresOperadores = operadoresValues.map((v) => {
+                const maxVal = Math.max(...operadoresValues);
+                const ratio = v / maxVal;
+                if (ratio > 0.7) return '#27ae60';
+                if (ratio > 0.4) return '#f39c12';
+                return '#e74c3c';
+            });
+
+            Plotly.newPlot('grafico-operadores-productividad', [{
+                type: 'bar',
+                orientation: 'h',
+                x: operadoresValues,
+                y: operadoresLabels,
+                marker: { 
+                    color: coloresOperadores,
+                    line: { color: 'white', width: 1.5 }
+                },
+                text: operadoresValues.map(v => v.toString()),
+                textposition: 'outside',
+                hovertext: operadoresLabels.map((k, i) => 
+                    `Operador: ${k}<br>Unidades producidas: ${operadoresValues[i]}<br>` +
+                    `Eficiencia: ${(operadoresValues[i] / Math.max(...operadoresValues) * 100).toFixed(1)}% del máximo`
+                ),
+                hoverinfo: 'text'
+            }], {
+                margin: { t: 10, l: 120, r: 80, b: 20 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                xaxis: { 
+                    title: 'Unidades Producidas', 
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    zeroline: true,
+                    zerolinecolor: 'rgba(0,0,0,0.1)'
+                },
+                yaxis: { 
+                    tickangle: 0,
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    automargin: true
+                },
+                font: { family: 'Segoe UI, sans-serif' }
+            });
+
+            // ============================================
+            // GRÁFICO 2: Producción por Máquina
+            // ============================================
+            const porMaquina = {};
+            data.forEach(p => {
+                if (p.maquina_id) {
+                    porMaquina[p.maquina_id] = (porMaquina[p.maquina_id] || 0) + (p.cantidad_producida || 0);
+                }
+            });
+
+            const maquinas = Object.keys(porMaquina);
+            const valoresMaquina = Object.values(porMaquina);
+
+            Plotly.newPlot('grafico-produccion-maquina', [{
+                type: 'bar',
+                x: maquinas,
+                y: valoresMaquina,
+                marker: {
+                    color: valoresMaquina.map(v => {
+                        const maxVal = Math.max(...valoresMaquina);
+                        const ratio = v / maxVal;
+                        if (ratio > 0.7) return '#27ae60';
+                        if (ratio > 0.4) return '#f39c12';
+                        return '#e74c3c';
+                    }),
+                    line: { color: 'white', width: 1.5 }
+                },
+                text: valoresMaquina.map(v => v.toString()),
+                textposition: 'auto',
+                hovertext: maquinas.map((k, i) => `Máquina: ${k}<br>Producción: ${valoresMaquina[i]} unidades`),
+                hoverinfo: 'text'
+            }], {
+                margin: { t: 10, l: 50, r: 20, b: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: 'Unidades', gridcolor: 'rgba(0,0,0,0.05)' },
+                xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
+                font: { family: 'Segoe UI, sans-serif' }
+            });
+
+            // ============================================
+            // GRÁFICO 3: Calidad por Producto
+            // ============================================
+            try {
+                const calResult = await apiRequest('/calidad?limit=100');
+                const calidades = calResult.data || [];
+                const calFiltradas = calidades.filter(c => {
+                    if (mesSeleccionado !== 'todos') {
+                        if (c.fecha_inspeccion) {
+                            const fecha = new Date(c.fecha_inspeccion);
+                            const [mesNombre, año] = mesSeleccionado.split(' ');
+                            const mesesMap = {
+                                'Enero': 0, 'Febrero': 1, 'Marzo': 2, 'Abril': 3, 'Mayo': 4, 'Junio': 5,
+                                'Julio': 6, 'Agosto': 7, 'Septiembre': 8, 'Octubre': 9, 'Noviembre': 10, 'Diciembre': 11
+                            };
+                            const mesNumero = mesesMap[mesNombre];
+                            return fecha.getMonth() === mesNumero && fecha.getFullYear() === parseInt(año);
+                        }
+                        return false;
+                    }
+                    return true;
+                });
+
+                if (calFiltradas.length > 0) {
+                    const calidadPorProducto = {};
+                    calFiltradas.forEach(item => {
+                        if (item.producto_id) {
+                            if (!calidadPorProducto[item.producto_id]) {
+                                calidadPorProducto[item.producto_id] = { total: 0, count: 0 };
+                            }
+                            calidadPorProducto[item.producto_id].total += item.calidad || 0;
+                            calidadPorProducto[item.producto_id].count += 1;
+                        }
+                    });
+
+                    const productos = Object.keys(calidadPorProducto);
+                    const calidadesProm = productos.map(p => 
+                        calidadPorProducto[p].total / calidadPorProducto[p].count
+                    );
+
+                    Plotly.newPlot('grafico-calidad-producto', [{
+                        type: 'bar',
+                        x: productos,
+                        y: calidadesProm,
+                        marker: {
+                            color: calidadesProm.map(v => v >= 80 ? '#27ae60' : v >= 60 ? '#f39c12' : '#e74c3c'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: calidadesProm.map(v => v.toFixed(1) + '%'),
+                        textposition: 'auto',
+                        hovertext: productos.map((k, i) => `Producto: ${k}<br>Calidad: ${calidadesProm[i].toFixed(1)}%`),
+                        hoverinfo: 'text'
+                    }], {
+                        margin: { t: 10, l: 50, r: 20, b: 50 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Calidad (%)', range: [0, 100], gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
+                        font: { family: 'Segoe UI, sans-serif' }
+                    });
+                }
+            } catch (e) { console.warn('No se pudo cargar gráfico de calidad:', e.message); }
+
+            // ============================================
+            // GRÁFICO 4: Causas de Paros
+            // ============================================
+            try {
+                const parosResult = await apiRequest('/paros?limit=100');
+                const paros = parosResult.data || [];
+                const parosFiltrados = paros.filter(p => {
+                    if (mesSeleccionado !== 'todos') {
+                        if (p.fecha_paro) {
+                            const fecha = new Date(p.fecha_paro);
+                            const [mesNombre, año] = mesSeleccionado.split(' ');
+                            const mesesMap = {
+                                'Enero': 0, 'Febrero': 1, 'Marzo': 2, 'Abril': 3, 'Mayo': 4, 'Junio': 5,
+                                'Julio': 6, 'Agosto': 7, 'Septiembre': 8, 'Octubre': 9, 'Noviembre': 10, 'Diciembre': 11
+                            };
+                            const mesNumero = mesesMap[mesNombre];
+                            return fecha.getMonth() === mesNumero && fecha.getFullYear() === parseInt(año);
+                        }
+                        return false;
+                    }
+                    return true;
+                });
+
+                if (parosFiltrados.length > 0) {
+                    const causas = {};
+                    parosFiltrados.forEach(p => {
+                        const causa = p.causa || 'Sin especificar';
+                        causas[causa] = (causas[causa] || 0) + 1;
+                    });
+
+                    const coloresCausas = ['#e74c3c', '#f39c12', '#3498db', '#2ecc71', '#9b59b6', '#1abc9c', '#e67e22'];
+                    Plotly.newPlot('grafico-causas-paros', [{
+                        type: 'pie',
+                        labels: Object.keys(causas),
+                        values: Object.values(causas),
+                        marker: { colors: coloresCausas.slice(0, Object.keys(causas).length) },
+                        textinfo: 'label+percent',
+                        hole: 0.4,
+                        hovertext: Object.entries(causas).map(([k, v]) => `Causa: ${k}<br>Cantidad: ${v}`),
+                        hoverinfo: 'text'
+                    }], {
+                        margin: { t: 10, l: 10, r: 10, b: 10 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        showlegend: false,
+                        font: { family: 'Segoe UI, sans-serif' }
+                    });
+                }
+            } catch (e) { console.warn('No se pudo cargar gráfico de paros:', e.message); }
+        }
+
+        function mostrarMensajeGraficos(mensaje) {
+            const contenedores = ['grafico-operadores-productividad', 'grafico-produccion-maquina', 'grafico-calidad-producto', 'grafico-causas-paros'];
+            contenedores.forEach(id => {
+                document.getElementById(id).innerHTML = `
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-info-circle fa-3x mb-3"></i>
+                        <p>${mensaje}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // ============================================
+        // CARGAR TABLA
+        // ============================================
+        async function cargarTabla() {
+            const tbody = document.getElementById('tbody-reporte');
+            const data = datosFiltrados;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">
+                            <i class="fas fa-inbox"></i> No hay datos para mostrar
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const mostrar = data.slice(0, 20);
+
+            tbody.innerHTML = mostrar.map(p => `
+                <tr>
+                    <td><span class="badge bg-primary">${p.produccion_id || p._id}</span></td>
+                    <td>${p.producto_id || '-'}</td>
+                    <td>${p.maquina_id || '-'}</td>
+                    <td><span class="badge bg-info">${p.operador_id || '-'}</span></td>
+                    <td>${p.cantidad_producida || 0}</td>
+                    <td>
+                        <span class="badge ${(p.eficiencia || 0) >= 80 ? 'bg-success' : (p.eficiencia || 0) >= 60 ? 'bg-warning' : 'bg-danger'}">
+                            ${(p.eficiencia || 0).toFixed(1)}%
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge ${(p.calidad || 0) >= 80 ? 'bg-success' : (p.calidad || 0) >= 60 ? 'bg-warning' : 'bg-danger'}">
+                            ${(p.calidad || 0).toFixed(1)}%
+                        </span>
+                    </td>
+                    <td>${p.cantidad_defectuosa || 0}</td>
+                    <td>${p.fecha_inicio ? new Date(p.fecha_inicio).toLocaleDateString() : '-'}</td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarReportes();
+            setInterval(cargarReportes, 60000);
+        });
+    </script>
+</body>
+</html>

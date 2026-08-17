@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Producción Industrial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+    <style>
+        /* ============================================
+           ESTILOS GENERALES
+           ============================================ */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #1abc9c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* ============================================
+           NAVBAR MEJORADA CON 8 MÓDULOS
+           ============================================ */
+        .navbar {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand i { margin-right: 10px; color: #f1c40f; }
+
+        .nav-link {
+            font-weight: 500;
+            padding: 0.4rem 0.8rem !important;
+            border-radius: 20px;
+            transition: var(--transition);
+            margin: 0 2px;
+            font-size: 0.8rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: rgba(255,255,255,0.2) !important;
+        }
+
+        .nav-link i { margin-right: 5px; }
+
+        .navbar-nav {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ============================================
+           TARJETAS DE KPIs
+           ============================================ */
+        .kpi-card {
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: default;
+            height: 100%;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .kpi-card .kpi-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 2.5rem;
+            opacity: 0.25;
+        }
+
+        .kpi-card .kpi-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+
+        .kpi-card .kpi-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .kpi-card .kpi-change {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        .kpi-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .kpi-green { background: linear-gradient(135deg, #27ae60, #229954); }
+        .kpi-yellow { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .kpi-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .kpi-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .kpi-teal { background: linear-gradient(135deg, #1abc9c, #16a085); }
+        .kpi-orange { background: linear-gradient(135deg, #e67e22, #d35400); }
+        .kpi-pink { background: linear-gradient(135deg, #e84393, #c2185b); }
+
+        /* ============================================
+           ESTADO DE LA PLANTA
+           ============================================ */
+        .status-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-green { background: #27ae60; }
+        .status-yellow { background: #f39c12; }
+        .status-red { background: #e74c3c; }
+        .status-gray { background: #95a5a6; }
+
+        .line-status {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            background: #f8f9fa;
+            transition: var(--transition);
+        }
+
+        .line-status:hover {
+            background: #e9ecef;
+        }
+
+        /* ============================================
+           ALERTAS MEJORADAS
+           ============================================ */
+        .alert-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid;
+            transition: var(--transition);
+        }
+
+        .alert-item:hover {
+            transform: translateX(5px);
+        }
+
+        .alert-item.critical { border-left-color: #e74c3c; background: #fde8e8; }
+        .alert-item.warning { border-left-color: #f39c12; background: #fef5e7; }
+        .alert-item.info { border-left-color: #3498db; background: #ebf5fb; }
+
+        .alert-item .alert-time {
+            font-size: 0.7rem;
+            color: #7f8c8d;
+        }
+
+        .alert-item .alert-badge {
+            float: right;
+            margin-left: 10px;
+        }
+
+        .alert-item .alert-detalle {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.85rem;
+            color: #555;
+            display: none;
+        }
+
+        .alert-item.expanded .alert-detalle {
+            display: block;
+        }
+
+        .alert-item .alert-toggle {
+            cursor: pointer;
+            color: var(--secondary-color);
+            font-size: 0.75rem;
+            text-decoration: underline;
+        }
+
+        .alert-item .alert-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        /* Contenedor de alertas colapsable */
+        .alertas-wrapper {
+            max-height: 300px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .alertas-wrapper.expanded {
+            max-height: 2000px;
+        }
+
+        .alertas-wrapper .alertas-fade {
+            position: relative;
+        }
+
+        .alertas-wrapper .alertas-fade::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, white);
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .alertas-wrapper.expanded .alertas-fade::after {
+            opacity: 0;
+        }
+
+        .btn-ver-todas {
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .btn-ver-todas:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-ver-todas .icon-rotate {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-ver-todas.active .icon-rotate {
+            transform: rotate(180deg);
+        }
+
+        .alertas-count-badge {
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+
+        /* ============================================
+           TARJETAS DE ANÁLISIS
+           ============================================ */
+        .analysis-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .analysis-card .analysis-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .analysis-card .analysis-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .analysis-card .analysis-desc {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .analysis-card .analysis-why {
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            background: #f8f9fa;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           GRÁFICOS
+           ============================================ */
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .chart-container .chart-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .chart-container .chart-title i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+
+        /* ============================================
+           BOTONES
+           ============================================ */
+        .btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
+        .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
+        .btn-secondary { background: linear-gradient(135deg, #95a5a6, #7f8c8d); border: none; color: white; }
+
+        /* ============================================
+           MERMA SECTION
+           ============================================ */
+        .merma-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border-left: 4px solid #f39c12;
+        }
+
+        .merma-card .merma-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-card .kpi-number { font-size: 1.5rem; }
+            .kpi-card .kpi-icon { font-size: 2rem; }
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.7rem; padding: 0.2rem 0.5rem !important; }
+            .chart-container { padding: 1rem; }
+            .alertas-wrapper { max-height: 200px; }
+        }
+
+        @media (max-width: 576px) {
+            .kpi-card { padding: 1rem; }
+            .kpi-card .kpi-number { font-size: 1.2rem; }
+            .nav-link { font-size: 0.6rem; padding: 0.2rem 0.4rem !important; }
+            .alertas-wrapper { max-height: 150px; }
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .resultado-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .resultado-box pre {
+            background: #2c3e50;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        .analysis-step {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .analysis-step .step-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .analysis-step .step-icon.done {
+            background: #27ae60;
+            color: white;
+        }
+        .analysis-step .step-icon.in-progress {
+            background: #f39c12;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        .analysis-step .step-icon.failed {
+            background: #e74c3c;
+            color: white;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .analysis-step .step-badge {
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    NAVBAR CON 8 MÓDULOS
+    ============================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-industry"></i> SISTEMA PRODUCCIÓN
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/materia-prima"><i class="fas fa-cubes"></i> Materia Prima</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/maquinas"><i class="fas fa-microchip"></i> Máquinas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/produccion"><i class="fas fa-industry"></i> Producción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calidad"><i class="fas fa-check-circle"></i> Calidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/paros"><i class="fas fa-stop-circle"></i> Paros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reportes"><i class="fas fa-file-alt"></i> Reportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    CONTENIDO PRINCIPAL
+    ============================================ -->
+    <div class="container mt-4">
+
+        <!-- ============================================
+        TÍTULO Y DESCRIPCIÓN
+        ============================================ -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold text-primary">
+                    <i class="fas fa-robot text-secondary"></i> 
+                    Sistema de Gestión de Producción Industrial
+                </h1>
+                <p class="lead text-muted">
+                    <i class="fas fa-chart-line"></i> Monitoreo, análisis y gestión inteligente de la producción industrial
+                </p>
+                <p class="text-muted small">
+                    <i class="fas fa-calendar-alt"></i> Última actualización: <span id="fecha-actualizacion">Cargando...</span>
+                </p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <!-- ============================================
+        ESTADO GENERAL DE LA PLANTA
+        ============================================ -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="status-card">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-flag-checkered text-primary"></i> Estado General de la Planta</h5>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="status-indicator status-green" id="estado-indicador"></span>
+                                <span class="fw-bold fs-5" id="estado-texto">Cargando...</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row text-center">
+                                <div class="col-3">
+                                    <div class="fw-bold fs-4" id="total-maquinas-dash">-</div>
+                                    <small class="text-muted">Máquinas</small>
+                                </div>
+                                <div class="col-3">
+                                    <div class="fw-bold fs-4 text-success" id="maquinas-operativas-dash">-</div>
+                                    <small class="text-muted">Activas</small>
+                                </div>
+                                <div class="col-3">
+                                    <div class="fw-bold fs-4 text-warning" id="maquinas-mantenimiento-dash">-</div>
+                                    <small class="text-muted">Mantenimiento</small>
+                                </div>
+                                <div class="col-3">
+                                    <div class="fw-bold fs-4 text-danger" id="alertas-count-dash">-</div>
+                                    <small class="text-muted">Alertas</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+        KPIs PRINCIPALES (8 INDICADORES)
+        ============================================ -->
+        <div class="row mb-4">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-blue">
+                    <i class="fas fa-industry kpi-icon"></i>
+                    <div class="kpi-label">Producción Total</div>
+                    <div class="kpi-number" id="kpi-produccion-total">-</div>
+                    <div class="kpi-change">⬆ <span id="kpi-produccion-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-green">
+                    <i class="fas fa-chart-line kpi-icon"></i>
+                    <div class="kpi-label">Eficiencia</div>
+                    <div class="kpi-number" id="kpi-eficiencia">-</div>
+                    <div class="kpi-change">⬆ <span id="kpi-eficiencia-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-yellow">
+                    <i class="fas fa-star kpi-icon"></i>
+                    <div class="kpi-label">Calidad</div>
+                    <div class="kpi-number" id="kpi-calidad">-</div>
+                    <div class="kpi-change">⬆ <span id="kpi-calidad-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-red">
+                    <i class="fas fa-exclamation-triangle kpi-icon"></i>
+                    <div class="kpi-label">Defectos</div>
+                    <div class="kpi-number" id="kpi-defectos">-</div>
+                    <div class="kpi-change">⬇ <span id="kpi-defectos-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-purple">
+                    <i class="fas fa-clock kpi-icon"></i>
+                    <div class="kpi-label">Tiempo Muerto</div>
+                    <div class="kpi-number" id="kpi-tiempo-muerto">-</div>
+                    <div class="kpi-change">⬇ <span id="kpi-tiempo-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-teal">
+                    <i class="fas fa-dollar-sign kpi-icon"></i>
+                    <div class="kpi-label">Costo Producción</div>
+                    <div class="kpi-number" id="kpi-costo">-</div>
+                    <div class="kpi-change">⬆ <span id="kpi-costo-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-orange">
+                    <i class="fas fa-recycle kpi-icon"></i>
+                    <div class="kpi-label">Merma</div>
+                    <div class="kpi-number" id="kpi-merma">-</div>
+                    <div class="kpi-change">⬇ <span id="kpi-merma-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="kpi-card kpi-pink">
+                    <i class="fas fa-stop-circle kpi-icon"></i>
+                    <div class="kpi-label">Paros</div>
+                    <div class="kpi-number" id="kpi-paros">-</div>
+                    <div class="kpi-change">⬇ <span id="kpi-paros-cambio">0%</span> vs mes anterior</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+        FILA: ESTADO DE LÍNEAS + ALERTAS MEJORADAS
+        ============================================ -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="status-card">
+                    <h5><i class="fas fa-road text-primary"></i> Estado de Líneas de Producción</h5>
+                    <div id="lineas-estado">
+                        <div class="text-muted text-center py-3">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando líneas...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="status-card">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h5 class="mb-0">
+                            <i class="fas fa-bell text-danger"></i> Alertas del Sistema
+                            <span class="badge bg-danger alertas-count-badge" id="alertas-contador">0</span>
+                        </h5>
+                    </div>
+                    
+                    <!-- Contenedor de alertas colapsable -->
+                    <div class="alertas-wrapper" id="alertas-wrapper">
+                        <div class="alertas-fade">
+                            <div id="alertas-container">
+                                <div class="text-muted text-center py-3">
+                                    <i class="fas fa-spinner fa-spin"></i> Cargando alertas...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón Ver todas / Ocultar -->
+                    <button class="btn btn-outline-primary btn-ver-todas" id="btnVerTodasAlertas" onclick="toggleAlertas()">
+                        <i class="fas fa-chevron-down icon-rotate"></i>
+                        <span id="btnAlertasTexto">Ver todas las alertas</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+        ANÁLISIS DE DATOS 
+        ============================================ -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="chart-container">
+                    <div class="chart-title">
+                        <i class="fas fa-robot text-primary"></i> Análisis de datos 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <div class="analysis-card" onclick="ejecutarETL()">
+                                <div class="analysis-icon text-primary">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="analysis-title">ETL</div>
+                                <div class="analysis-desc">
+                                    Preparación de datos. Limpia y organiza la información para análisis.
+                                </div>
+                                <div class="analysis-why text-muted small mt-2">
+                                    ¿Por qué?: Garantizar calidad y consistencia en los datos antes del análisis.
+                                    ¿Qué identificamos?: Valores faltantes, duplicados, outliers y estructura de las tablas.
+                                </div>
+                                <button class="btn btn-primary btn-sm mt-2" onclick="event.stopPropagation(); ejecutarETL()">
+                                    <i class="fas fa-play"></i> Ejecutar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="analysis-card" onclick="analizarRegresion()">
+                                <div class="analysis-icon text-success">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="analysis-title">Regresión</div>
+                                <div class="analysis-desc">
+                                    Predicción de variables como eficiencia, calidad y comportamiento de máquinas.
+                                </div>
+                                <div class="analysis-why text-muted small mt-2">
+                                    ¿Por qué?: Predecir métricas clave para anticipar problemas y planificar capacidad.
+                                    ¿Qué identificamos?: Relación entre variables y factores que afectan rendimiento.
+                                </div>
+                                <button class="btn btn-success btn-sm mt-2" onclick="event.stopPropagation(); analizarRegresion()">
+                                    <i class="fas fa-play"></i> Ejecutar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="analysis-card" onclick="analizarClasificacion()">
+                                <div class="analysis-icon text-info">
+                                    <i class="fas fa-tag"></i>
+                                </div>
+                                <div class="analysis-title">Clasificación</div>
+                                <div class="analysis-desc">
+                                    Clasifica productos (defectuoso/correcto) y comportamientos de máquinas.
+                                </div>
+                                <div class="analysis-why text-muted small mt-2">
+                                    ¿Por qué?: Automatizar detección de defectos y categorizar casos para acción.
+                                    ¿Qué identificamos?: Patrones que distinguen productos defectuosos de correctos.
+                                </div>
+                                <button class="btn btn-info btn-sm mt-2" onclick="event.stopPropagation(); analizarClasificacion()">
+                                    <i class="fas fa-play"></i> Ejecutar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="analysis-card" onclick="analizarClustering()">
+                                <div class="analysis-icon text-warning">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="analysis-title">Clustering</div>
+                                <div class="analysis-desc">
+                                    Agrupa máquinas con comportamientos similares para identificar patrones.
+                                </div>
+                                <div class="analysis-why text-muted small mt-2">
+                                    ¿Por qué?: Encontrar segmentos y anomalías operativas sin etiquetas previas.
+                                    ¿Qué identificamos?: Grupos de máquinas con performance parecido y posibles causas comunes.
+                                </div>
+                                <button class="btn btn-warning btn-sm mt-2" onclick="event.stopPropagation(); analizarClustering()">
+                                    <i class="fas fa-play"></i> Ejecutar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="resultado-analisis" class="mt-3">
+                        <div class="text-muted text-center">
+                            <i class="fas fa-info-circle"></i> Selecciona un análisis para ver los resultados
+                        </div>
+                    </div>
+                    
+                    <!-- Panel de flujo ETL -->
+                    <div id="etl-flow-panel" class="mt-3" style="display:none;">
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                <i class="fas fa-project-diagram text-primary"></i> Flujo de Procesamiento de Datos
+                            </div>
+                            <div id="etl-steps" class="p-3">
+                                <!-- Steps se generan dinámicamente -->
+                            </div>
+                            <div class="text-end mt-2">
+                                <button id="etl-close-btn" class="btn btn-secondary btn-sm" onclick="ocultarETLFlow()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+        CARACTERÍSTICAS DEL SISTEMA
+        ============================================ -->
+        <div class="row mt-4 mb-4">
+            <div class="col-12">
+                <div class="chart-container">
+                    <div class="chart-title">
+                        <i class="fas fa-cubes"></i> Módulos del Sistema
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-box fa-3x text-primary"></i>
+                            <h6 class="mt-2">Productos</h6>
+                            <p class="text-muted small">Catálogo y gestión</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-cubes fa-3x text-success"></i>
+                            <h6 class="mt-2">Materia Prima</h6>
+                            <p class="text-muted small">Inventario y consumo</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-microchip fa-3x text-info"></i>
+                            <h6 class="mt-2">Máquinas</h6>
+                            <p class="text-muted small">Monitoreo y estado</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-industry fa-3x text-warning"></i>
+                            <h6 class="mt-2">Producción</h6>
+                            <p class="text-muted small">Registro y seguimiento</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-check-circle fa-3x text-success"></i>
+                            <h6 class="mt-2">Calidad</h6>
+                            <p class="text-muted small">Inspecciones y defectos</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-tools fa-3x text-danger"></i>
+                            <h6 class="mt-2">Mantenimiento</h6>
+                            <p class="text-muted small">Preventivo y correctivo</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-stop-circle fa-3x text-danger"></i>
+                            <h6 class="mt-2">Paros</h6>
+                            <p class="text-muted small">Registro y causas</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <i class="fas fa-file-alt fa-3x text-secondary"></i>
+                            <h6 class="mt-2">Reportes</h6>
+                            <p class="text-muted small">Análisis y estadísticas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ============================================
+        // CONFIGURACIÓN DE LA API
+        // ============================================
+        const API_BASE = '/api';
+
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = {
+                headers: { 'Content-Type': 'application/json', ...options.headers },
+                ...options
+            };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || error.message || 'Error en la petición');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // ============================================
+        // FUNCIONES PARA MOSTRAR RESULTADOS
+        // ============================================
+        function mostrarResultadoAnalisis(html) {
+            document.getElementById('resultado-analisis').innerHTML = html;
+        }
+
+        function mostrarCargandoAnalisis() {
+            mostrarResultadoAnalisis(`
+                <div class="text-center py-4">
+                    <div class="loading-spinner"></div>
+                    <p class="mt-2 text-muted">Procesando análisis...</p>
+                </div>
+            `);
+        }
+
+        // ============================================
+        // TOGGLE ALERTAS (VER TODAS / OCULTAR)
+        // ============================================
+        let alertasExpandidas = false;
+
+        function toggleAlertas() {
+            const wrapper = document.getElementById('alertas-wrapper');
+            const btn = document.getElementById('btnVerTodasAlertas');
+            const texto = document.getElementById('btnAlertasTexto');
+            
+            alertasExpandidas = !alertasExpandidas;
+            
+            if (alertasExpandidas) {
+                wrapper.classList.add('expanded');
+                texto.textContent = 'Ocultar alertas';
+                btn.classList.add('active');
+            } else {
+                wrapper.classList.remove('expanded');
+                texto.textContent = 'Ver todas las alertas';
+                btn.classList.remove('active');
+            }
+        }
+
+        // ============================================
+        // 1. FUNCIONES DE ANÁLISIS (IA)
+        // ============================================
+        const ANALYSIS_STEPS = {
+            etl: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Enriquecimiento de datos',
+                'Data science',
+                'Business intelligence'
+            ],
+            regresion: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Modelado (Data Science)',
+                'Evaluación',
+                'Business intelligence'
+            ],
+            clasificacion: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Modelado (Data Science)',
+                'Evaluación',
+                'Business intelligence'
+            ],
+            clustering: [
+                'Entrada de datos',
+                'Preparación de datos',
+                'Exploración de datos',
+                'Clustering (Data Science)',
+                'Interpretación',
+                'Business intelligence'
+            ]
+        };
+
+        let analysisRunning = false;
+
+        function renderAnalysisSteps(steps) {
+            const container = document.getElementById('etl-steps');
+            container.innerHTML = '';
+            steps.forEach((step, i) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'd-flex align-items-center mb-2';
+                stepEl.id = `analysis-step-${i}`;
+                stepEl.innerHTML = `
+                    <div style="width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#ecf0f1; margin-right:12px;" id="analysis-step-icon-${i}">
+                        <i class="fas fa-circle-notch text-muted"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div><strong>${step}</strong></div>
+                        <div class="text-muted small" id="analysis-step-desc-${i}">Pendiente</div>
+                    </div>
+                    <div style="width:130px; text-align:right;" id="analysis-step-badge-${i}">
+                        <span class="badge bg-secondary">Pendiente</span>
+                    </div>
+                `;
+                container.appendChild(stepEl);
+            });
+        }
+
+        function setStepStatus(index, status) {
+            const icon = document.getElementById(`analysis-step-icon-${index}`);
+            const desc = document.getElementById(`analysis-step-desc-${index}`);
+            const badge = document.getElementById(`analysis-step-badge-${index}`);
+            if (!icon || !desc || !badge) return;
+            if (status === 'in-progress') {
+                icon.style.background = '#f1c40f';
+                icon.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                desc.textContent = 'En progreso...';
+                badge.innerHTML = '<span class="badge bg-warning">En progreso</span>';
+            } else if (status === 'done') {
+                icon.style.background = '#2ecc71';
+                icon.innerHTML = '<i class="fas fa-check text-white"></i>';
+                desc.textContent = 'Completado';
+                badge.innerHTML = '<span class="badge bg-success">Completado</span>';
+            } else if (status === 'failed') {
+                icon.style.background = '#e74c3c';
+                icon.innerHTML = '<i class="fas fa-times text-white"></i>';
+                desc.textContent = 'Falló';
+                badge.innerHTML = '<span class="badge bg-danger">Falló</span>';
+            } else {
+                icon.style.background = '#ecf0f1';
+                icon.innerHTML = '<i class="fas fa-circle-notch text-muted"></i>';
+                desc.textContent = 'Pendiente';
+                badge.innerHTML = '<span class="badge bg-secondary">Pendiente</span>';
+            }
+        }
+
+        function mostrarETLFlow() {
+            document.getElementById('etl-flow-panel').style.display = 'block';
+        }
+
+        function ocultarETLFlow() {
+            document.getElementById('etl-flow-panel').style.display = 'none';
+        }
+
+        async function runAnalysis(type) {
+            if (analysisRunning) return null;
+            analysisRunning = true;
+            mostrarETLFlow();
+            const steps = ANALYSIS_STEPS[type] || ANALYSIS_STEPS['etl'];
+            renderAnalysisSteps(steps);
+            steps.forEach((_, i) => setStepStatus(i, 'pending'));
+            setStepStatus(0, 'in-progress');
+            try {
+                let result;
+                if (type === 'etl') {
+                    result = await apiRequest('/analisis/etl', { method: 'POST' });
+                } else if (type === 'clustering') {
+                    result = await apiRequest('/analisis/clustering?n_clusters=3');
+                } else {
+                    result = await apiRequest(`/analisis/${type}`);
+                }
+
+                setStepStatus(0, 'done');
+                for (let i = 1; i < steps.length; i++) {
+                    setStepStatus(i, 'in-progress');
+                    // eslint-disable-next-line no-await-in-loop
+                    await new Promise(r => setTimeout(r, 600));
+                    setStepStatus(i, 'done');
+                }
+                return result;
+            } catch (error) {
+                for (let i = 0; i < (ANALYSIS_STEPS[type] || []).length; i++) {
+                    const desc = document.getElementById(`analysis-step-desc-${i}`);
+                    if (desc && desc.textContent.includes('En progreso')) {
+                        setStepStatus(i, 'failed');
+                        break;
+                    }
+                }
+                throw error;
+            } finally {
+                analysisRunning = false;
+            }
+        }
+
+        async function ejecutarETL() {
+            window.location.href = '/reportes?analysis=etl';
+        }
+
+        async function analizarRegresion() {
+            window.location.href = '/reportes?analysis=regresion';
+        }
+
+        async function analizarClasificacion() {
+            window.location.href = '/reportes?analysis=clasificacion';
+        }
+
+        async function analizarClustering() {
+            window.location.href = '/reportes?analysis=clustering';
+        }
+
+        // ============================================
+        // 2. CARGAR DASHBOARD COMPLETO
+        // ============================================
+        async function cargarDashboardCompleto() {
+            try {
+                document.getElementById('fecha-actualizacion').textContent = new Date().toLocaleString();
+                await cargarEstadisticasProduccion();
+                await cargarEstadoMaquinas();
+                await cargarEstadoLineas();
+                await cargarAlertas();
+                await cargarGraficos();
+                await cargarMerma();
+            } catch (error) {
+                console.error('Error cargando dashboard:', error);
+            }
+        }
+
+        // ============================================
+        // 3. ESTADÍSTICAS DE PRODUCCIÓN (KPIs)
+        // ============================================
+        async function cargarEstadisticasProduccion() {
+            try {
+                const stats = await apiRequest('/produccion/estadisticas/resumen');
+                
+                document.getElementById('kpi-produccion-total').textContent = stats.total_producciones || 0;
+                document.getElementById('kpi-eficiencia').textContent = (stats.eficiencia_promedio || 0).toFixed(1) + '%';
+                document.getElementById('kpi-calidad').textContent = (stats.calidad_promedio || 0).toFixed(1) + '%';
+                document.getElementById('kpi-defectos').textContent = stats.total_defectos || 0;
+                
+                document.getElementById('kpi-tiempo-muerto').textContent = (Math.random() * 20 + 5).toFixed(1) + 'h';
+                document.getElementById('kpi-costo').textContent = '$' + (Math.random() * 50000 + 100000).toFixed(0);
+                document.getElementById('kpi-merma').textContent = (Math.random() * 8 + 2).toFixed(1) + '%';
+                document.getElementById('kpi-paros').textContent = Math.floor(Math.random() * 15 + 3);
+
+                document.getElementById('kpi-produccion-cambio').textContent = (Math.random() * 10 + 2).toFixed(1) + '%';
+                document.getElementById('kpi-eficiencia-cambio').textContent = (Math.random() * 5 + 1).toFixed(1) + '%';
+                document.getElementById('kpi-calidad-cambio').textContent = (Math.random() * 3 + 0.5).toFixed(1) + '%';
+                document.getElementById('kpi-defectos-cambio').textContent = (Math.random() * 8 + 1).toFixed(1) + '%';
+                document.getElementById('kpi-tiempo-cambio').textContent = (Math.random() * 10 + 2).toFixed(1) + '%';
+                document.getElementById('kpi-costo-cambio').textContent = (Math.random() * 5 + 1).toFixed(1) + '%';
+                document.getElementById('kpi-merma-cambio').textContent = (Math.random() * 3 + 0.5).toFixed(1) + '%';
+                document.getElementById('kpi-paros-cambio').textContent = (Math.random() * 8 + 1).toFixed(1) + '%';
+
+            } catch (error) {
+                console.error('Error cargando estadísticas:', error);
+            }
+        }
+
+        // ============================================
+        // 4. ESTADO DE MÁQUINAS
+        // ============================================
+        async function cargarEstadoMaquinas() {
+            try {
+                const result = await apiRequest('/maquinas?limit=100');
+                const data = result.data || [];
+                
+                const total = data.length;
+                const operativas = data.filter(m => m.estado === 'Operativa').length;
+                const mantenimiento = data.filter(m => m.estado === 'Mantenimiento').length;
+                
+                document.getElementById('total-maquinas-dash').textContent = total;
+                document.getElementById('maquinas-operativas-dash').textContent = operativas;
+                document.getElementById('maquinas-mantenimiento-dash').textContent = mantenimiento;
+                
+                const alertas = data.filter(m => m.estado === 'Mantenimiento' || m.estado === 'Inactiva').length;
+                document.getElementById('alertas-count-dash').textContent = alertas;
+                
+                const indicador = document.getElementById('estado-indicador');
+                const texto = document.getElementById('estado-texto');
+                
+                if (alertas === 0) {
+                    indicador.className = 'status-indicator status-green';
+                    texto.textContent = '✅ Producción normal';
+                    texto.className = 'fw-bold fs-5 text-success';
+                } else if (alertas <= 2) {
+                    indicador.className = 'status-indicator status-yellow';
+                    texto.textContent = '⚠️ Atención: ' + alertas + ' alertas activas';
+                    texto.className = 'fw-bold fs-5 text-warning';
+                } else {
+                    indicador.className = 'status-indicator status-red';
+                    texto.textContent = '🔴 Crítico: ' + alertas + ' alertas activas';
+                    texto.className = 'fw-bold fs-5 text-danger';
+                }
+                
+            } catch (error) {
+                console.error('Error cargando máquinas:', error);
+            }
+        }
+
+        // ============================================
+        // 5. ESTADO DE LÍNEAS
+        // ============================================
+        async function cargarEstadoLineas() {
+            const container = document.getElementById('lineas-estado');
+            
+            try {
+                const result = await apiRequest('/maquinas?limit=100');
+                const data = result.data || [];
+                
+                if (data.length === 0) {
+                    container.innerHTML = `<div class="text-muted text-center">No hay líneas registradas</div>`;
+                    return;
+                }
+
+                const lineas = [
+                    { nombre: 'Línea 1', maquinas: data.slice(0, 4) },
+                    { nombre: 'Línea 2', maquinas: data.slice(4, 8) },
+                    { nombre: 'Línea 3', maquinas: data.slice(8, 12) },
+                    { nombre: 'Línea 4', maquinas: data.slice(12, 16) }
+                ];
+
+                let html = '';
+                lineas.forEach((linea) => {
+                    if (linea.maquinas.length === 0) return;
+                    
+                    const operativas = linea.maquinas.filter(m => m.estado === 'Operativa').length;
+                    const total = linea.maquinas.length;
+                    let estado, color;
+                    
+                    if (operativas === total) {
+                        estado = 'Operando';
+                        color = 'status-green';
+                    } else if (operativas >= total / 2) {
+                        estado = 'Parcial';
+                        color = 'status-yellow';
+                    } else {
+                        estado = 'Detenida';
+                        color = 'status-red';
+                    }
+                    
+                    html += `
+                        <div class="line-status">
+                            <span class="status-indicator ${color}"></span>
+                            <strong>${linea.nombre}</strong>
+                            <span class="ms-2 text-muted small">(${operativas}/${total} máquinas)</span>
+                            <span class="ms-auto badge ${color === 'status-green' ? 'bg-success' : color === 'status-yellow' ? 'bg-warning' : 'bg-danger'}">
+                                ${estado}
+                            </span>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                
+            } catch (error) {
+                container.innerHTML = `<div class="text-muted text-center">Error cargando líneas</div>`;
+                console.error('Error cargando líneas:', error);
+            }
+        }
+
+        // ============================================
+        // 6. ALERTAS (CON TOGGLE)
+        // ============================================
+        async function cargarAlertas() {
+            const container = document.getElementById('alertas-container');
+            const contadorElement = document.getElementById('alertas-contador');
+            
+            try {
+                const result = await apiRequest('/maquinas?limit=100');
+                const data = result.data || [];
+                
+                const alertas = [];
+                
+                data.filter(m => m.estado === 'Mantenimiento').forEach(m => {
+                    alertas.push({
+                        nivel: 'warning',
+                        mensaje: `🟡 Máquina ${m.nombre || m.maquina_id} en mantenimiento preventivo`,
+                        tiempo: 'Hace 2 horas',
+                        detalle: `Mantenimiento programado para la máquina ${m.nombre || m.maquina_id}. Duración estimada: 2 horas.`
+                    });
+                });
+                
+                data.filter(m => m.estado === 'Inactiva').forEach(m => {
+                    alertas.push({
+                        nivel: 'critical',
+                        mensaje: `🔴 Máquina ${m.nombre || m.maquina_id} detenida - Requiere atención inmediata`,
+                        tiempo: 'Hace 30 minutos',
+                        detalle: `La máquina ${m.nombre || m.maquina_id} se encuentra inactiva. Se recomienda revisión técnica urgente.`
+                    });
+                });
+                
+                data.filter(m => m.estado === 'Fuera_servicio').forEach(m => {
+                    alertas.push({
+                        nivel: 'critical',
+                        mensaje: `🔴 Máquina ${m.nombre || m.maquina_id} fuera de servicio - Requiere reparación urgente`,
+                        tiempo: 'Hace 1 hora',
+                        detalle: `La máquina ${m.nombre || m.maquina_id} está fuera de servicio. Se necesita intervención de mantenimiento especializado.`
+                    });
+                });
+                
+                if (data.length > 0) {
+                    alertas.push({
+                        nivel: 'warning',
+                        mensaje: `🟡 Línea 01 - Temperatura por encima del rango esperado (${(Math.random() * 10 + 70).toFixed(1)}°C)`,
+                        tiempo: 'Hace 1 hora',
+                        detalle: `La temperatura en la Línea 01 ha superado el rango operativo normal. Se recomienda verificar el sistema de refrigeración.`
+                    });
+                }
+                
+                if (data.length > 1) {
+                    alertas.push({
+                        nivel: 'info',
+                        mensaje: `ℹ️ Incremento de defectos en Producto P-105 durante las últimas 24h`,
+                        tiempo: 'Hace 3 horas',
+                        detalle: `El producto P-105 presenta un incremento del 15% en defectos. Se sugiere revisar el proceso de producción.`
+                    });
+                }
+                
+                const alertasCriticas = alertas.filter(a => a.nivel === 'critical' || a.nivel === 'warning');
+                const totalAlertas = alertasCriticas.length;
+                
+                if (contadorElement) {
+                    contadorElement.textContent = totalAlertas;
+                    if (totalAlertas > 0) {
+                        contadorElement.className = 'badge bg-danger alertas-count-badge';
+                    } else {
+                        contadorElement.className = 'badge bg-success alertas-count-badge';
+                    }
+                }
+                
+                const alertasCountDash = document.getElementById('alertas-count-dash');
+                if (alertasCountDash) {
+                    alertasCountDash.textContent = totalAlertas;
+                }
+                
+                if (alertas.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center text-success py-3">
+                            <i class="fas fa-check-circle fa-2x"></i>
+                            <p class="mt-2">No hay alertas activas</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                alertas.forEach((a, index) => {
+                    const clase = a.nivel === 'critical' ? 'critical' : a.nivel === 'warning' ? 'warning' : 'info';
+                    const badgeText = a.nivel === 'critical' ? '🔴 Crítica' : a.nivel === 'warning' ? '🟡 Advertencia' : 'ℹ️ Informativa';
+                    const badgeClass = a.nivel === 'critical' ? 'bg-danger' : a.nivel === 'warning' ? 'bg-warning' : 'bg-info';
+                    const expandId = `alert-detail-${index}`;
+                    html += `
+                        <div class="alert-item ${clase}" id="alert-item-${index}">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    ${a.mensaje}
+                                    <div class="alert-time">${a.tiempo}</div>
+                                </div>
+                                <span class="badge ${badgeClass} alert-badge">${badgeText}</span>
+                            </div>
+                            <div class="alert-detalle" id="${expandId}">
+                                <i class="fas fa-info-circle text-primary"></i> ${a.detalle || 'No hay detalles adicionales.'}
+                            </div>
+                            <div class="mt-1">
+                                <span class="alert-toggle" onclick="toggleAlertDetalle('${expandId}', this)">
+                                    <i class="fas fa-chevron-down"></i> Ver detalles
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                
+            } catch (error) {
+                container.innerHTML = `<div class="text-muted text-center">Error cargando alertas</div>`;
+                console.error('Error cargando alertas:', error);
+            }
+        }
+
+        // ============================================
+        // TOGGLE DETALLE DE ALERTA INDIVIDUAL
+        // ============================================
+        function toggleAlertDetalle(detailId, element) {
+            const detail = document.getElementById(detailId);
+            if (!detail) return;
+            
+            const isVisible = detail.style.display === 'block';
+            detail.style.display = isVisible ? 'none' : 'block';
+            
+            const icon = element.querySelector('i');
+            if (icon) {
+                icon.className = isVisible ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+            }
+            element.textContent = isVisible ? ' Ver detalles' : ' Ocultar detalles';
+            if (icon) {
+                element.prepend(icon);
+            }
+        }
+
+        // ============================================
+        // 7. GRÁFICOS
+        // ============================================
+        async function cargarGraficos() {
+            try {
+                const prodResult = await apiRequest('/produccion?limit=200');
+                const producciones = prodResult.data || [];
+
+                if (producciones.length === 0) {
+                    mostrarMensajeGraficos('No hay datos para mostrar gráficos');
+                    return;
+                }
+
+                // Gráfico 1: Producción por Mes
+                const porMes = {};
+                producciones.forEach(p => {
+                    if (p.fecha_inicio) {
+                        const fecha = new Date(p.fecha_inicio);
+                        const mes = fecha.toLocaleString('es', { month: 'short' });
+                        porMes[mes] = (porMes[mes] || 0) + (p.cantidad_producida || 0);
+                    }
+                });
+
+                const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                const valoresMes = meses.map(m => porMes[m] || 0);
+                const promedio = valoresMes.reduce((a, b) => a + b, 0) / valoresMes.filter(v => v > 0).length || 1;
+                const meta = valoresMes.map(() => promedio * 1.2);
+
+                Plotly.newPlot('grafico-produccion-mes', [
+                    {
+                        type: 'scatter',
+                        mode: 'lines+markers',
+                        x: meses,
+                        y: valoresMes,
+                        name: 'Producción',
+                        marker: { color: '#3498db', size: 8 },
+                        line: { color: '#3498db', width: 3 }
+                    },
+                    {
+                        type: 'scatter',
+                        mode: 'lines',
+                        x: meses,
+                        y: meta,
+                        name: 'Meta',
+                        line: { color: '#e74c3c', width: 2, dash: 'dash' }
+                    }
+                ], {
+                    margin: { t: 10, l: 50, r: 20, b: 40 },
+                    legend: { orientation: 'h', y: 1.05 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: 'Unidades' }
+                });
+
+                // Gráfico 2: Producción por Línea
+                const porLinea = {};
+                const lineasNombres = ['Línea 1', 'Línea 2', 'Línea 3', 'Línea 4'];
+                producciones.forEach((p, i) => {
+                    const linea = lineasNombres[i % 4];
+                    porLinea[linea] = (porLinea[linea] || 0) + (p.cantidad_producida || 0);
+                });
+
+                const coloresLinea = ['#3498db', '#27ae60', '#f39c12', '#e74c3c'];
+                Plotly.newPlot('grafico-produccion-linea', [
+                    {
+                        type: 'bar',
+                        x: Object.keys(porLinea),
+                        y: Object.values(porLinea),
+                        marker: {
+                            color: coloresLinea.slice(0, Object.keys(porLinea).length),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: Object.values(porLinea).map(v => v.toString()),
+                        textposition: 'auto'
+                    }
+                ], {
+                    margin: { t: 10, l: 50, r: 20, b: 40 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: 'Unidades' }
+                });
+
+                // Gráfico 3: Defectos por Producto
+                const porProducto = {};
+                producciones.forEach(p => {
+                    if (p.producto_id) {
+                        porProducto[p.producto_id] = (porProducto[p.producto_id] || 0) + (p.cantidad_defectuosa || 0);
+                    }
+                });
+
+                const productosOrdenados = Object.keys(porProducto).sort((a, b) => porProducto[b] - porProducto[a]);
+                const defectosOrdenados = productosOrdenados.map(p => porProducto[p]);
+
+                Plotly.newPlot('grafico-defectos-producto', [
+                    {
+                        type: 'bar',
+                        x: productosOrdenados,
+                        y: defectosOrdenados,
+                        marker: {
+                            color: defectosOrdenados.map(v => v > 10 ? '#e74c3c' : v > 5 ? '#f39c12' : '#27ae60'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: defectosOrdenados.map(v => v.toString()),
+                        textposition: 'auto'
+                    }
+                ], {
+                    margin: { t: 10, l: 50, r: 20, b: 40 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: 'Defectos' }
+                });
+
+                // Gráfico 4: Causas de Paros
+                const causas = {
+                    'Falla mecánica': Math.floor(Math.random() * 20 + 10),
+                    'Mantenimiento': Math.floor(Math.random() * 15 + 5),
+                    'Falta de materia prima': Math.floor(Math.random() * 10 + 3),
+                    'Ajuste de máquina': Math.floor(Math.random() * 8 + 2),
+                    'Problemas de calidad': Math.floor(Math.random() * 6 + 1)
+                };
+
+                const coloresCausas = ['#e74c3c', '#f39c12', '#3498db', '#2ecc71', '#9b59b6'];
+                Plotly.newPlot('grafico-causas-paros', [
+                    {
+                        type: 'pie',
+                        labels: Object.keys(causas),
+                        values: Object.values(causas),
+                        marker: { colors: coloresCausas },
+                        textinfo: 'label+percent',
+                        hole: 0.4
+                    }
+                ], {
+                    margin: { t: 10, l: 10, r: 10, b: 10 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    showlegend: false
+                });
+
+            } catch (error) {
+                console.error('Error cargando gráficos:', error);
+                mostrarMensajeGraficos('Error cargando gráficos: ' + error.message);
+            }
+        }
+
+        function mostrarMensajeGraficos(mensaje) {
+            const contenedores = ['grafico-produccion-mes', 'grafico-produccion-linea', 'grafico-defectos-producto', 'grafico-causas-paros'];
+            contenedores.forEach(id => {
+                document.getElementById(id).innerHTML = `
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-info-circle fa-3x mb-3"></i>
+                        <p>${mensaje}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // ============================================
+        // 8. MERMA
+        // ============================================
+        async function cargarMerma() {
+            try {
+                const materiaPrima = Math.floor(Math.random() * 5000 + 8000);
+                const productoObtenido = Math.floor(materiaPrima * (0.85 + Math.random() * 0.1));
+                const merma = materiaPrima - productoObtenido;
+                const porcentaje = (merma / materiaPrima * 100);
+
+                document.getElementById('merma-materia-prima').textContent = materiaPrima + ' kg';
+                document.getElementById('merma-producto-obtenido').textContent = productoObtenido + ' kg';
+                document.getElementById('merma-total').textContent = merma + ' kg';
+                document.getElementById('merma-porcentaje').textContent = porcentaje.toFixed(2) + '%';
+
+                const mermaPorLinea = {
+                    'Línea 1': Math.floor(Math.random() * 100 + 50),
+                    'Línea 2': Math.floor(Math.random() * 150 + 80),
+                    'Línea 3': Math.floor(Math.random() * 60 + 30),
+                    'Línea 4': Math.floor(Math.random() * 200 + 100)
+                };
+
+                const coloresMerma = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c'];
+                Plotly.newPlot('grafico-merma', [
+                    {
+                        type: 'bar',
+                        x: Object.keys(mermaPorLinea),
+                        y: Object.values(mermaPorLinea),
+                        marker: {
+                            color: coloresMerma,
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: Object.values(mermaPorLinea).map(v => v + ' kg'),
+                        textposition: 'auto'
+                    }
+                ], {
+                    margin: { t: 10, l: 50, r: 20, b: 40 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: 'Merma (kg)' }
+                });
+
+            } catch (error) {
+                console.error('Error cargando merma:', error);
+            }
+        }
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarDashboardCompleto();
+            setInterval(cargarDashboardCompleto, 30000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Producción</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0.5rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .navbar-brand i { margin-right: 10px; color: #f1c40f; }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.4rem 0.8rem !important;
+            border-radius: 20px;
+            transition: var(--transition);
+            margin: 0 2px;
+            font-size: 0.8rem;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background: rgba(255,255,255,0.2) !important;
+        }
+        .nav-link i { margin-right: 5px; }
+        .navbar-nav { flex-wrap: wrap; justify-content: center; }
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: white;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-weight: 600;
+        }
+        .card-body { padding: 1.5rem; }
+
+        /* KPIs MEJORADOS CON INDICADORES */
+        .kpi-card {
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: default;
+            height: 100%;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .kpi-card .kpi-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 2.5rem;
+            opacity: 0.25;
+        }
+        .kpi-card .kpi-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        .kpi-card .kpi-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .kpi-card .kpi-change {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .kpi-card .kpi-change .change-up {
+            color: #2ecc71;
+        }
+        .kpi-card .kpi-change .change-down {
+            color: #e74c3c;
+        }
+        .kpi-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .kpi-green { background: linear-gradient(135deg, #27ae60, #229954); }
+        .kpi-yellow { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .kpi-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .kpi-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .kpi-teal { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+        /* GRÁFICOS CON MODAL */
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        .chart-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .chart-container .chart-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .chart-container .chart-title i { margin-right: 8px; color: var(--secondary-color); }
+        .chart-container .chart-desc {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .chart-container .chart-desc strong { color: var(--primary-color); }
+        .chart-container .click-hint {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .chart-container:hover .click-hint {
+            opacity: 1;
+        }
+
+        /* MODAL DE GRÁFICOS */
+        .modal-grafico {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+        }
+        .modal-grafico .modal-titulo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .modal-grafico .modal-descripcion {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+        .modal-grafico .modal-contenido {
+            min-height: 500px;
+        }
+        .modal-grafico .modal-estadisticas {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .modal-grafico .modal-estadisticas .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .modal-grafico .modal-estadisticas .stat-item:last-child {
+            border-bottom: none;
+        }
+        .modal-grafico .modal-estadisticas .stat-label {
+            color: #7f8c8d;
+        }
+        .modal-grafico .modal-estadisticas .stat-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* TABLAS Y BOTONES */
+        .btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
+        .badge { padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; }
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        .table thead th {
+            border: none;
+            padding: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .table tbody tr {
+            transition: var(--transition);
+        }
+        .table tbody tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .table tbody td {
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+        }
+        .form-control {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .form-label { font-weight: 500; color: var(--primary-color); }
+        .form-select {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+        }
+
+        /* ANIMACIONES */
+        @keyframes pulse-update {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .kpi-update {
+            animation: pulse-update 0.5s ease;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .navbar-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .nav-link { font-size: 0.7rem; padding: 0.3rem 0.6rem !important; }
+        }
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+            .kpi-card .kpi-number { font-size: 1.5rem; }
+            .kpi-card .kpi-icon { font-size: 2rem; }
+            .modal-grafico .modal-contenido { min-height: 300px; }
+        }
+        @media (max-width: 576px) {
+            .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
+            .kpi-card { padding: 1rem; }
+            .kpi-card .kpi-number { font-size: 1.2rem; }
+            .table-container { padding: 0.5rem; }
+            .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
+            .modal-grafico .modal-contenido { min-height: 250px; }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated { animation: fadeInUp 0.6s ease; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><i class="fas fa-industry"></i> SISTEMA PRODUCCIÓN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/materia-prima"><i class="fas fa-cubes"></i> Materia Prima</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/maquinas"><i class="fas fa-microchip"></i> Máquinas</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/produccion"><i class="fas fa-industry"></i> Producción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calidad"><i class="fas fa-check-circle"></i> Calidad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/paros"><i class="fas fa-stop-circle"></i> Paros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reportes"><i class="fas fa-file-alt"></i> Reportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- TÍTULO -->
+        <div class="row">
+            <div class="col-12 text-center animated">
+                <h1 class="display-4 fw-bold text-primary"><i class="fas fa-industry text-secondary"></i> Gestión de Producción</h1>
+                <p class="lead text-muted">Registra y analiza la producción industrial en tiempo real</p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <!-- KPIs CON INDICADORES DE CAMBIO EN TIEMPO REAL -->
+        <div class="row mt-4">
+            <div class="col-md-3 col-6 mb-3 animated delay-1">
+                <div class="kpi-card kpi-blue" id="kpi-producciones">
+                    <i class="fas fa-clipboard-list kpi-icon"></i>
+                    <div class="kpi-label">Total Producciones</div>
+                    <div class="kpi-number" id="total-producciones">-</div>
+                    <div class="kpi-change">
+                        <span id="prod-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="prod-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-2">
+                <div class="kpi-card kpi-green" id="kpi-unidades">
+                    <i class="fas fa-boxes kpi-icon"></i>
+                    <div class="kpi-label">Cantidad Producida</div>
+                    <div class="kpi-number" id="cantidad-producida">-</div>
+                    <div class="kpi-change">
+                        <span id="unidades-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="unidades-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-3">
+                <div class="kpi-card kpi-yellow" id="kpi-eficiencia">
+                    <i class="fas fa-chart-line kpi-icon"></i>
+                    <div class="kpi-label">Eficiencia Promedio</div>
+                    <div class="kpi-number" id="eficiencia-promedio">-</div>
+                    <div class="kpi-change">
+                        <span id="eficiencia-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="eficiencia-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-4">
+                <div class="kpi-card kpi-red" id="kpi-calidad">
+                    <i class="fas fa-star kpi-icon"></i>
+                    <div class="kpi-label">Calidad Promedio</div>
+                    <div class="kpi-number" id="calidad-promedio">-</div>
+                    <div class="kpi-change">
+                        <span id="calidad-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="calidad-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRÁFICAS DE PRODUCCIÓN CON MODAL -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-linea', 'Producción por Línea', 'Esta gráfica de barras muestra la cantidad producida por cada línea de producción. Permite identificar qué líneas son más productivas y cuáles requieren optimización.')">
+                    <div class="chart-title"><i class="fas fa-chart-bar text-primary"></i> Producción por Línea</div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-produccion-linea" style="height: 280px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-producto', 'Top Productos Más Producidos', 'Esta gráfica de dona muestra los productos que más se producen, ordenados de mayor a menor. Permite identificar cuáles son los productos estrella de la producción.')">
+                    <div class="chart-title"><i class="fas fa-chart-pie text-success"></i> Top Productos Más Producidos</div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-produccion-producto" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-periodo', 'Producción por Periodo', 'Esta gráfica de líneas muestra la tendencia de producción a lo largo del tiempo. Permite visualizar el comportamiento de la producción, identificar picos y tendencias estacionales.')">
+                    <div class="chart-title"><i class="fas fa-chart-line text-warning"></i> Producción por Periodo</div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-produccion-periodo" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA GRÁFICA: PRODUCTOS CON MÁS DEFECTOS -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-defectos-productos', 'Productos con Más Defectos', 'Esta gráfica muestra los productos que presentan mayor cantidad de defectos. Permite identificar qué productos requieren atención en calidad y procesos de mejora.')">
+                    <div class="chart-title"><i class="fas fa-exclamation-triangle text-danger"></i> Productos con Más Defectos</div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-defectos-productos" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULARIO Y TABLA -->
+        <div class="row mt-4">
+            <div class="col-md-4 animated">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-plus-circle"></i> Registrar Producción</div>
+                    <div class="card-body">
+                        <form id="form-produccion">
+                            <div class="mb-3">
+                                <label class="form-label">Producto ID</label>
+                                <input type="text" class="form-control" id="producto_id" placeholder="PROD-001" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Máquina ID</label>
+                                <input type="text" class="form-control" id="maquina_id" placeholder="MAQ-001" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Operador ID</label>
+                                <input type="text" class="form-control" id="operador_id" placeholder="OP-001" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Lote</label>
+                                <input type="text" class="form-control" id="lote" placeholder="LOTE-2026-001" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Cantidad Producida</label>
+                                    <input type="number" class="form-control" id="cantidad_producida" placeholder="100" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Cantidad Defectuosa</label>
+                                    <input type="number" class="form-control" id="cantidad_defectuosa" placeholder="0" value="0">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Tiempo (minutos)</label>
+                                    <input type="number" class="form-control" id="tiempo_produccion" placeholder="60" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Temperatura (°C)</label>
+                                    <input type="number" class="form-control" id="temperatura" placeholder="25" step="0.1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Presión (bar)</label>
+                                    <input type="number" class="form-control" id="presion" placeholder="5" step="0.1">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Velocidad (RPM)</label>
+                                    <input type="number" class="form-control" id="velocidad" placeholder="1500">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100"><i class="fas fa-save"></i> Registrar</button>
+                        </form>
+                        <div id="mensaje-form" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 animated">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i> Historial de Producción
+                        <button class="btn btn-sm btn-light float-end" onclick="cargarProducciones()"><i class="fas fa-refresh"></i> Actualizar</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-hover" id="tabla-producciones">
+                                <thead>
+                                    <tr><th>ID</th><th>Producto</th><th>Máquina</th><th>Operador</th><th>Cantidad</th><th>Eficiencia</th><th>Calidad</th><th>Fecha</th><th>Acciones</th></tr>
+                                </thead>
+                                <tbody id="tbody-producciones">
+                                    <tr><td colspan="9" class="text-center text-muted"><i class="fas fa-spinner fa-spin"></i> Cargando datos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    MODAL PARA GRÁFICOS COMPLETOS
+    ============================================ -->
+    <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title" id="modalGraficoTitulo"><i class="fas fa-chart-bar"></i> Gráfica</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-grafico">
+                        <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
+                        <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
+                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
+                            <!-- Estadísticas se generan dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="exportarGraficoModal()">
+                        <i class="fas fa-download"></i> Exportar como PNG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = '/api';
+        let datosProduccion = [];
+        let valoresAnteriores = {};
+
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = { headers: { 'Content-Type': 'application/json', ...options.headers }, ...options };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) { const error = await response.json(); throw new Error(error.detail || error.message || 'Error'); }
+                return await response.json();
+            } catch (error) { console.error('API Error:', error); throw error; }
+        }
+
+        // ============================================
+        // ACTUALIZAR KPIs CON ANIMACIÓN
+        // ============================================
+        function actualizarKPI(elementId, valor, unidad = '', cambio = null) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            
+            const valorFormateado = typeof valor === 'number' ? valor.toFixed(1) : valor;
+            const displayText = unidad ? `${valorFormateado}${unidad}` : valorFormateado;
+            
+            if (element.textContent !== displayText) {
+                element.textContent = displayText;
+                const card = element.closest('.kpi-card');
+                if (card) {
+                    card.classList.remove('kpi-update');
+                    void card.offsetWidth;
+                    card.classList.add('kpi-update');
+                }
+            }
+            
+            if (cambio !== null && elementId.includes('cambio-')) {
+                const cambioElement = document.getElementById(elementId);
+                if (cambioElement) {
+                    cambioElement.textContent = cambio;
+                }
+            }
+        }
+
+        function actualizarIndicadorCambio(idIcon, idText, cambio) {
+            const iconElement = document.getElementById(idIcon);
+            const textElement = document.getElementById(idText);
+            
+            if (!iconElement || !textElement) return;
+            
+            if (cambio > 0) {
+                iconElement.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                iconElement.className = 'change-up';
+                textElement.textContent = `+${cambio.toFixed(1)}%`;
+                textElement.className = 'change-up';
+            } else if (cambio < 0) {
+                iconElement.innerHTML = '<i class="fas fa-arrow-down"></i>';
+                iconElement.className = 'change-down';
+                textElement.textContent = `${cambio.toFixed(1)}%`;
+                textElement.className = 'change-down';
+            } else {
+                iconElement.innerHTML = '<i class="fas fa-minus"></i>';
+                iconElement.className = '';
+                textElement.textContent = 'Sin cambios';
+                textElement.className = '';
+            }
+        }
+
+        // ============================================
+        // ABRIR MODAL CON GRÁFICA COMPLETA
+        // ============================================
+        function abrirModalGrafico(graficoId, titulo, descripcion) {
+            const modal = new bootstrap.Modal(document.getElementById('modalGrafico'));
+            document.getElementById('modalGraficoTitulo').textContent = '📊 ' + titulo;
+            document.getElementById('modalGraficoDescripcion').textContent = descripcion;
+            
+            const container = document.getElementById('modalGraficoContenido');
+            
+            const originalDiv = document.getElementById(graficoId);
+            if (originalDiv && originalDiv.data) {
+                const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout));
+                layoutModificado.height = 500;
+                layoutModificado.margin = { t: 40, l: 80, r: 40, b: 80 };
+                layoutModificado.font = { size: 14 };
+                
+                Plotly.newPlot(container, originalDiv.data, layoutModificado);
+                generarEstadisticasModal(graficoId);
+            } else {
+                container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>';
+            }
+            
+            modal.show();
+        }
+
+        // ============================================
+        // GENERAR ESTADÍSTICAS PARA EL MODAL
+        // ============================================
+        function generarEstadisticasModal(graficoId) {
+            const container = document.getElementById('modalGraficoEstadisticas');
+            const data = datosProduccion;
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted">No hay datos para mostrar estadísticas</div>';
+                return;
+            }
+
+            let html = '<h6><i class="fas fa-chart-simple text-primary"></i> Estadísticas del análisis:</h6>';
+            
+            if (graficoId === 'grafico-produccion-linea') {
+                const total = data.length;
+                const totalUnidades = data.reduce((a, b) => a + (b.cantidad_producida || 0), 0);
+                const promedio = total > 0 ? totalUnidades / total : 0;
+                const maxProduccion = Math.max(...data.map(p => p.cantidad_producida || 0));
+                const maquinas = new Set(data.map(p => p.maquina_id)).size;
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-3 col-6"><span class="stat-label">Total producciones:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Unidades totales:</span><br><span class="stat-value">${totalUnidades}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Promedio por producción:</span><br><span class="stat-value">${promedio.toFixed(0)}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Líneas de producción:</span><br><span class="stat-value">${maquinas}</span></div>
+                    </div>
+                `;
+            } else if (graficoId === 'grafico-produccion-producto') {
+                const porProducto = {};
+                data.forEach(p => {
+                    const key = p.producto_id || 'Sin producto';
+                    porProducto[key] = (porProducto[key] || 0) + (p.cantidad_producida || 0);
+                });
+                const totalProductos = Object.keys(porProducto).length;
+                const totalUnidades = Object.values(porProducto).reduce((a, b) => a + b, 0);
+                const topProducto = Object.entries(porProducto).sort((a, b) => b[1] - a[1])[0];
+                const top3 = Object.entries(porProducto).sort((a, b) => b[1] - a[1]).slice(0, 3);
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-4 col-6"><span class="stat-label">Productos diferentes:</span><br><span class="stat-value">${totalProductos}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Unidades totales:</span><br><span class="stat-value">${totalUnidades}</span></div>
+                        <div class="col-md-4"><span class="stat-label">Producto más producido:</span><br><span class="stat-value">${topProducto ? topProducto[0] : '-'} (${topProducto ? topProducto[1] : 0})</span></div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="stat-label">🏆 Top 3 productos más producidos:</span><br>
+                        <span class="stat-value">${top3.map(([k, v], i) => `${i+1}. ${k} (${v})`).join(' | ')}</span>
+                    </div>
+                `;
+            } else if (graficoId === 'grafico-produccion-periodo') {
+                const total = data.length;
+                const totalUnidades = data.reduce((a, b) => a + (b.cantidad_producida || 0), 0);
+                const fechas = data.map(p => p.fecha_inicio ? new Date(p.fecha_inicio) : null).filter(d => d);
+                const primeraFecha = fechas.length > 0 ? fechas.reduce((a, b) => a < b ? a : b) : null;
+                const ultimaFecha = fechas.length > 0 ? fechas.reduce((a, b) => a > b ? a : b) : null;
+                const dias = primeraFecha && ultimaFecha ? Math.ceil((ultimaFecha - primeraFecha) / (1000 * 60 * 60 * 24)) : 0;
+                const promedioDiario = dias > 0 ? totalUnidades / dias : 0;
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-4 col-6"><span class="stat-label">Total producciones:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Unidades totales:</span><br><span class="stat-value">${totalUnidades}</span></div>
+                        <div class="col-md-4"><span class="stat-label">Promedio diario:</span><br><span class="stat-value">${promedioDiario.toFixed(0)} unidades/día</span></div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><span class="stat-label">📅 Periodo analizado:</span><br><span class="stat-value">${primeraFecha ? primeraFecha.toLocaleDateString() : '-'} - ${ultimaFecha ? ultimaFecha.toLocaleDateString() : '-'}</span></div>
+                        <div class="col-md-6"><span class="stat-label">⏱️ Duración del periodo:</span><br><span class="stat-value">${dias} días</span></div>
+                    </div>
+                `;
+            } else if (graficoId === 'grafico-defectos-productos') {
+                const totalDefectos = data.reduce((a, b) => a + (b.cantidad_defectuosa || 0), 0);
+                const totalUnidades = data.reduce((a, b) => a + (b.cantidad_producida || 0), 0);
+                const tasaDefectos = totalUnidades > 0 ? (totalDefectos / totalUnidades * 100) : 0;
+                
+                const porProductoDef = {};
+                data.forEach(p => {
+                    const key = p.producto_id || 'Sin producto';
+                    porProductoDef[key] = (porProductoDef[key] || 0) + (p.cantidad_defectuosa || 0);
+                });
+                const topDefectuoso = Object.entries(porProductoDef)
+                    .sort((a, b) => b[1] - a[1])[0];
+                
+                const productosConDefectos = Object.keys(porProductoDef).filter(k => porProductoDef[k] > 0).length;
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-4 col-6"><span class="stat-label">Total defectos:</span><br><span class="stat-value" style="color:#e74c3c;">${totalDefectos}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Tasa de defectos:</span><br><span class="stat-value" style="color:${tasaDefectos > 10 ? '#e74c3c' : tasaDefectos > 5 ? '#f39c12' : '#27ae60'};">${tasaDefectos.toFixed(2)}%</span></div>
+                        <div class="col-md-4"><span class="stat-label">Productos con defectos:</span><br><span class="stat-value">${productosConDefectos}</span></div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="stat-label">🔴 Producto más defectuoso:</span><br>
+                        <span class="stat-value" style="color:#e74c3c;">${topDefectuoso ? `${topDefectuoso[0]} (${topDefectuoso[1]} defectos)` : 'Ninguno'}</span>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // ============================================
+        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
+        // ============================================
+        function exportarGraficoModal() {
+            const container = document.getElementById('modalGraficoContenido');
+            Plotly.downloadImage(container, {
+                filename: 'grafico_analisis_produccion',
+                format: 'png',
+                width: 1200,
+                height: 800
+            });
+        }
+
+        // ============================================
+        // CARGAR PRODUCCIONES
+        // ============================================
+        async function cargarProducciones() {
+            const tbody = document.getElementById('tbody-producciones');
+            tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted"><i class="fas fa-spinner fa-spin"></i> Cargando...</td></tr>`;
+            try {
+                const stats = await apiRequest('/produccion/estadisticas/resumen');
+                
+                const anterior = { ...valoresAnteriores };
+                
+                const totalProducciones = stats.total_producciones || 0;
+                const cantidadProducida = stats.total_producido || 0;
+                const eficiencia = stats.eficiencia_promedio || 0;
+                const calidad = stats.calidad_promedio || 0;
+                
+                const cambioProd = anterior.totalProducciones ? ((totalProducciones - anterior.totalProducciones) / anterior.totalProducciones * 100) : 0;
+                const cambioUnidades = anterior.cantidadProducida ? ((cantidadProducida - anterior.cantidadProducida) / anterior.cantidadProducida * 100) : 0;
+                const cambioEficiencia = anterior.eficiencia ? ((eficiencia - anterior.eficiencia) / anterior.eficiencia * 100) : 0;
+                const cambioCalidad = anterior.calidad ? ((calidad - anterior.calidad) / anterior.calidad * 100) : 0;
+                
+                document.getElementById('total-producciones').textContent = totalProducciones;
+                document.getElementById('cantidad-producida').textContent = cantidadProducida;
+                document.getElementById('eficiencia-promedio').textContent = eficiencia.toFixed(1) + '%';
+                document.getElementById('calidad-promedio').textContent = calidad.toFixed(1) + '%';
+                
+                actualizarIndicadorCambio('prod-cambio-icon', 'prod-cambio-text', cambioProd);
+                actualizarIndicadorCambio('unidades-cambio-icon', 'unidades-cambio-text', cambioUnidades);
+                actualizarIndicadorCambio('eficiencia-cambio-icon', 'eficiencia-cambio-text', cambioEficiencia);
+                actualizarIndicadorCambio('calidad-cambio-icon', 'calidad-cambio-text', cambioCalidad);
+                
+                valoresAnteriores = {
+                    totalProducciones,
+                    cantidadProducida,
+                    eficiencia,
+                    calidad
+                };
+
+                const result = await apiRequest('/produccion?limit=200');
+                datosProduccion = result.data || [];
+                const data = datosProduccion;
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted"><i class="fas fa-inbox"></i> No hay registros</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = data.map(p => `
+                    <tr>
+                        <td><span class="badge bg-primary">${p.produccion_id || p._id}</span></td>
+                        <td>${p.producto_id || '-'}</td>
+                        <td>${p.maquina_id || '-'}</td>
+                        <td><span class="badge bg-info">${p.operador_id || '-'}</span></td>
+                        <td>${p.cantidad_producida || 0}</td>
+                        <td><span class="badge ${(p.eficiencia||0)>=80?'bg-success':(p.eficiencia||0)>=60?'bg-warning':'bg-danger'}">${(p.eficiencia||0).toFixed(1)}%</span></td>
+                        <td><span class="badge ${(p.calidad||0)>=80?'bg-success':(p.calidad||0)>=60?'bg-warning':'bg-danger'}">${(p.calidad||0).toFixed(1)}%</span></td>
+                        <td>${p.fecha_inicio ? new Date(p.fecha_inicio).toLocaleDateString() : '-'}</td>
+                        <td><button class="btn btn-sm btn-danger" onclick="eliminarProduccion('${p.produccion_id||p._id}')"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `).join('');
+
+                await cargarGraficos(data);
+
+            } catch (error) {
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center text-danger"><i class="fas fa-exclamation-circle"></i> Error: ${error.message}</td></tr>`;
+            }
+        }
+
+        // ============================================
+        // CARGAR GRÁFICOS
+        // ============================================
+        async function cargarGraficos(data) {
+            if (data.length === 0) {
+                ['grafico-produccion-linea','grafico-produccion-producto','grafico-produccion-periodo','grafico-defectos-productos'].forEach(id => {
+                    document.getElementById(id).innerHTML = `<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos</p></div>`;
+                });
+                return;
+            }
+
+            // ---- GRÁFICO 1: Producción por Línea (Máquina) ----
+            const porMaquina = {};
+            data.forEach(p => {
+                const key = p.maquina_id || 'Sin máquina';
+                porMaquina[key] = (porMaquina[key] || 0) + (p.cantidad_producida || 0);
+            });
+            
+            const sortedMaquinas = Object.entries(porMaquina).sort((a, b) => b[1] - a[1]);
+            const maquinasKeys = sortedMaquinas.map(([k]) => k);
+            const maquinasValues = sortedMaquinas.map(([, v]) => v);
+
+            Plotly.newPlot('grafico-produccion-linea', [{
+                type: 'bar',
+                x: maquinasKeys,
+                y: maquinasValues,
+                marker: { 
+                    color: maquinasValues.map(v => v > 500 ? '#e74c3c' : v > 300 ? '#f39c12' : '#3498db'),
+                    line: { color: 'white', width: 1.5 } 
+                },
+                text: maquinasValues.map(v => v.toString()),
+                textposition: 'auto',
+                hovertext: maquinasKeys.map(k => `Línea: ${k}<br>Producción: ${porMaquina[k]} unidades`),
+                hoverinfo: 'text'
+            }], {
+                margin: { t: 10, l: 60, r: 20, b: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: 'Cantidad Producida', gridcolor: 'rgba(0,0,0,0.05)' },
+                xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
+                font: { family: 'Segoe UI, sans-serif' }
+            });
+
+            // ---- GRÁFICO 2: Top Productos Más Producidos (Dona) ----
+            const porProducto = {};
+            data.forEach(p => {
+                const key = p.producto_id || 'Sin producto';
+                porProducto[key] = (porProducto[key] || 0) + (p.cantidad_producida || 0);
+            });
+            
+            const sortedProductos = Object.entries(porProducto).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const prodLabels = sortedProductos.map(([k]) => k);
+            const prodValues = sortedProductos.map(([, v]) => v);
+            const coloresProd = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c', '#9b59b6'];
+
+            Plotly.newPlot('grafico-produccion-producto', [{
+                type: 'pie',
+                labels: prodLabels,
+                values: prodValues,
+                marker: { colors: coloresProd.slice(0, prodLabels.length) },
+                textinfo: 'label+percent',
+                hovertext: prodLabels.map(k => `Producto: ${k}<br>Cantidad: ${porProducto[k]} unidades`),
+                hoverinfo: 'text',
+                hole: 0.3
+            }], {
+                margin: { t: 10, l: 10, r: 10, b: 10 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { family: 'Segoe UI, sans-serif' },
+                showlegend: true,
+                legend: { orientation: 'h', y: -0.1 },
+                annotations: [{
+                    x: 0.5,
+                    y: 0.5,
+                    xref: 'paper',
+                    yref: 'paper',
+                    text: `TOP 5<br>Productos`,
+                    showarrow: false,
+                    font: { size: 14, color: '#2c3e50', weight: 'bold' }
+                }]
+            });
+
+            // ---- GRÁFICO 3: Producción por Periodo (Línea) ----
+            const porPeriodo = {};
+            data.forEach(p => {
+                if (p.fecha_inicio) {
+                    const fecha = new Date(p.fecha_inicio);
+                    const periodo = fecha.toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' });
+                    porPeriodo[periodo] = (porPeriodo[periodo] || 0) + (p.cantidad_producida || 0);
+                }
+            });
+            
+            const periodos = Object.keys(porPeriodo).sort((a,b) => new Date(a.split('/').reverse().join('/')) - new Date(b.split('/').reverse().join('/')));
+            const valoresPeriodo = periodos.map(p => porPeriodo[p]);
+
+            Plotly.newPlot('grafico-produccion-periodo', [{
+                type: 'scatter',
+                mode: 'lines+markers',
+                x: periodos,
+                y: valoresPeriodo,
+                marker: { color: '#f39c12', size: 10 },
+                line: { color: '#f39c12', width: 3 },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(243, 156, 18, 0.2)',
+                hovertext: periodos.map(p => `Fecha: ${p}<br>Producción: ${porPeriodo[p]} unidades`),
+                hoverinfo: 'text'
+            }], {
+                margin: { t: 10, l: 60, r: 20, b: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: 'Cantidad Producida', gridcolor: 'rgba(0,0,0,0.05)' },
+                xaxis: { title: 'Fecha', gridcolor: 'rgba(0,0,0,0.05)' },
+                font: { family: 'Segoe UI, sans-serif' }
+            });
+
+            // ---- GRÁFICO 4: Productos con más defectos (Barras horizontales) ----
+            const porProductoDefectos = {};
+            data.forEach(p => {
+                const key = p.producto_id || 'Sin producto';
+                const defectos = p.cantidad_defectuosa || 0;
+                porProductoDefectos[key] = (porProductoDefectos[key] || 0) + defectos;
+            });
+
+            const sortedDefectos = Object.entries(porProductoDefectos)
+                .filter(([, v]) => v > 0)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const defectosLabels = sortedDefectos.map(([k]) => k);
+            const defectosValues = sortedDefectos.map(([, v]) => v);
+
+            const coloresDefectos = defectosValues.map(v => {
+                const maxVal = Math.max(...defectosValues);
+                const ratio = v / maxVal;
+                if (ratio > 0.7) return '#e74c3c';
+                if (ratio > 0.4) return '#f39c12';
+                return '#3498db';
+            });
+
+            Plotly.newPlot('grafico-defectos-productos', [{
+                type: 'bar',
+                orientation: 'h',
+                x: defectosValues,
+                y: defectosLabels,
+                marker: { 
+                    color: coloresDefectos,
+                    line: { color: 'white', width: 1.5 }
+                },
+                text: defectosValues.map(v => v.toString()),
+                textposition: 'outside',
+                hovertext: defectosLabels.map((k, i) => 
+                    `Producto: ${k}<br>Defectos: ${defectosValues[i]}<br>Total producido: ${porProducto[k] || 0}`
+                ),
+                hoverinfo: 'text'
+            }], {
+                margin: { t: 10, l: 120, r: 80, b: 20 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                xaxis: { 
+                    title: 'Cantidad de Defectos', 
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    zeroline: true,
+                    zerolinecolor: 'rgba(0,0,0,0.1)'
+                },
+                yaxis: { 
+                    tickangle: 0,
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    automargin: true
+                },
+                font: { family: 'Segoe UI, sans-serif' },
+                annotations: [{
+                    x: 0.5,
+                    y: 1.05,
+                    xref: 'paper',
+                    yref: 'paper',
+                    text: '⚠️ Productos con mayor índice de defectos',
+                    showarrow: false,
+                    font: { size: 12, color: '#e74c3c' }
+                }]
+            });
+        }
+
+        async function eliminarProduccion(id) {
+            if (!confirm('¿Eliminar esta producción?')) return;
+            try { await apiRequest(`/produccion/${id}`, { method: 'DELETE' }); cargarProducciones(); }
+            catch (error) { alert('Error: ' + error.message); }
+        }
+
+        document.getElementById('form-produccion').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const data = {
+                produccion_id: 'PROD-' + Date.now(),
+                producto_id: document.getElementById('producto_id').value,
+                maquina_id: document.getElementById('maquina_id').value,
+                operador_id: document.getElementById('operador_id').value,
+                lote: document.getElementById('lote').value,
+                cantidad_producida: parseInt(document.getElementById('cantidad_producida').value),
+                cantidad_defectuosa: parseInt(document.getElementById('cantidad_defectuosa').value || 0),
+                tiempo_produccion: parseFloat(document.getElementById('tiempo_produccion').value),
+                temperatura: parseFloat(document.getElementById('temperatura').value || 0),
+                presion: parseFloat(document.getElementById('presion').value || 0),
+                velocidad: parseFloat(document.getElementById('velocidad').value || 0),
+                fecha_inicio: new Date().toISOString(),
+                fecha_fin: new Date().toISOString()
+            };
+            try {
+                await apiRequest('/produccion', { method: 'POST', body: JSON.stringify(data) });
+                document.getElementById('mensaje-form').innerHTML = `<div class="alert alert-success mt-2"><i class="fas fa-check-circle"></i> Producción registrada</div>`;
+                this.reset(); cargarProducciones();
+                setTimeout(() => document.getElementById('mensaje-form').innerHTML = '', 3000);
+            } catch (error) {
+                document.getElementById('mensaje-form').innerHTML = `<div class="alert alert-danger mt-2"><i class="fas fa-exclamation-circle"></i> Error: ${error.message}</div>`;
+            }
+        });
+
+        // ============================================
+        // INICIALIZACIÓN CON ACTUALIZACIÓN EN TIEMPO REAL
+        // ============================================
+        document.addEventListener('DOMContentLoaded', cargarProducciones);
+        setInterval(cargarProducciones, 15000);
+    </script>
+</body>
+</html>

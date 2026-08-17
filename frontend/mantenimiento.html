@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Mantenimiento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+    <style>
+        /* ============================================
+           ESTILOS GENERALES
+           ============================================ */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #1abc9c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0.5rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .navbar-brand i { margin-right: 10px; color: #f1c40f; }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.4rem 0.8rem !important;
+            border-radius: 20px;
+            transition: var(--transition);
+            margin: 0 2px;
+            font-size: 0.8rem;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background: rgba(255,255,255,0.2) !important;
+        }
+        .nav-link i { margin-right: 5px; }
+        .navbar-nav {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ============================================
+           TARJETAS
+           ============================================ */
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: white;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-weight: 600;
+        }
+        .card-body { padding: 1.5rem; }
+
+        /* ============================================
+           KPIs MEJORADOS CON INDICADORES
+           ============================================ */
+        .kpi-card {
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: default;
+            height: 100%;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .kpi-card .kpi-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 2.5rem;
+            opacity: 0.25;
+        }
+        .kpi-card .kpi-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        .kpi-card .kpi-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .kpi-card .kpi-change {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .kpi-card .kpi-change .change-up {
+            color: #2ecc71;
+        }
+        .kpi-card .kpi-change .change-down {
+            color: #e74c3c;
+        }
+        .kpi-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .kpi-green { background: linear-gradient(135deg, #27ae60, #229954); }
+        .kpi-yellow { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .kpi-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .kpi-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .kpi-teal { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+        /* ============================================
+           GRÁFICOS CON MODAL
+           ============================================ */
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        .chart-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .chart-container .chart-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .chart-container .chart-title i { margin-right: 8px; color: var(--secondary-color); }
+        .chart-container .chart-desc {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .chart-container .chart-desc strong { color: var(--primary-color); }
+        .chart-container .click-hint {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            opacity: 0.7;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .chart-container:hover .click-hint {
+            opacity: 1;
+        }
+
+        /* ============================================
+           MODAL DE GRÁFICOS
+           ============================================ */
+        .modal-grafico {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+        }
+        .modal-grafico .modal-titulo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .modal-grafico .modal-descripcion {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+        .modal-grafico .modal-contenido {
+            min-height: 500px;
+        }
+        .modal-grafico .modal-estadisticas {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .modal-grafico .modal-estadisticas .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .modal-grafico .modal-estadisticas .stat-item:last-child {
+            border-bottom: none;
+        }
+        .modal-grafico .modal-estadisticas .stat-label {
+            color: #7f8c8d;
+        }
+        .modal-grafico .modal-estadisticas .stat-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* ============================================
+           TABLAS
+           ============================================ */
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        .table thead th {
+            border: none;
+            padding: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .table tbody tr {
+            transition: var(--transition);
+        }
+        .table tbody tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .table tbody td {
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+        }
+
+        /* ============================================
+           BOTONES
+           ============================================ */
+        .btn {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
+        .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
+
+        /* ============================================
+           BADGES
+           ============================================ */
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           FORMULARIOS
+           ============================================ */
+        .form-control {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .form-label {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        .form-select {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+        }
+
+        /* ============================================
+           ANIMACIONES
+           ============================================ */
+        @keyframes pulse-update {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .kpi-update {
+            animation: pulse-update 0.5s ease;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+            .kpi-card .kpi-number { font-size: 1.5rem; }
+            .kpi-card .kpi-icon { font-size: 2rem; }
+            .btn { padding: 0.4rem 1rem; font-size: 0.9rem; }
+            .modal-grafico .modal-contenido { min-height: 300px; }
+        }
+        @media (max-width: 576px) {
+            .kpi-card { padding: 1rem; }
+            .kpi-card .kpi-number { font-size: 1.2rem; }
+            .table-container { padding: 0.5rem; }
+            .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
+            .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
+            .modal-grafico .modal-contenido { min-height: 250px; }
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated { animation: fadeInUp 0.6s ease; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .alert-warning { background: #fff3cd; border-color: #ffecb5; color: #856404; }
+        .alert-info { background: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    NAVBAR CON 8 MÓDULOS - UNIFICADO
+    ============================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-industry"></i> SISTEMA PRODUCCIÓN
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/materia-prima"><i class="fas fa-cubes"></i> Materia Prima</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/maquinas"><i class="fas fa-microchip"></i> Máquinas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/produccion"><i class="fas fa-industry"></i> Producción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/calidad"><i class="fas fa-check-circle"></i> Calidad</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/paros"><i class="fas fa-stop-circle"></i> Paros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reportes"><i class="fas fa-file-alt"></i> Reportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    CONTENIDO DE LA PÁGINA
+    ============================================ -->
+    <div class="container mt-4">
+
+        <!-- TÍTULO -->
+        <div class="row">
+            <div class="col-12 text-center animated">
+                <h1 class="display-4 fw-bold text-primary">
+                    <i class="fas fa-tools text-secondary"></i> Gestión de Mantenimiento
+                </h1>
+                <p class="lead text-muted">Programación y seguimiento de mantenimientos preventivos y correctivos en tiempo real</p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <!-- KPIs CON INDICADORES DE CAMBIO -->
+        <div class="row mt-4">
+            <div class="col-md-3 col-6 mb-3 animated delay-1">
+                <div class="kpi-card kpi-blue">
+                    <i class="fas fa-clipboard-list kpi-icon"></i>
+                    <div class="kpi-label">Total Mantenimientos</div>
+                    <div class="kpi-number" id="total-mantenimientos">-</div>
+                    <div class="kpi-change">
+                        <span id="total-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="total-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-2">
+                <div class="kpi-card kpi-green">
+                    <i class="fas fa-check-circle kpi-icon"></i>
+                    <div class="kpi-label">Completados</div>
+                    <div class="kpi-number" id="mantenimientos-completados">-</div>
+                    <div class="kpi-change">
+                        <span id="completados-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="completados-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-3">
+                <div class="kpi-card kpi-yellow">
+                    <i class="fas fa-clock kpi-icon"></i>
+                    <div class="kpi-label">En Progreso</div>
+                    <div class="kpi-number" id="mantenimientos-progreso">-</div>
+                    <div class="kpi-change">
+                        <span id="progreso-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="progreso-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3 animated delay-4">
+                <div class="kpi-card kpi-red">
+                    <i class="fas fa-exclamation-triangle kpi-icon"></i>
+                    <div class="kpi-label">Pendientes</div>
+                    <div class="kpi-number" id="mantenimientos-pendientes">-</div>
+                    <div class="kpi-change">
+                        <span id="pendientes-cambio-icon"><i class="fas fa-minus"></i></span>
+                        <span id="pendientes-cambio-text">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS DE MANTENIMIENTO CON MODAL -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-mantenimientos-maquina', 'Mantenimientos por Máquina', 'Esta gráfica de barras muestra la cantidad de mantenimientos realizados por cada máquina. Permite identificar qué equipos requieren mayor atención y recursos.')">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-bar text-primary"></i> Mantenimientos por Máquina
+                    </div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-mantenimientos-maquina" style="height: 280px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-tipos-mantenimiento', 'Distribución por Tipo de Mantenimiento', 'Esta gráfica de dona muestra la distribución de los mantenimientos por tipo: Preventivo, Correctivo, Predictivo y Emergencia. Permite visualizar qué tipo de mantenimiento es más frecuente.')">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-pie text-success"></i> Distribución por Tipo
+                    </div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <div id="grafico-tipos-mantenimiento" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULARIO PARA NUEVO MANTENIMIENTO CON SELECT DE MÁQUINAS -->
+        <div class="row mt-4">
+            <div class="col-md-4 animated">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-plus-circle"></i> Registrar Mantenimiento
+                    </div>
+                    <div class="card-body">
+                        <form id="form-mantenimiento">
+                            <div class="mb-3">
+                                <label class="form-label">Máquina <span class="text-danger">*</span></label>
+                                <select class="form-select" id="maquina_id" required>
+                                    <option value="">Seleccionar máquina...</option>
+                                    <!-- Opciones cargadas dinámicamente -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Mantenimiento <span class="text-danger">*</span></label>
+                                <select class="form-select" id="tipo" required>
+                                    <option value="Preventivo">Preventivo</option>
+                                    <option value="Correctivo">Correctivo</option>
+                                    <option value="Predictivo">Predictivo</option>
+                                    <option value="Emergencia">Emergencia</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción del mantenimiento" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Técnico <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="tecnico" placeholder="Nombre del técnico" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Fecha Inicio <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" class="form-control" id="fecha_inicio" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Fecha Fin</label>
+                                    <input type="datetime-local" class="form-control" id="fecha_fin">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Duración (horas)</label>
+                                    <input type="number" class="form-control" id="duracion" placeholder="2.5" step="0.5">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Costo ($)</label>
+                                    <input type="number" class="form-control" id="costo" placeholder="350.00" step="0.01">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="completado">
+                                    <option value="false">Pendiente</option>
+                                    <option value="true">Completado</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-save"></i> Registrar Mantenimiento
+                            </button>
+                        </form>
+                        <div id="mensaje-form" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA DE MANTENIMIENTOS -->
+            <div class="col-md-8 animated">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i> Historial de Mantenimientos
+                        <button class="btn btn-sm btn-light float-end" onclick="cargarMantenimientos()">
+                            <i class="fas fa-refresh"></i> Actualizar
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-hover" id="tabla-mantenimientos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Máquina</th>
+                                        <th>Tipo</th>
+                                        <th>Descripción</th>
+                                        <th>Técnico</th>
+                                        <th>Duración</th>
+                                        <th>Costo</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-mantenimientos">
+                                    <tr>
+                                        <td colspan="9" class="text-center text-muted">
+                                            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================
+    MODAL PARA GRÁFICOS COMPLETOS
+    ============================================ -->
+    <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title" id="modalGraficoTitulo"><i class="fas fa-chart-bar"></i> Gráfica</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-grafico">
+                        <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
+                        <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
+                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
+                            <!-- Estadísticas se generan dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="exportarGraficoModal()">
+                        <i class="fas fa-download"></i> Exportar como PNG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ============================================
+        // CONFIGURACIÓN DE LA API
+        // ============================================
+        const API_BASE = '/api';
+        let valoresAnteriores = {};
+        let datosMaquinas = [];
+
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = {
+                headers: { 'Content-Type': 'application/json', ...options.headers },
+                ...options
+            };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || error.message || 'Error en la petición');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // ============================================
+        // ACTUALIZAR INDICADOR DE CAMBIO
+        // ============================================
+        function actualizarIndicadorCambio(idIcon, idText, cambio) {
+            const iconElement = document.getElementById(idIcon);
+            const textElement = document.getElementById(idText);
+            
+            if (!iconElement || !textElement) return;
+            
+            if (cambio > 0) {
+                iconElement.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                iconElement.className = 'change-up';
+                textElement.textContent = `+${cambio.toFixed(1)}%`;
+                textElement.className = 'change-up';
+            } else if (cambio < 0) {
+                iconElement.innerHTML = '<i class="fas fa-arrow-down"></i>';
+                iconElement.className = 'change-down';
+                textElement.textContent = `${cambio.toFixed(1)}%`;
+                textElement.className = 'change-down';
+            } else {
+                iconElement.innerHTML = '<i class="fas fa-minus"></i>';
+                iconElement.className = '';
+                textElement.textContent = 'Sin cambios';
+                textElement.className = '';
+            }
+        }
+
+        // ============================================
+        // ABRIR MODAL CON GRÁFICA COMPLETA
+        // ============================================
+        function abrirModalGrafico(graficoId, titulo, descripcion) {
+            const modal = new bootstrap.Modal(document.getElementById('modalGrafico'));
+            document.getElementById('modalGraficoTitulo').textContent = '📊 ' + titulo;
+            document.getElementById('modalGraficoDescripcion').textContent = descripcion;
+            
+            const container = document.getElementById('modalGraficoContenido');
+            
+            const originalDiv = document.getElementById(graficoId);
+            if (originalDiv && originalDiv.data) {
+                const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout));
+                layoutModificado.height = 500;
+                layoutModificado.margin = { t: 40, l: 80, r: 40, b: 80 };
+                layoutModificado.font = { size: 14 };
+                
+                Plotly.newPlot(container, originalDiv.data, layoutModificado);
+                generarEstadisticasModal(graficoId);
+            } else {
+                container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>';
+            }
+            
+            modal.show();
+        }
+
+        // ============================================
+        // GENERAR ESTADÍSTICAS PARA EL MODAL
+        // ============================================
+        function generarEstadisticasModal(graficoId) {
+            const container = document.getElementById('modalGraficoEstadisticas');
+            const data = window.datosMantenimientos || [];
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted">No hay datos para mostrar estadísticas</div>';
+                return;
+            }
+
+            let html = '<h6><i class="fas fa-chart-simple text-primary"></i> Estadísticas del análisis:</h6>';
+            
+            if (graficoId === 'grafico-mantenimientos-maquina') {
+                const porMaquina = {};
+                data.forEach(item => {
+                    if (item.maquina_id) {
+                        porMaquina[item.maquina_id] = (porMaquina[item.maquina_id] || 0) + 1;
+                    }
+                });
+                const total = data.length;
+                const maquinasConMant = Object.keys(porMaquina).length;
+                const maxMant = Object.entries(porMaquina).sort((a, b) => b[1] - a[1])[0];
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-4 col-6"><span class="stat-label">Total mantenimientos:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Máquinas con mantenimiento:</span><br><span class="stat-value">${maquinasConMant}</span></div>
+                        <div class="col-md-4"><span class="stat-label">Máquina con más mantenimientos:</span><br><span class="stat-value">${maxMant ? `${maxMant[0]} (${maxMant[1]})` : '-'}</span></div>
+                    </div>
+                `;
+            } else if (graficoId === 'grafico-tipos-mantenimiento') {
+                const porTipo = {};
+                data.forEach(item => {
+                    const tipo = item.tipo || 'Sin especificar';
+                    porTipo[tipo] = (porTipo[tipo] || 0) + 1;
+                });
+                const total = data.length;
+                const tipoPrincipal = Object.entries(porTipo).sort((a, b) => b[1] - a[1])[0];
+                
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-4 col-6"><span class="stat-label">Total mantenimientos:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Tipos de mantenimiento:</span><br><span class="stat-value">${Object.keys(porTipo).length}</span></div>
+                        <div class="col-md-4"><span class="stat-label">Tipo más común:</span><br><span class="stat-value">${tipoPrincipal ? `${tipoPrincipal[0]} (${tipoPrincipal[1]})` : '-'}</span></div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // ============================================
+        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
+        // ============================================
+        function exportarGraficoModal() {
+            const container = document.getElementById('modalGraficoContenido');
+            Plotly.downloadImage(container, {
+                filename: 'grafico_analisis_mantenimiento',
+                format: 'png',
+                width: 1200,
+                height: 800
+            });
+        }
+
+        // ============================================
+        // CARGAR MÁQUINAS PARA EL SELECT
+        // ============================================
+        async function cargarMaquinasSelect() {
+            try {
+                const result = await apiRequest('/maquinas?limit=100');
+                datosMaquinas = result.data || [];
+                const select = document.getElementById('maquina_id');
+                
+                // Limpiar opciones excepto la primera
+                while (select.options.length > 1) {
+                    select.remove(1);
+                }
+                
+                datosMaquinas.forEach(m => {
+                    const option = document.createElement('option');
+                    option.value = m.maquina_id || m._id;
+                    option.textContent = `${m.nombre || m.maquina_id} (${m.tipo || 'Sin tipo'})`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error cargando máquinas para select:', error);
+            }
+        }
+
+        // ============================================
+        // CARGAR MANTENIMIENTOS
+        // ============================================
+        async function cargarMantenimientos() {
+            const tbody = document.getElementById('tbody-mantenimientos');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9" class="text-center text-muted">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const result = await apiRequest('/mantenimiento?limit=100');
+                const data = result.data || [];
+                window.datosMantenimientos = data;
+
+                // Calcular KPIs
+                const total = data.length;
+                const completados = data.filter(m => m.completado === true).length;
+                const enProgreso = data.filter(m => m.completado === false && (m.fecha_fin === null || m.fecha_fin === undefined)).length;
+                const pendientes = data.filter(m => m.completado === false && m.fecha_fin !== null && m.fecha_fin !== undefined).length;
+
+                // Guardar valores anteriores
+                const anterior = { ...valoresAnteriores };
+
+                // Calcular cambios porcentuales
+                const cambioTotal = anterior.total ? ((total - anterior.total) / anterior.total * 100) : 0;
+                const cambioCompletados = anterior.completados ? ((completados - anterior.completados) / anterior.completados * 100) : 0;
+                const cambioProgreso = anterior.enProgreso ? ((enProgreso - anterior.enProgreso) / anterior.enProgreso * 100) : 0;
+                const cambioPendientes = anterior.pendientes ? ((pendientes - anterior.pendientes) / anterior.pendientes * 100) : 0;
+
+                // Actualizar KPIs
+                document.getElementById('total-mantenimientos').textContent = total;
+                document.getElementById('mantenimientos-completados').textContent = completados;
+                document.getElementById('mantenimientos-progreso').textContent = enProgreso;
+                document.getElementById('mantenimientos-pendientes').textContent = pendientes;
+
+                // Actualizar indicadores de cambio
+                actualizarIndicadorCambio('total-cambio-icon', 'total-cambio-text', cambioTotal);
+                actualizarIndicadorCambio('completados-cambio-icon', 'completados-cambio-text', cambioCompletados);
+                actualizarIndicadorCambio('progreso-cambio-icon', 'progreso-cambio-text', cambioProgreso);
+                actualizarIndicadorCambio('pendientes-cambio-icon', 'pendientes-cambio-text', cambioPendientes);
+
+                // Guardar valores actuales
+                valoresAnteriores = {
+                    total,
+                    completados,
+                    enProgreso,
+                    pendientes
+                };
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center text-muted">
+                                <i class="fas fa-inbox"></i> No hay mantenimientos registrados
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                tbody.innerHTML = data.map(item => {
+                    const estado = item.completado ? 'Completado' : (item.fecha_fin ? 'Pendiente' : 'En Progreso');
+                    const badgeClass = item.completado ? 'bg-success' : (item.fecha_fin ? 'bg-warning' : 'bg-info');
+                    const tipoColors = {
+                        'Preventivo': 'primary',
+                        'Correctivo': 'danger',
+                        'Predictivo': 'info',
+                        'Emergencia': 'warning'
+                    };
+                    return `
+                        <tr>
+                            <td><span class="badge bg-primary">${item.mantenimiento_id || item._id}</span></td>
+                            <td><strong>${item.maquina_id || '-'}</strong></td>
+                            <td><span class="badge bg-${tipoColors[item.tipo] || 'secondary'}">${item.tipo || '-'}</span></td>
+                            <td>${item.descripcion || '-'}</td>
+                            <td>${item.tecnico || '-'}</td>
+                            <td>${item.duracion || '-'} h</td>
+                            <td>$${item.costo?.toFixed(2) || '0.00'}</td>
+                            <td><span class="badge ${badgeClass}">${estado}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" onclick="eliminarMantenimiento('${item.mantenimiento_id || item._id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Cargar gráficos
+                await cargarGraficosMantenimiento(data);
+
+            } catch (error) {
+                console.error('Error cargando mantenimientos:', error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-danger">
+                            <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // ============================================
+        // ELIMINAR MANTENIMIENTO
+        // ============================================
+        async function eliminarMantenimiento(id) {
+            if (!confirm('¿Estás seguro de eliminar este mantenimiento?')) return;
+            try {
+                await apiRequest(`/mantenimiento/${id}`, { method: 'DELETE' });
+                cargarMantenimientos();
+            } catch (error) {
+                alert('Error al eliminar: ' + error.message);
+            }
+        }
+
+        // ============================================
+        // GRÁFICOS DE MANTENIMIENTO
+        // ============================================
+        async function cargarGraficosMantenimiento(data) {
+            if (data.length === 0) {
+                mostrarMensajeGraficos('No hay datos para mostrar gráficos');
+                return;
+            }
+
+            // Gráfico 1: Mantenimientos por Máquina
+            const porMaquina = {};
+            data.forEach(item => {
+                if (item.maquina_id) {
+                    porMaquina[item.maquina_id] = (porMaquina[item.maquina_id] || 0) + 1;
+                }
+            });
+
+            const maquinasKeys = Object.keys(porMaquina);
+            const maquinasValues = Object.values(porMaquina);
+            
+            // Ordenar de mayor a menor
+            const sorted = maquinasKeys.map((k, i) => ({ key: k, value: maquinasValues[i] }))
+                .sort((a, b) => b.value - a.value);
+            const sortedKeys = sorted.map(s => s.key);
+            const sortedValues = sorted.map(s => s.value);
+
+            Plotly.newPlot('grafico-mantenimientos-maquina', [
+                {
+                    type: 'bar',
+                    x: sortedKeys,
+                    y: sortedValues,
+                    marker: {
+                        color: sortedValues.map(v => v > 5 ? '#e74c3c' : v > 3 ? '#f39c12' : '#3498db'),
+                        line: { color: 'white', width: 1.5 }
+                    },
+                    text: sortedValues.map(v => v.toString()),
+                    textposition: 'auto',
+                    hovertext: sortedKeys.map((k, i) => 
+                        `Máquina: ${k}\nMantenimientos: ${sortedValues[i]}\n${sortedValues[i] > 5 ? '🔴 Alta frecuencia' : sortedValues[i] > 3 ? '🟡 Frecuencia media' : '🟢 Baja frecuencia'}`
+                    ),
+                    hoverinfo: 'text'
+                }
+            ], {
+                margin: { t: 10, l: 50, r: 20, b: 40 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: 'Cantidad de Mantenimientos', gridcolor: 'rgba(0,0,0,0.05)' },
+                xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
+                font: { family: 'Segoe UI, sans-serif' }
+            });
+
+            // Gráfico 2: Distribución por Tipo
+            const porTipo = {};
+            data.forEach(item => {
+                const tipo = item.tipo || 'Sin especificar';
+                porTipo[tipo] = (porTipo[tipo] || 0) + 1;
+            });
+
+            const coloresTipos = {
+                'Preventivo': '#3498db',
+                'Correctivo': '#e74c3c',
+                'Predictivo': '#1abc9c',
+                'Emergencia': '#f39c12',
+                'Sin especificar': '#95a5a6'
+            };
+
+            const tiposKeys = Object.keys(porTipo);
+            const tiposValues = Object.values(porTipo);
+            const colores = tiposKeys.map(k => coloresTipos[k] || '#95a5a6');
+
+            Plotly.newPlot('grafico-tipos-mantenimiento', [
+                {
+                    type: 'pie',
+                    labels: tiposKeys,
+                    values: tiposValues,
+                    marker: { colors: colores },
+                    textinfo: 'label+percent',
+                    hovertext: tiposKeys.map((k, i) => 
+                        `Tipo: ${k}\nCantidad: ${tiposValues[i]}\n${(tiposValues[i] / tiposValues.reduce((a, b) => a + b, 0) * 100).toFixed(1)}% del total`
+                    ),
+                    hoverinfo: 'text',
+                    hole: 0.3
+                }
+            ], {
+                margin: { t: 10, l: 10, r: 10, b: 10 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { family: 'Segoe UI, sans-serif' },
+                showlegend: true,
+                legend: { orientation: 'h', y: -0.1 },
+                annotations: [{
+                    x: 0.5,
+                    y: 0.5,
+                    xref: 'paper',
+                    yref: 'paper',
+                    text: `Mantenimientos`,
+                    showarrow: false,
+                    font: { size: 14, color: '#2c3e50', weight: 'bold' }
+                }]
+            });
+        }
+
+        function mostrarMensajeGraficos(mensaje) {
+            const contenedores = ['grafico-mantenimientos-maquina', 'grafico-tipos-mantenimiento'];
+            contenedores.forEach(id => {
+                document.getElementById(id).innerHTML = `
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-info-circle fa-3x mb-3"></i>
+                        <p>${mensaje}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // ============================================
+        // FORMULARIO - NUEVO MANTENIMIENTO
+        // ============================================
+        document.getElementById('form-mantenimiento').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const fechaInicio = document.getElementById('fecha_inicio').value;
+            const fechaFin = document.getElementById('fecha_fin').value || null;
+
+            if (!fechaInicio) {
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-danger mt-2">
+                        <i class="fas fa-exclamation-circle"></i> Por favor selecciona una fecha de inicio.
+                    </div>
+                `;
+                return;
+            }
+
+            const data = {
+                mantenimiento_id: 'MANT-' + Date.now(),
+                maquina_id: document.getElementById('maquina_id').value,
+                tipo: document.getElementById('tipo').value,
+                descripcion: document.getElementById('descripcion').value,
+                tecnico: document.getElementById('tecnico').value,
+                fecha_inicio: new Date(fechaInicio).toISOString(),
+                fecha_fin: fechaFin ? new Date(fechaFin).toISOString() : null,
+                duracion: parseFloat(document.getElementById('duracion').value) || null,
+                costo: parseFloat(document.getElementById('costo').value) || 0,
+                completado: document.getElementById('completado').value === 'true',
+                piezas_reemplazadas: [],
+                observaciones: null
+            };
+
+            try {
+                const result = await apiRequest('/mantenimiento', { method: 'POST', body: JSON.stringify(data) });
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-success mt-2">
+                        <i class="fas fa-check-circle"></i> Mantenimiento registrado exitosamente
+                    </div>
+                `;
+                this.reset();
+                // Restaurar la selección de máquinas en el select
+                await cargarMaquinasSelect();
+                cargarMantenimientos();
+                setTimeout(() => {
+                    document.getElementById('mensaje-form').innerHTML = '';
+                }, 3000);
+            } catch (error) {
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-danger mt-2">
+                        <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                    </div>
+                `;
+            }
+        });
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async function() {
+            await cargarMaquinasSelect();
+            cargarMantenimientos();
+        });
+        setInterval(cargarMantenimientos, 15000);
+    </script>
+</body>
+</html>
