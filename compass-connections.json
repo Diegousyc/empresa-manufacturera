@@ -1,0 +1,24 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "a808dc78-ce07-4c02-aa6d-5f1c7ab552d2",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1787082631377"
+        }
+      },
+      "favorite": {
+        "name": "produccion"
+      },
+      "savedConnectionType": "favorite",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/",
+        "oidc": {}
+      }
+    }
+  ]
+}
