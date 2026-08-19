@@ -1,0 +1,308 @@
+# 🏭 Sistema de Producción Industrial
+
+<p align="center">
+  <strong>Sistema de gestión y análisis de producción industrial</strong><br>
+  MongoDB • Python • Backend • Dashboard
+</p>
+
+---
+
+## 📌 1. Base de datos
+
+El sistema utiliza **MongoDB** como sistema de gestión de base de datos.
+
+La configuración principal de la base de datos es la siguiente:
+
+| Configuración          | Valor                   |
+| ---------------------- | ----------------------- |
+| 🗄️ Motor              | **MongoDB**             |
+| 📊 Base de datos       | `produccion_industrial` |
+| 📁 Colección principal | `produccion`            |
+
+La base de datos contiene diferentes colecciones relacionadas con la información del sistema:
+
+* `calidad`
+* `mantenimientos`
+* `maquinas`
+* `materia_prima`
+* `operadores`
+* `paros`
+* `producciones`
+* `productos`
+
+> ⚠️ **Importante:** La colección principal que debe utilizar el sistema se debe llamar exactamente `produccion`.
+
+---
+
+## 📂 2. Archivos de las colecciones
+
+Dentro del repositorio de GitHub se dejarán respaldadas las colecciones de la base de datos.
+
+Los datos podrán encontrarse en los siguientes formatos:
+
+* `.json`
+* `.csv`
+
+Estos archivos funcionan como **respaldo de la información utilizada por el sistema** y permiten recuperar los datos en caso de que la conexión con MongoDB presente algún problema.
+
+### 📁 Ejemplo de estructura
+
+```text
+database/
+├── calidad.json
+├── mantenimientos.json
+├── maquinas.json
+├── materia_prima.json
+├── operadores.json
+├── paros.json
+├── produccion.json
+├── producciones.json
+└── productos.json
+```
+
+---
+
+## 🍃 3. Configuración de MongoDB
+
+Antes de ejecutar el sistema se debe verificar que **MongoDB** esté disponible y que la conexión esté configurada correctamente en el proyecto.
+
+La base de datos debe utilizar el siguiente nombre:
+
+```text
+produccion_industrial
+```
+
+Y la colección principal:
+
+```text
+produccion
+```
+
+La cadena de conexión dependerá de la configuración utilizada por el proyecto.
+
+### 💻 Ejemplo de conexión local
+
+```text
+mongodb://localhost:27017/produccion_industrial
+```
+
+> 💡 Si se utiliza **MongoDB Atlas**, se deberá colocar la cadena de conexión correspondiente proporcionada por Atlas en la configuración del proyecto.
+
+---
+
+## 🔄 4. Migración y carga de datos
+
+Para conectar la base de datos con el sistema es necesario ejecutar el proceso de **migración/carga de datos**.
+
+Desde **Visual Studio Code** se debe abrir una terminal y ubicarse en la carpeta principal del proyecto.
+
+Si el proyecto cuenta con un archivo de migración llamado `migrate.py`, ejecutar:
+
+```bash
+python migrate.py
+```
+
+Este proceso se encarga de **crear/cargar las colecciones necesarias dentro de MongoDB** a partir de los archivos JSON o CSV incluidos en el proyecto.
+
+Una vez realizada correctamente la migración, las colecciones estarán disponibles para que el backend pueda consultarlas.
+
+### ⚠️ En caso de que la migración presente algún problema
+
+Si la conexión o la migración de MongoDB no funciona correctamente, dentro de este repositorio se encuentran los **archivos de respaldo de las colecciones en formato JSON/CSV**.
+
+Estos archivos pueden utilizarse para volver a cargar manualmente la información en la base de datos:
+
+```text
+produccion_industrial
+```
+
+---
+
+## 🚀 5. Ejecución del sistema
+
+Para iniciar el sistema se debe utilizar **Visual Studio Code**.
+
+Primero se debe abrir una terminal y entrar a la carpeta `backend`:
+
+```bash
+cd backend
+```
+
+Después se ejecuta el archivo principal del sistema:
+
+```bash
+python main.py
+```
+
+El archivo `main.py` es el encargado de **iniciar el backend y poner en funcionamiento el sistema**.
+
+---
+
+## 🌐 6. Inicio correcto del sistema
+
+Después de ejecutar:
+
+```bash
+python main.py
+```
+
+el sistema realizará el proceso de:
+
+1. 🔌 Inicialización del backend.
+2. 🍃 Conexión con MongoDB.
+3. 📂 Carga de las colecciones.
+4. ✅ Validación de los datos.
+5. 🚀 Inicio del sistema.
+6. 🌐 Generación de la dirección de acceso.
+
+Si todo funciona correctamente, en la terminal se deberá mostrar un mensaje indicando que **las colecciones fueron cargadas correctamente**.
+
+Posteriormente, la terminal mostrará una **dirección local (URL)** para acceder al sistema desde el navegador.
+
+### 🌐 Ejemplo
+
+```text
+✓ Colecciones cargadas correctamente
+✓ Conexión con MongoDB establecida
+✓ Sistema iniciado correctamente
+
+➜ Dashboard disponible en:
+http://127.0.0.1:8000
+```
+
+> 💡 **Para acceder al sistema:** copia la dirección que aparece en la terminal y pégala en tu navegador. La dirección puede variar dependiendo de la configuración del proyecto.
+
+Al ingresar a la dirección indicada se mostrará el **Dashboard Principal**, desde donde se podrán consultar y analizar los datos de producción industrial.
+
+---
+
+## 🔁 Flujo de ejecución
+
+```text
+┌──────────────────────────────┐
+│      Visual Studio Code      │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│        Abrir Terminal        │
+└──────────────┬───────────────┘
+               ↓
+        cd backend
+               ↓
+┌──────────────────────────────┐
+│       python main.py         │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│     Carga de colecciones     │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│    Conexión con MongoDB      │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│     Sistema iniciado         │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│  URL para acceder al sistema │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│     🌐 Navegador Web         │
+│   Dashboard Principal        │
+└──────────────────────────────┘
+```
+
+---
+
+## 📁 7. Estructura general del proyecto
+
+La estructura principal del proyecto se encuentra organizada de la siguiente manera:
+
+```text
+Proyecto/
+│
+├── 📂 backend/
+│   └── 🐍 main.py
+│
+├── 📂 database/
+│   ├── 📄 calidad.json
+│   ├── 📄 mantenimientos.json
+│   ├── 📄 maquinas.json
+│   ├── 📄 materia_prima.json
+│   ├── 📄 operadores.json
+│   ├── 📄 paros.json
+│   ├── 📄 produccion.json
+│   ├── 📄 producciones.json
+│   └── 📄 productos.json
+│
+└── 📄 README.md
+```
+
+---
+
+## 🛠️ 8. Requisitos
+
+Para ejecutar correctamente el sistema se requiere:
+
+* [ ] 💻 Visual Studio Code
+* [ ] 🐍 Python instalado
+* [ ] 🍃 MongoDB o MongoDB Atlas
+* [ ] 📦 Dependencias del proyecto instaladas
+* [ ] 🌐 Acceso al repositorio de GitHub
+* [ ] 📄 Archivos JSON/CSV de respaldo de las colecciones
+
+---
+
+## ⚡ 9. Resumen de comandos
+
+### 🔄 Migración
+
+```bash
+python migrate.py
+```
+
+### 📂 Entrar al backend
+
+```bash
+cd backend
+```
+
+### 🚀 Iniciar el sistema
+
+```bash
+python main.py
+```
+
+Después de ejecutar `main.py`, el sistema deberá realizar la **carga de las colecciones**, establecer la conexión con MongoDB e iniciar el backend.
+
+Finalmente, la terminal mostrará la **dirección local (URL) del sistema**, la cual deberá abrirse en un navegador para acceder al **Dashboard Principal**.
+
+---
+
+## ✅ Sistema listo
+
+```text
+MongoDB
+   ↓
+produccion_industrial
+   ↓
+Colecciones
+   ↓
+Migración
+   ↓
+Backend
+   ↓
+python main.py
+   ↓
+URL de acceso
+   ↓
+🌐 Dashboard Principal
+```
+
+<p align="center">
+  <strong>🏭 Sistema de Producción Industrial</strong><br>
+  <sub>Gestión • Monitoreo • Análisis de datos</sub>
+</p>
