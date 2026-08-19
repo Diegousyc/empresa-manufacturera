@@ -1,0 +1,570 @@
+[{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3192"
+  },
+  "calidad_id": "CAL-001",
+  "produccion_id": "PROD-0001",
+  "producto_id": "PROD-004",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 98.36,
+  "defectos": 0,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3193"
+  },
+  "calidad_id": "CAL-002",
+  "produccion_id": "PROD-0002",
+  "producto_id": "PROD-004",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 96.95,
+  "defectos": 0,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3194"
+  },
+  "calidad_id": "CAL-003",
+  "produccion_id": "PROD-0003",
+  "producto_id": "PROD-005",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 91.13,
+  "defectos": 4,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3195"
+  },
+  "calidad_id": "CAL-004",
+  "produccion_id": "PROD-0004",
+  "producto_id": "PROD-002",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 90.95,
+  "defectos": 5,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3196"
+  },
+  "calidad_id": "CAL-005",
+  "produccion_id": "PROD-0005",
+  "producto_id": "PROD-005",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 89.17,
+  "defectos": 3,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3197"
+  },
+  "calidad_id": "CAL-006",
+  "produccion_id": "PROD-0006",
+  "producto_id": "PROD-005",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 97.33,
+  "defectos": 1,
+  "defectos_tipo": "Montaje",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3198"
+  },
+  "calidad_id": "CAL-007",
+  "produccion_id": "PROD-0007",
+  "producto_id": "PROD-004",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 95.5,
+  "defectos": 3,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3199"
+  },
+  "calidad_id": "CAL-008",
+  "produccion_id": "PROD-0008",
+  "producto_id": "PROD-005",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 87.29,
+  "defectos": 5,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b319a"
+  },
+  "calidad_id": "CAL-009",
+  "produccion_id": "PROD-0009",
+  "producto_id": "PROD-004",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 90.28,
+  "defectos": 1,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b319b"
+  },
+  "calidad_id": "CAL-010",
+  "produccion_id": "PROD-0010",
+  "producto_id": "PROD-003",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-08-14T03:27:38.459604",
+  "calidad": 89.76,
+  "defectos": 1,
+  "defectos_tipo": "Dimensional",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce7d"
+  },
+  "calidad_id": "CAL-001",
+  "produccion_id": "PROD-0001",
+  "producto_id": "PROD-001",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-01-15T09:00:00",
+  "calidad": 98.5,
+  "defectos": 3,
+  "defectos_tipo": "Dimensional",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce7e"
+  },
+  "calidad_id": "CAL-002",
+  "produccion_id": "PROD-0002",
+  "producto_id": "PROD-002",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-01-16T11:30:00",
+  "calidad": 96,
+  "defectos": 5,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce7f"
+  },
+  "calidad_id": "CAL-003",
+  "produccion_id": "PROD-0003",
+  "producto_id": "PROD-003",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-01-17T12:00:00",
+  "calidad": 97.5,
+  "defectos": 2,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce80"
+  },
+  "calidad_id": "CAL-004",
+  "produccion_id": "PROD-0004",
+  "producto_id": "PROD-004",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-01-18T12:00:00",
+  "calidad": 96,
+  "defectos": 8,
+  "defectos_tipo": "Montaje",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce81"
+  },
+  "calidad_id": "CAL-005",
+  "produccion_id": "PROD-0005",
+  "producto_id": "PROD-005",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-01-19T14:30:00",
+  "calidad": 97,
+  "defectos": 6,
+  "defectos_tipo": "Funcional",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce82"
+  },
+  "calidad_id": "CAL-006",
+  "produccion_id": "PROD-0006",
+  "producto_id": "PROD-006",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-01-20T15:30:00",
+  "calidad": 95.5,
+  "defectos": 4,
+  "defectos_tipo": "Estético",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce83"
+  },
+  "calidad_id": "CAL-007",
+  "produccion_id": "PROD-0007",
+  "producto_id": "PROD-007",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-01-21T10:30:00",
+  "calidad": 98.5,
+  "defectos": 1,
+  "defectos_tipo": "Ninguno",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce84"
+  },
+  "calidad_id": "CAL-008",
+  "produccion_id": "PROD-0008",
+  "producto_id": "PROD-008",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-01-22T11:00:00",
+  "calidad": 98,
+  "defectos": 2,
+  "defectos_tipo": "Dimensional",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce85"
+  },
+  "calidad_id": "CAL-009",
+  "produccion_id": "PROD-0009",
+  "producto_id": "PROD-009",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-01-23T12:30:00",
+  "calidad": 94,
+  "defectos": 7,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": false,
+  "acciones_correctivas": [
+    "Revisar proceso de mezcla"
+  ],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce86"
+  },
+  "calidad_id": "CAL-010",
+  "produccion_id": "PROD-0010",
+  "producto_id": "PROD-010",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-01-24T12:30:00",
+  "calidad": 96,
+  "defectos": 3,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce87"
+  },
+  "calidad_id": "CAL-011",
+  "produccion_id": "PROD-0011",
+  "producto_id": "PROD-011",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-01-25T11:00:00",
+  "calidad": 94,
+  "defectos": 10,
+  "defectos_tipo": "Montaje",
+  "especificaciones_cumplidas": false,
+  "acciones_correctivas": [
+    "Revisar ensamble"
+  ],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce88"
+  },
+  "calidad_id": "CAL-012",
+  "produccion_id": "PROD-0012",
+  "producto_id": "PROD-012",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-01-26T10:30:00",
+  "calidad": 97,
+  "defectos": 4,
+  "defectos_tipo": "Funcional",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce89"
+  },
+  "calidad_id": "CAL-013",
+  "produccion_id": "PROD-0013",
+  "producto_id": "PROD-013",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-01-27T12:30:00",
+  "calidad": 100,
+  "defectos": 0,
+  "defectos_tipo": "Ninguno",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce8a"
+  },
+  "calidad_id": "CAL-014",
+  "produccion_id": "PROD-0014",
+  "producto_id": "PROD-014",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-01-28T15:00:00",
+  "calidad": 97.5,
+  "defectos": 2,
+  "defectos_tipo": "Estético",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce8b"
+  },
+  "calidad_id": "CAL-015",
+  "produccion_id": "PROD-0015",
+  "producto_id": "PROD-015",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-01-29T11:30:00",
+  "calidad": 94,
+  "defectos": 5,
+  "defectos_tipo": "Dimensional",
+  "especificaciones_cumplidas": false,
+  "acciones_correctivas": [
+    "Calibrar máquina"
+  ],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce8c"
+  },
+  "calidad_id": "CAL-016",
+  "produccion_id": "PROD-0016",
+  "producto_id": "PROD-016",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-01-30T14:00:00",
+  "calidad": 98,
+  "defectos": 3,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce8d"
+  },
+  "calidad_id": "CAL-017",
+  "produccion_id": "PROD-0017",
+  "producto_id": "PROD-017",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-02-01T10:30:00",
+  "calidad": 98.5,
+  "defectos": 2,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce8e"
+  },
+  "calidad_id": "CAL-018",
+  "produccion_id": "PROD-0018",
+  "producto_id": "PROD-018",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-02-02T12:30:00",
+  "calidad": 98.5,
+  "defectos": 1,
+  "defectos_tipo": "Ninguno",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce8f"
+  },
+  "calidad_id": "CAL-019",
+  "produccion_id": "PROD-0019",
+  "producto_id": "PROD-019",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-02-03T13:30:00",
+  "calidad": 96,
+  "defectos": 8,
+  "defectos_tipo": "Montaje",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce90"
+  },
+  "calidad_id": "CAL-020",
+  "produccion_id": "PROD-0020",
+  "producto_id": "PROD-020",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-02-04T09:30:00",
+  "calidad": 100,
+  "defectos": 0,
+  "defectos_tipo": "Ninguno",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce91"
+  },
+  "calidad_id": "CAL-021",
+  "produccion_id": "PROD-0021",
+  "producto_id": "PROD-021",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-02-05T16:30:00",
+  "calidad": 96,
+  "defectos": 3,
+  "defectos_tipo": "Funcional",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce92"
+  },
+  "calidad_id": "CAL-022",
+  "produccion_id": "PROD-0022",
+  "producto_id": "PROD-022",
+  "inspector": "OP-003",
+  "fecha_inspeccion": "2026-02-06T10:30:00",
+  "calidad": 96,
+  "defectos": 4,
+  "defectos_tipo": "Estético",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce93"
+  },
+  "calidad_id": "CAL-023",
+  "produccion_id": "PROD-0023",
+  "producto_id": "PROD-023",
+  "inspector": "OP-002",
+  "fecha_inspeccion": "2026-02-07T13:30:00",
+  "calidad": 95,
+  "defectos": 6,
+  "defectos_tipo": "Dimensional",
+  "especificaciones_cumplidas": false,
+  "acciones_correctivas": [
+    "Ajustar parámetros"
+  ],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce94"
+  },
+  "calidad_id": "CAL-024",
+  "produccion_id": "PROD-0024",
+  "producto_id": "PROD-024",
+  "inspector": "OP-001",
+  "fecha_inspeccion": "2026-02-08T15:00:00",
+  "calidad": 95,
+  "defectos": 5,
+  "defectos_tipo": "Superficial",
+  "especificaciones_cumplidas": true,
+  "acciones_correctivas": [],
+  "observaciones": null
+},
+{
+  "_id": {
+    "$oid": "6a82b1f3402506d54d78ce95"
+  },
+  "calidad_id": "CAL-025",
+  "produccion_id": "PROD-0025",
+  "producto_id": "PROD-025",
+  "inspector": "OP-004",
+  "fecha_inspeccion": "2026-02-09T11:00:00",
+  "calidad": 95.5,
+  "defectos": 9,
+  "defectos_tipo": "Material",
+  "especificaciones_cumplidas": false,
+  "acciones_correctivas": [
+    "Revisar materia prima"
+  ],
+  "observaciones": null
+}]

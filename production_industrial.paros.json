@@ -1,0 +1,364 @@
+[{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b319f"
+  },
+  "paro_id": "PARO-001",
+  "maquina_id": "MAQ-002",
+  "fecha_paro": "2026-07-30T03:27:38.459604",
+  "duracion_paro": 2,
+  "causa": "Falla eléctrica",
+  "descripcion": "Corto circuito en panel de control",
+  "accion_correctiva": "Reemplazo de fusibles",
+  "costo": 200
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b31a0"
+  },
+  "paro_id": "PARO-002",
+  "maquina_id": "MAQ-003",
+  "fecha_paro": "2026-08-07T03:27:38.459604",
+  "duracion_paro": 4.5,
+  "causa": "Falta de material",
+  "descripcion": "Sin materia prima para procesar",
+  "accion_correctiva": "Solicitud urgente de material",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b31a1"
+  },
+  "paro_id": "PARO-003",
+  "maquina_id": "MAQ-001",
+  "fecha_paro": "2026-08-11T03:27:38.459604",
+  "duracion_paro": 1,
+  "causa": "Cambio de herramienta",
+  "descripcion": "Cambio de broca programado",
+  "accion_correctiva": "Cambio de herramienta",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78ceeb"
+  },
+  "paro_id": "PARO-001",
+  "maquina_id": "MAQ-002",
+  "fecha_paro": "2026-01-16T10:30:00",
+  "duracion_paro": 2,
+  "causa": "Falla eléctrica",
+  "descripcion": "Corto circuito en panel de control",
+  "accion_correctiva": "Reemplazo de fusibles",
+  "costo": 200
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78ceec"
+  },
+  "paro_id": "PARO-002",
+  "maquina_id": "MAQ-003",
+  "fecha_paro": "2026-01-17T11:00:00",
+  "duracion_paro": 4.5,
+  "causa": "Falta de material",
+  "descripcion": "Sin materia prima para procesar",
+  "accion_correctiva": "Solicitud urgente de material",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78ceed"
+  },
+  "paro_id": "PARO-003",
+  "maquina_id": "MAQ-001",
+  "fecha_paro": "2026-01-15T09:30:00",
+  "duracion_paro": 1,
+  "causa": "Cambio de herramienta",
+  "descripcion": "Cambio de broca programado",
+  "accion_correctiva": "Cambio de herramienta",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78ceee"
+  },
+  "paro_id": "PARO-004",
+  "maquina_id": "MAQ-004",
+  "fecha_paro": "2026-01-18T12:00:00",
+  "duracion_paro": 0.5,
+  "causa": "Ajuste de máquina",
+  "descripcion": "Ajuste de parámetros de velocidad",
+  "accion_correctiva": "Ajuste completado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78ceef"
+  },
+  "paro_id": "PARO-005",
+  "maquina_id": "MAQ-005",
+  "fecha_paro": "2026-01-19T14:00:00",
+  "duracion_paro": 3,
+  "causa": "Falla mecánica",
+  "descripcion": "Desgaste en rodamiento principal",
+  "accion_correctiva": "Reemplazo de rodamiento",
+  "costo": 350
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef0"
+  },
+  "paro_id": "PARO-006",
+  "maquina_id": "MAQ-006",
+  "fecha_paro": "2026-01-20T15:00:00",
+  "duracion_paro": 2.5,
+  "causa": "Problemas de calidad",
+  "descripcion": "Productos fuera de especificación",
+  "accion_correctiva": "Revisión de parámetros",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef1"
+  },
+  "paro_id": "PARO-007",
+  "maquina_id": "MAQ-007",
+  "fecha_paro": "2026-01-21T10:00:00",
+  "duracion_paro": 1.5,
+  "causa": "Mantenimiento programado",
+  "descripcion": "Mantenimiento preventivo planificado",
+  "accion_correctiva": "Mantenimiento realizado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef2"
+  },
+  "paro_id": "PARO-008",
+  "maquina_id": "MAQ-008",
+  "fecha_paro": "2026-01-22T11:00:00",
+  "duracion_paro": 6,
+  "causa": "Falla eléctrica",
+  "descripcion": "Falla en transformador",
+  "accion_correctiva": "Reemplazo de transformador",
+  "costo": 800
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef3"
+  },
+  "paro_id": "PARO-009",
+  "maquina_id": "MAQ-009",
+  "fecha_paro": "2026-01-23T12:00:00",
+  "duracion_paro": 2,
+  "causa": "Falta de material",
+  "descripcion": "Sin materia prima disponible",
+  "accion_correctiva": "Solicitar material",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef4"
+  },
+  "paro_id": "PARO-010",
+  "maquina_id": "MAQ-010",
+  "fecha_paro": "2026-01-24T13:00:00",
+  "duracion_paro": 1,
+  "causa": "Cambio de herramienta",
+  "descripcion": "Cambio de inserto de carburo",
+  "accion_correctiva": "Cambio de inserto",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef5"
+  },
+  "paro_id": "PARO-011",
+  "maquina_id": "MAQ-011",
+  "fecha_paro": "2026-01-25T09:00:00",
+  "duracion_paro": 4,
+  "causa": "Falla mecánica",
+  "descripcion": "Rotura de engranaje",
+  "accion_correctiva": "Reemplazo de engranaje",
+  "costo": 450
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef6"
+  },
+  "paro_id": "PARO-012",
+  "maquina_id": "MAQ-012",
+  "fecha_paro": "2026-01-26T10:00:00",
+  "duracion_paro": 2,
+  "causa": "Ajuste de máquina",
+  "descripcion": "Ajuste de sistema de refrigeración",
+  "accion_correctiva": "Ajuste completado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef7"
+  },
+  "paro_id": "PARO-013",
+  "maquina_id": "MAQ-013",
+  "fecha_paro": "2026-01-27T12:00:00",
+  "duracion_paro": 8,
+  "causa": "Falla eléctrica",
+  "descripcion": "Falla en motor eléctrico",
+  "accion_correctiva": "Revisión de motor",
+  "costo": 500
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef8"
+  },
+  "paro_id": "PARO-014",
+  "maquina_id": "MAQ-014",
+  "fecha_paro": "2026-01-28T14:00:00",
+  "duracion_paro": 1,
+  "causa": "Problemas de calidad",
+  "descripcion": "Defectos en soldadura",
+  "accion_correctiva": "Revisar parametros",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cef9"
+  },
+  "paro_id": "PARO-015",
+  "maquina_id": "MAQ-015",
+  "fecha_paro": "2026-01-29T11:00:00",
+  "duracion_paro": 3.5,
+  "causa": "Falta de material",
+  "descripcion": "Sin material para continuar",
+  "accion_correctiva": "Compra urgente",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cefa"
+  },
+  "paro_id": "PARO-016",
+  "maquina_id": "MAQ-016",
+  "fecha_paro": "2026-01-30T13:00:00",
+  "duracion_paro": 1.5,
+  "causa": "Cambio de herramienta",
+  "descripcion": "Cambio de herramienta de corte",
+  "accion_correctiva": "Cambio realizado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cefb"
+  },
+  "paro_id": "PARO-017",
+  "maquina_id": "MAQ-017",
+  "fecha_paro": "2026-02-01T10:00:00",
+  "duracion_paro": 2,
+  "causa": "Ajuste de máquina",
+  "descripcion": "Ajuste de velocidad de avance",
+  "accion_correctiva": "Ajuste completado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cefc"
+  },
+  "paro_id": "PARO-018",
+  "maquina_id": "MAQ-018",
+  "fecha_paro": "2026-02-02T11:00:00",
+  "duracion_paro": 5,
+  "causa": "Falla mecánica",
+  "descripcion": "Desgaste en eje principal",
+  "accion_correctiva": "Reemplazo de eje",
+  "costo": 600
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cefd"
+  },
+  "paro_id": "PARO-019",
+  "maquina_id": "MAQ-019",
+  "fecha_paro": "2026-02-03T13:00:00",
+  "duracion_paro": 1,
+  "causa": "Problemas de calidad",
+  "descripcion": "Productos con defectos dimensionales",
+  "accion_correctiva": "Revisión de calibración",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cefe"
+  },
+  "paro_id": "PARO-020",
+  "maquina_id": "MAQ-020",
+  "fecha_paro": "2026-02-04T09:00:00",
+  "duracion_paro": 2.5,
+  "causa": "Falta de material",
+  "descripcion": "Sin material para producción",
+  "accion_correctiva": "Solicitar material",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78ceff"
+  },
+  "paro_id": "PARO-021",
+  "maquina_id": "MAQ-021",
+  "fecha_paro": "2026-02-05T15:00:00",
+  "duracion_paro": 1,
+  "causa": "Mantenimiento programado",
+  "descripcion": "Mantenimiento mensual",
+  "accion_correctiva": "Mantenimiento completado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cf00"
+  },
+  "paro_id": "PARO-022",
+  "maquina_id": "MAQ-022",
+  "fecha_paro": "2026-02-06T11:00:00",
+  "duracion_paro": 6,
+  "causa": "Falla eléctrica",
+  "descripcion": "Falla en sistema de control",
+  "accion_correctiva": "Revisión de controlador",
+  "costo": 450
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cf01"
+  },
+  "paro_id": "PARO-023",
+  "maquina_id": "MAQ-023",
+  "fecha_paro": "2026-02-07T12:00:00",
+  "duracion_paro": 2,
+  "causa": "Cambio de herramienta",
+  "descripcion": "Cambio de herramienta programado",
+  "accion_correctiva": "Cambio realizado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cf02"
+  },
+  "paro_id": "PARO-024",
+  "maquina_id": "MAQ-024",
+  "fecha_paro": "2026-02-08T14:00:00",
+  "duracion_paro": 3,
+  "causa": "Ajuste de máquina",
+  "descripcion": "Ajuste de presiones",
+  "accion_correctiva": "Ajuste completado",
+  "costo": 0
+},
+{
+  "_id": {
+    "$oid": "6a82b23d402506d54d78cf03"
+  },
+  "paro_id": "PARO-025",
+  "maquina_id": "MAQ-025",
+  "fecha_paro": "2026-02-09T10:00:00",
+  "duracion_paro": 1.5,
+  "causa": "Problemas de calidad",
+  "descripcion": "Defectos en piezas",
+  "accion_correctiva": "Revisar parametros CNC",
+  "costo": 0
+}]

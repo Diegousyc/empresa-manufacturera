@@ -1,0 +1,435 @@
+[{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b31a2"
+  },
+  "material_id": "MAT-001",
+  "nombre": "Acero Inoxidable 304",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 500,
+  "costo_unitario": 2.5,
+  "proveedor": "Aceros Nacionales",
+  "fecha_compra": "2026-08-04T03:27:38.459604",
+  "stock_minimo": 100,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b31a3"
+  },
+  "material_id": "MAT-002",
+  "nombre": "Resina Plástica",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 300,
+  "costo_unitario": 1.8,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-08-09T03:27:38.459604",
+  "stock_minimo": 50,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b31a4"
+  },
+  "material_id": "MAT-003",
+  "nombre": "Lubricante Sintético",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 100,
+  "costo_unitario": 15,
+  "proveedor": "Lubricantes SA",
+  "fecha_compra": "2026-07-30T03:27:38.459604",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén B-1"
+},
+{
+  "_id": {
+    "$oid": "6a80d49a89da8f19614c7f12"
+  },
+  "material_id": "MAT-1786827930354",
+  "nombre": "Lubricante Automotriz",
+  "tipo": "Químico",
+  "unidad": "kg",
+  "cantidad": 250,
+  "costo_unitario": 5.2,
+  "stock_minimo": 100,
+  "proveedor": "logistcs",
+  "ubicacion": "toluca",
+  "fecha_compra": "2026-08-15T21:05:30.354Z"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf0c"
+  },
+  "material_id": "MAT-001",
+  "nombre": "Acero Inoxidable 304",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 500,
+  "costo_unitario": 2.5,
+  "proveedor": "Aceros Nacionales",
+  "fecha_compra": "2026-01-10T00:00:00",
+  "stock_minimo": 100,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf0d"
+  },
+  "material_id": "MAT-002",
+  "nombre": "Resina Plástica",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 300,
+  "costo_unitario": 1.8,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-01-15T00:00:00",
+  "stock_minimo": 50,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf0e"
+  },
+  "material_id": "MAT-003",
+  "nombre": "Lubricante Sintético",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 100,
+  "costo_unitario": 15,
+  "proveedor": "Lubricantes SA",
+  "fecha_compra": "2026-01-20T00:00:00",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén B-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf0f"
+  },
+  "material_id": "MAT-004",
+  "nombre": "Aluminio 6061",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 350,
+  "costo_unitario": 3.2,
+  "proveedor": "Metales del Sur",
+  "fecha_compra": "2026-01-25T00:00:00",
+  "stock_minimo": 80,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf10"
+  },
+  "material_id": "MAT-005",
+  "nombre": "PVC Grado Industrial",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 200,
+  "costo_unitario": 2.1,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-01-28T00:00:00",
+  "stock_minimo": 40,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf11"
+  },
+  "material_id": "MAT-006",
+  "nombre": "Cobre Electrolítico",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 150,
+  "costo_unitario": 5.5,
+  "proveedor": "Metales del Sur",
+  "fecha_compra": "2026-02-01T00:00:00",
+  "stock_minimo": 30,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf12"
+  },
+  "material_id": "MAT-007",
+  "nombre": "Ácido Sulfúrico",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 200,
+  "costo_unitario": 2.8,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-02-05T00:00:00",
+  "stock_minimo": 40,
+  "ubicacion": "Almacén B-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf13"
+  },
+  "material_id": "MAT-008",
+  "nombre": "Nylon 6/6",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 250,
+  "costo_unitario": 4.5,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-02-08T00:00:00",
+  "stock_minimo": 50,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf14"
+  },
+  "material_id": "MAT-009",
+  "nombre": "Acero al Carbón",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 600,
+  "costo_unitario": 1.8,
+  "proveedor": "Aceros Nacionales",
+  "fecha_compra": "2026-02-10T00:00:00",
+  "stock_minimo": 120,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf15"
+  },
+  "material_id": "MAT-010",
+  "nombre": "Resina Epóxica",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 80,
+  "costo_unitario": 8,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-02-12T00:00:00",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén B-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf16"
+  },
+  "material_id": "MAT-011",
+  "nombre": "Poliuretano",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 180,
+  "costo_unitario": 6.2,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-02-15T00:00:00",
+  "stock_minimo": 35,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf17"
+  },
+  "material_id": "MAT-012",
+  "nombre": "Bronce Fosforoso",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 100,
+  "costo_unitario": 7.5,
+  "proveedor": "Metales del Sur",
+  "fecha_compra": "2026-02-18T00:00:00",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf18"
+  },
+  "material_id": "MAT-013",
+  "nombre": "Glicerina",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 150,
+  "costo_unitario": 3.5,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-02-20T00:00:00",
+  "stock_minimo": 30,
+  "ubicacion": "Almacén B-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf19"
+  },
+  "material_id": "MAT-014",
+  "nombre": "Teflón",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 75,
+  "costo_unitario": 12,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-02-22T00:00:00",
+  "stock_minimo": 15,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf1a"
+  },
+  "material_id": "MAT-015",
+  "nombre": "Titanio Grado 5",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 50,
+  "costo_unitario": 15,
+  "proveedor": "Metales del Sur",
+  "fecha_compra": "2026-02-25T00:00:00",
+  "stock_minimo": 10,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf1b"
+  },
+  "material_id": "MAT-016",
+  "nombre": "Metanol",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 200,
+  "costo_unitario": 1.2,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-02-28T00:00:00",
+  "stock_minimo": 40,
+  "ubicacion": "Almacén B-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf1c"
+  },
+  "material_id": "MAT-017",
+  "nombre": "Polipropileno",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 300,
+  "costo_unitario": 2.8,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-03-01T00:00:00",
+  "stock_minimo": 60,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf1d"
+  },
+  "material_id": "MAT-018",
+  "nombre": "Acero Inoxidable 316",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 250,
+  "costo_unitario": 3.8,
+  "proveedor": "Aceros Nacionales",
+  "fecha_compra": "2026-03-03T00:00:00",
+  "stock_minimo": 50,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf1e"
+  },
+  "material_id": "MAT-019",
+  "nombre": "Ácido Clorhídrico",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 120,
+  "costo_unitario": 2.5,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-03-05T00:00:00",
+  "stock_minimo": 25,
+  "ubicacion": "Almacén B-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf1f"
+  },
+  "material_id": "MAT-020",
+  "nombre": "Policarbonato",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 90,
+  "costo_unitario": 5.8,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-03-08T00:00:00",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf20"
+  },
+  "material_id": "MAT-021",
+  "nombre": "Cinc",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 180,
+  "costo_unitario": 2.2,
+  "proveedor": "Metales del Sur",
+  "fecha_compra": "2026-03-10T00:00:00",
+  "stock_minimo": 40,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf21"
+  },
+  "material_id": "MAT-022",
+  "nombre": "Acetona",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 100,
+  "costo_unitario": 1.8,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-03-12T00:00:00",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén B-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf22"
+  },
+  "material_id": "MAT-023",
+  "nombre": "Poliéster",
+  "tipo": "Plástico",
+  "unidad": "kg",
+  "cantidad": 160,
+  "costo_unitario": 4.2,
+  "proveedor": "Plásticos Industriales",
+  "fecha_compra": "2026-03-15T00:00:00",
+  "stock_minimo": 35,
+  "ubicacion": "Almacén A-2"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf23"
+  },
+  "material_id": "MAT-024",
+  "nombre": "Níquel",
+  "tipo": "Metal",
+  "unidad": "kg",
+  "cantidad": 70,
+  "costo_unitario": 9,
+  "proveedor": "Metales del Sur",
+  "fecha_compra": "2026-03-18T00:00:00",
+  "stock_minimo": 15,
+  "ubicacion": "Almacén A-1"
+},
+{
+  "_id": {
+    "$oid": "6a82b25b402506d54d78cf24"
+  },
+  "material_id": "MAT-025",
+  "nombre": "Benceno",
+  "tipo": "Químico",
+  "unidad": "L",
+  "cantidad": 80,
+  "costo_unitario": 3,
+  "proveedor": "Químicos Industriales",
+  "fecha_compra": "2026-03-20T00:00:00",
+  "stock_minimo": 20,
+  "ubicacion": "Almacén B-2"
+}]

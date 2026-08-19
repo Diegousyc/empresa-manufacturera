@@ -1,0 +1,118 @@
+[{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b317a"
+  },
+  "operador_id": "OP-001",
+  "nombre": "Juan Pérez",
+  "especialidad": "CNC",
+  "experiencia": 8,
+  "certificaciones": [
+    "CNC Nivel 3",
+    "Seguridad Industrial"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2020-03-15"
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b317b"
+  },
+  "operador_id": "OP-002",
+  "nombre": "María García",
+  "especialidad": "Fresadora",
+  "experiencia": 6,
+  "certificaciones": [
+    "Fresado Avanzado"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2021-06-01"
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b317c"
+  },
+  "operador_id": "OP-003",
+  "nombre": "Carlos López",
+  "especialidad": "Mantenimiento",
+  "experiencia": 10,
+  "certificaciones": [
+    "Mantenimiento Predictivo",
+    "Electrónica Industrial"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2019-01-10"
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b317d"
+  },
+  "operador_id": "OP-004",
+  "nombre": "Ana Martínez",
+  "especialidad": "Control Calidad",
+  "experiencia": 5,
+  "certificaciones": [
+    "ISO 9001",
+    "Control Estadístico"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2021-09-20"
+},
+{
+  "_id": {
+    "$oid": "6a82b24e402506d54d78cf06"
+  },
+  "operador_id": "OP-001",
+  "nombre": "Juan Pérez",
+  "especialidad": "CNC",
+  "experiencia": 8,
+  "certificaciones": [
+    "CNC Nivel 3",
+    "Seguridad Industrial"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2020-03-15"
+},
+{
+  "_id": {
+    "$oid": "6a82b24e402506d54d78cf07"
+  },
+  "operador_id": "OP-002",
+  "nombre": "María García",
+  "especialidad": "Fresadora",
+  "experiencia": 6,
+  "certificaciones": [
+    "Fresado Avanzado"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2021-06-01"
+},
+{
+  "_id": {
+    "$oid": "6a82b24e402506d54d78cf08"
+  },
+  "operador_id": "OP-003",
+  "nombre": "Carlos López",
+  "especialidad": "Mantenimiento",
+  "experiencia": 10,
+  "certificaciones": [
+    "Mantenimiento Predictivo",
+    "Electrónica Industrial"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2019-01-10"
+},
+{
+  "_id": {
+    "$oid": "6a82b24e402506d54d78cf09"
+  },
+  "operador_id": "OP-004",
+  "nombre": "Ana Martínez",
+  "especialidad": "Control Calidad",
+  "experiencia": 5,
+  "certificaciones": [
+    "ISO 9001",
+    "Control Estadístico"
+  ],
+  "activo": true,
+  "fecha_contratacion": "2021-09-20"
+}]

@@ -1,0 +1,529 @@
+[{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b319c"
+  },
+  "mantenimiento_id": "MANT-001",
+  "maquina_id": "MAQ-001",
+  "tipo": "Preventivo",
+  "descripcion": "Cambio de aceite y filtros",
+  "fecha_inicio": "2026-07-15T03:27:38.459604",
+  "fecha_fin": "2026-07-16T03:27:38.459604",
+  "duracion": 2.5,
+  "tecnico": "Carlos López",
+  "costo": 350,
+  "piezas_reemplazadas": [
+    "Filtro A",
+    "Aceite 10W-40"
+  ],
+  "observaciones": "Mantenimiento programado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b319d"
+  },
+  "mantenimiento_id": "MANT-002",
+  "maquina_id": "MAQ-003",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de sistema hidráulico",
+  "fecha_inicio": "2026-08-09T03:27:38.459604",
+  "fecha_fin": "2026-08-11T03:27:38.459604",
+  "duracion": 8,
+  "tecnico": "Carlos López",
+  "costo": 1250,
+  "piezas_reemplazadas": [
+    "Válvula hidráulica",
+    "Mangueras"
+  ],
+  "observaciones": "Falla en bomba hidráulica",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b319e"
+  },
+  "mantenimiento_id": "MANT-003",
+  "maquina_id": "MAQ-005",
+  "tipo": "Predictivo",
+  "descripcion": "Análisis de vibraciones",
+  "fecha_inicio": "2026-08-04T03:27:38.459604",
+  "fecha_fin": "2026-08-05T03:27:38.459604",
+  "duracion": 1.5,
+  "tecnico": "Juan Pérez",
+  "costo": 450,
+  "piezas_reemplazadas": [],
+  "observaciones": "Todo en orden",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce98"
+  },
+  "mantenimiento_id": "MANT-001",
+  "maquina_id": "MAQ-001",
+  "tipo": "Preventivo",
+  "descripcion": "Cambio de aceite y filtros",
+  "fecha_inicio": "2026-01-15T10:00:00",
+  "fecha_fin": "2026-01-15T12:30:00",
+  "duracion": 2.5,
+  "tecnico": "Carlos López",
+  "costo": 350,
+  "piezas_reemplazadas": [
+    "Filtro A",
+    "Aceite 10W-40"
+  ],
+  "observaciones": "Mantenimiento programado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce99"
+  },
+  "mantenimiento_id": "MANT-002",
+  "maquina_id": "MAQ-003",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de sistema hidráulico",
+  "fecha_inicio": "2026-02-01T09:00:00",
+  "fecha_fin": "2026-02-01T17:00:00",
+  "duracion": 8,
+  "tecnico": "Carlos López",
+  "costo": 1250,
+  "piezas_reemplazadas": [
+    "Válvula hidráulica",
+    "Mangueras"
+  ],
+  "observaciones": "Falla en bomba hidráulica",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce9a"
+  },
+  "mantenimiento_id": "MANT-003",
+  "maquina_id": "MAQ-005",
+  "tipo": "Predictivo",
+  "descripcion": "Análisis de vibraciones",
+  "fecha_inicio": "2026-01-10T11:00:00",
+  "fecha_fin": "2026-01-10T12:30:00",
+  "duracion": 1.5,
+  "tecnico": "Juan Pérez",
+  "costo": 450,
+  "piezas_reemplazadas": [],
+  "observaciones": "Todo en orden",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce9b"
+  },
+  "mantenimiento_id": "MANT-004",
+  "maquina_id": "MAQ-002",
+  "tipo": "Preventivo",
+  "descripcion": "Lubricación general y ajuste",
+  "fecha_inicio": "2026-01-20T08:00:00",
+  "fecha_fin": "2026-01-20T10:30:00",
+  "duracion": 2.5,
+  "tecnico": "María García",
+  "costo": 280,
+  "piezas_reemplazadas": [
+    "Grasa"
+  ],
+  "observaciones": "Mantenimiento mensual",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce9c"
+  },
+  "mantenimiento_id": "MANT-005",
+  "maquina_id": "MAQ-007",
+  "tipo": "Correctivo",
+  "descripcion": "Reemplazo de sensor de temperatura",
+  "fecha_inicio": "2026-02-02T10:00:00",
+  "fecha_fin": "2026-02-02T12:00:00",
+  "duracion": 2,
+  "tecnico": "Carlos López",
+  "costo": 320,
+  "piezas_reemplazadas": [
+    "Sensor PT100"
+  ],
+  "observaciones": "Sensor falló por desgaste",
+  "completado": false
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce9d"
+  },
+  "mantenimiento_id": "MANT-006",
+  "maquina_id": "MAQ-004",
+  "tipo": "Preventivo",
+  "descripcion": "Calibración de ejes y cambio de broca",
+  "fecha_inicio": "2026-01-25T14:00:00",
+  "fecha_fin": "2026-01-25T16:00:00",
+  "duracion": 2,
+  "tecnico": "Ana Martínez",
+  "costo": 200,
+  "piezas_reemplazadas": [
+    "Broca 1/2"
+  ],
+  "observaciones": "Cambio de herramienta programado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce9e"
+  },
+  "mantenimiento_id": "MANT-007",
+  "maquina_id": "MAQ-006",
+  "tipo": "Preventivo",
+  "descripcion": "Revisión de sistema hidráulico",
+  "fecha_inicio": "2026-01-18T13:00:00",
+  "fecha_fin": "2026-01-18T16:00:00",
+  "duracion": 3,
+  "tecnico": "Juan Pérez",
+  "costo": 380,
+  "piezas_reemplazadas": [
+    "Filtro hidráulico"
+  ],
+  "observaciones": "Presión dentro de parámetros",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ce9f"
+  },
+  "mantenimiento_id": "MANT-008",
+  "maquina_id": "MAQ-009",
+  "tipo": "Preventivo",
+  "descripcion": "Mantenimiento de motores eléctricos",
+  "fecha_inicio": "2026-01-12T09:00:00",
+  "fecha_fin": "2026-01-12T12:00:00",
+  "duracion": 3,
+  "tecnico": "Carlos López",
+  "costo": 420,
+  "piezas_reemplazadas": [
+    "Capacitores"
+  ],
+  "observaciones": "Motores en buen estado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea0"
+  },
+  "mantenimiento_id": "MANT-009",
+  "maquina_id": "MAQ-010",
+  "tipo": "Predictivo",
+  "descripcion": "Termografía de componentes",
+  "fecha_inicio": "2026-01-22T15:00:00",
+  "fecha_fin": "2026-01-22T16:30:00",
+  "duracion": 1.5,
+  "tecnico": "Ana Martínez",
+  "costo": 300,
+  "piezas_reemplazadas": [],
+  "observaciones": "Sin anomalías detectadas",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea1"
+  },
+  "mantenimiento_id": "MANT-010",
+  "maquina_id": "MAQ-008",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de panel de control",
+  "fecha_inicio": "2025-12-01T08:00:00",
+  "fecha_fin": "2025-12-01T15:00:00",
+  "duracion": 7,
+  "tecnico": "María García",
+  "costo": 800,
+  "piezas_reemplazadas": [
+    "PLC",
+    "Fuente de poder"
+  ],
+  "observaciones": "Falla eléctrica en panel",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea2"
+  },
+  "mantenimiento_id": "MANT-011",
+  "maquina_id": "MAQ-011",
+  "tipo": "Preventivo",
+  "descripcion": "Lubricación de rodamientos",
+  "fecha_inicio": "2026-01-28T11:00:00",
+  "fecha_fin": "2026-01-28T12:30:00",
+  "duracion": 1.5,
+  "tecnico": "Juan Pérez",
+  "costo": 150,
+  "piezas_reemplazadas": [
+    "Grasa de litio"
+  ],
+  "observaciones": "Rodamientos en buen estado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea3"
+  },
+  "mantenimiento_id": "MANT-012",
+  "maquina_id": "MAQ-012",
+  "tipo": "Preventivo",
+  "descripcion": "Cambio de correas y ajuste de tensión",
+  "fecha_inicio": "2026-01-08T10:00:00",
+  "fecha_fin": "2026-01-08T12:30:00",
+  "duracion": 2.5,
+  "tecnico": "Carlos López",
+  "costo": 220,
+  "piezas_reemplazadas": [
+    "Correa B-45"
+  ],
+  "observaciones": "Correas con desgaste",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea4"
+  },
+  "mantenimiento_id": "MANT-013",
+  "maquina_id": "MAQ-013",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de bomba hidráulica",
+  "fecha_inicio": "2026-02-03T14:00:00",
+  "fecha_fin": "2026-02-04T10:00:00",
+  "duracion": 20,
+  "tecnico": "Carlos López",
+  "costo": 1500,
+  "piezas_reemplazadas": [
+    "Bomba hidráulica nueva"
+  ],
+  "observaciones": "Bomba dañada por desgaste",
+  "completado": false
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea5"
+  },
+  "mantenimiento_id": "MANT-014",
+  "maquina_id": "MAQ-014",
+  "tipo": "Preventivo",
+  "descripcion": "Revisión de sistemas electrónicos",
+  "fecha_inicio": "2026-01-30T16:00:00",
+  "fecha_fin": "2026-01-30T18:00:00",
+  "duracion": 2,
+  "tecnico": "Ana Martínez",
+  "costo": 250,
+  "piezas_reemplazadas": [],
+  "observaciones": "Sistemas operando correctamente",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea6"
+  },
+  "mantenimiento_id": "MANT-015",
+  "maquina_id": "MAQ-015",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de sistema de sujeción",
+  "fecha_inicio": "2025-11-15T09:00:00",
+  "fecha_fin": "2025-11-15T14:00:00",
+  "duracion": 5,
+  "tecnico": "María García",
+  "costo": 450,
+  "piezas_reemplazadas": [
+    "Mordazas"
+  ],
+  "observaciones": "Mordazas desgastadas",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea7"
+  },
+  "mantenimiento_id": "MANT-016",
+  "maquina_id": "MAQ-016",
+  "tipo": "Preventivo",
+  "descripcion": "Afinación de CNC y cambio de herramienta",
+  "fecha_inicio": "2026-02-01T08:00:00",
+  "fecha_fin": "2026-02-01T12:00:00",
+  "duracion": 4,
+  "tecnico": "Juan Pérez",
+  "costo": 350,
+  "piezas_reemplazadas": [
+    "Insertos de carburo"
+  ],
+  "observaciones": "Afinación completada",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea8"
+  },
+  "mantenimiento_id": "MANT-017",
+  "maquina_id": "MAQ-017",
+  "tipo": "Preventivo",
+  "descripcion": "Mantenimiento de sistema de refrigeración",
+  "fecha_inicio": "2026-01-25T13:00:00",
+  "fecha_fin": "2026-01-25T15:30:00",
+  "duracion": 2.5,
+  "tecnico": "Carlos López",
+  "costo": 280,
+  "piezas_reemplazadas": [
+    "Refrigerante"
+  ],
+  "observaciones": "Sistema funcionando bien",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cea9"
+  },
+  "mantenimiento_id": "MANT-018",
+  "maquina_id": "MAQ-018",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de motor principal",
+  "fecha_inicio": "2026-01-05T10:00:00",
+  "fecha_fin": "2026-01-06T16:00:00",
+  "duracion": 30,
+  "tecnico": "María García",
+  "costo": 1200,
+  "piezas_reemplazadas": [
+    "Motor nuevo"
+  ],
+  "observaciones": "Motor quemado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ceaa"
+  },
+  "mantenimiento_id": "MANT-019",
+  "maquina_id": "MAQ-019",
+  "tipo": "Preventivo",
+  "descripcion": "Lubricación y ajuste de ejes",
+  "fecha_inicio": "2026-01-20T15:00:00",
+  "fecha_fin": "2026-01-20T17:30:00",
+  "duracion": 2.5,
+  "tecnico": "Juan Pérez",
+  "costo": 180,
+  "piezas_reemplazadas": [
+    "Aceite"
+  ],
+  "observaciones": "Ajuste completado",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ceab"
+  },
+  "mantenimiento_id": "MANT-020",
+  "maquina_id": "MAQ-020",
+  "tipo": "Preventivo",
+  "descripcion": "Revisión de válvulas neumáticas",
+  "fecha_inicio": "2026-01-28T12:00:00",
+  "fecha_fin": "2026-01-28T14:30:00",
+  "duracion": 2.5,
+  "tecnico": "Ana Martínez",
+  "costo": 220,
+  "piezas_reemplazadas": [
+    "Válvula solenoide"
+  ],
+  "observaciones": "Válvula con desgaste",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ceac"
+  },
+  "mantenimiento_id": "MANT-021",
+  "maquina_id": "MAQ-021",
+  "tipo": "Predictivo",
+  "descripcion": "Análisis de vibraciones en ejes",
+  "fecha_inicio": "2026-01-15T10:00:00",
+  "fecha_fin": "2026-01-15T11:30:00",
+  "duracion": 1.5,
+  "tecnico": "Carlos López",
+  "costo": 400,
+  "piezas_reemplazadas": [],
+  "observaciones": "Niveles aceptables",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78cead"
+  },
+  "mantenimiento_id": "MANT-022",
+  "maquina_id": "MAQ-022",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de sistema hidráulico",
+  "fecha_inicio": "2025-10-20T08:00:00",
+  "fecha_fin": "2025-10-21T18:00:00",
+  "duracion": 34,
+  "tecnico": "María García",
+  "costo": 2500,
+  "piezas_reemplazadas": [
+    "Cilindro hidráulico",
+    "Sello"
+  ],
+  "observaciones": "Falla en cilindro principal",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ceae"
+  },
+  "mantenimiento_id": "MANT-023",
+  "maquina_id": "MAQ-023",
+  "tipo": "Preventivo",
+  "descripcion": "Cambio de aceite y filtros",
+  "fecha_inicio": "2026-01-22T09:00:00",
+  "fecha_fin": "2026-01-22T11:30:00",
+  "duracion": 2.5,
+  "tecnico": "Juan Pérez",
+  "costo": 320,
+  "piezas_reemplazadas": [
+    "Filtro B",
+    "Aceite"
+  ],
+  "observaciones": "Mantenimiento mensual",
+  "completado": true
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ceaf"
+  },
+  "mantenimiento_id": "MANT-024",
+  "maquina_id": "MAQ-024",
+  "tipo": "Correctivo",
+  "descripcion": "Reparación de sistema de control",
+  "fecha_inicio": "2026-02-05T10:00:00",
+  "fecha_fin": "2026-02-05T15:00:00",
+  "duracion": 5,
+  "tecnico": "Ana Martínez",
+  "costo": 650,
+  "piezas_reemplazadas": [
+    "Controlador"
+  ],
+  "observaciones": "Controlador dañado",
+  "completado": false
+},
+{
+  "_id": {
+    "$oid": "6a82b201402506d54d78ceb0"
+  },
+  "mantenimiento_id": "MANT-025",
+  "maquina_id": "MAQ-025",
+  "tipo": "Preventivo",
+  "descripcion": "Calibración completa de CNC",
+  "fecha_inicio": "2026-01-10T11:00:00",
+  "fecha_fin": "2026-01-10T16:00:00",
+  "duracion": 5,
+  "tecnico": "Carlos López",
+  "costo": 500,
+  "piezas_reemplazadas": [
+    "Herramientas"
+  ],
+  "observaciones": "Calibración exitosa",
+  "completado": true
+}]

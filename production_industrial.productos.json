@@ -1,0 +1,434 @@
+[{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3170"
+  },
+  "producto_id": "PROD-001",
+  "nombre": "Arandela Acero",
+  "categoria": "Metales",
+  "descripcion": "Arandela de acero inoxidable 1/2 pulgada",
+  "precio_unitario": 15.5,
+  "costo_produccion": 8.75,
+  "tiempo_estimado": 45,
+  "fecha_creacion": "2026-08-14T03:27:38.458598",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3171"
+  },
+  "producto_id": "PROD-002",
+  "nombre": "Eje Transmisión",
+  "categoria": "Mecánica",
+  "descripcion": "Eje para transmisión de potencia",
+  "precio_unitario": 250,
+  "costo_produccion": 180,
+  "tiempo_estimado": 120,
+  "fecha_creacion": "2026-08-14T03:27:38.458598",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3172"
+  },
+  "producto_id": "PROD-003",
+  "nombre": "Placa Electrónica",
+  "categoria": "Electrónica",
+  "descripcion": "Placa PCB para control industrial",
+  "precio_unitario": 320.5,
+  "costo_produccion": 210,
+  "tiempo_estimado": 90,
+  "fecha_creacion": "2026-08-14T03:27:38.458598",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3173"
+  },
+  "producto_id": "PROD-004",
+  "nombre": "Empaque Plástico",
+  "categoria": "Plásticos",
+  "descripcion": "Empaque de plástico moldeado",
+  "precio_unitario": 5.75,
+  "costo_produccion": 3.2,
+  "tiempo_estimado": 30,
+  "fecha_creacion": "2026-08-14T03:27:38.458598",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a7edf8a1e784cd6fb7b3174"
+  },
+  "producto_id": "PROD-005",
+  "nombre": "Lubricante Industrial",
+  "categoria": "Química",
+  "descripcion": "Lubricante para maquinaria pesada",
+  "precio_unitario": 45,
+  "costo_produccion": 28.5,
+  "tiempo_estimado": 60,
+  "fecha_creacion": "2026-08-14T03:27:38.458598",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a80d1962770dc2033bc86a3"
+  },
+  "producto_id": "PROD-1786827158130",
+  "nombre": "Arco de punta",
+  "categoria": "Plásticos",
+  "descripcion": "arco para ventanas",
+  "precio_unitario": 2000,
+  "costo_produccion": 500,
+  "tiempo_estimado": 45,
+  "fecha_creacion": "2026-08-15T20:52:38.130000+00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf28"
+  },
+  "producto_id": "PROD-001",
+  "nombre": "Arandela Acero Inoxidable",
+  "categoria": "Metales",
+  "descripcion": "Arandela de acero inoxidable 1/2 pulgada",
+  "precio_unitario": 15.5,
+  "costo_produccion": 8.75,
+  "tiempo_estimado": 45,
+  "fecha_creacion": "2026-01-15T10:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf29"
+  },
+  "producto_id": "PROD-002",
+  "nombre": "Eje Transmisión",
+  "categoria": "Mecánica",
+  "descripcion": "Eje para transmisión de potencia industrial",
+  "precio_unitario": 250,
+  "costo_produccion": 180,
+  "tiempo_estimado": 120,
+  "fecha_creacion": "2026-01-16T11:20:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf2a"
+  },
+  "producto_id": "PROD-003",
+  "nombre": "Placa Electrónica PCB",
+  "categoria": "Electrónica",
+  "descripcion": "Placa PCB para control industrial",
+  "precio_unitario": 320.5,
+  "costo_produccion": 210,
+  "tiempo_estimado": 90,
+  "fecha_creacion": "2026-01-17T09:15:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf2b"
+  },
+  "producto_id": "PROD-004",
+  "nombre": "Empaque Plástico",
+  "categoria": "Plásticos",
+  "descripcion": "Empaque de plástico moldeado",
+  "precio_unitario": 5.75,
+  "costo_produccion": 3.2,
+  "tiempo_estimado": 30,
+  "fecha_creacion": "2026-01-18T14:45:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf2c"
+  },
+  "producto_id": "PROD-005",
+  "nombre": "Lubricante Sintético",
+  "categoria": "Química",
+  "descripcion": "Lubricante para maquinaria pesada",
+  "precio_unitario": 45,
+  "costo_produccion": 28.5,
+  "tiempo_estimado": 60,
+  "fecha_creacion": "2026-01-19T08:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf2d"
+  },
+  "producto_id": "PROD-006",
+  "nombre": "Rodamiento",
+  "categoria": "Mecánica",
+  "descripcion": "Rodamiento de bolas sellado",
+  "precio_unitario": 35,
+  "costo_produccion": 22,
+  "tiempo_estimado": 55,
+  "fecha_creacion": "2026-01-20T16:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf2e"
+  },
+  "producto_id": "PROD-007",
+  "nombre": "Sensor Temperatura",
+  "categoria": "Electrónica",
+  "descripcion": "Sensor digital de temperatura",
+  "precio_unitario": 85,
+  "costo_produccion": 52,
+  "tiempo_estimado": 75,
+  "fecha_creacion": "2026-01-21T10:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf2f"
+  },
+  "producto_id": "PROD-008",
+  "nombre": "Tubo PVC",
+  "categoria": "Plásticos",
+  "descripcion": "Tubo de PVC reforzado",
+  "precio_unitario": 12.5,
+  "costo_produccion": 7.8,
+  "tiempo_estimado": 40,
+  "fecha_creacion": "2026-01-22T13:20:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf30"
+  },
+  "producto_id": "PROD-009",
+  "nombre": "Resina Epóxica",
+  "categoria": "Química",
+  "descripcion": "Resina epóxica para recubrimientos",
+  "precio_unitario": 68,
+  "costo_produccion": 42,
+  "tiempo_estimado": 50,
+  "fecha_creacion": "2026-01-23T11:45:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf31"
+  },
+  "producto_id": "PROD-010",
+  "nombre": "Perno Hexagonal",
+  "categoria": "Metales",
+  "descripcion": "Perno hexagonal de acero",
+  "precio_unitario": 8,
+  "costo_produccion": 4.5,
+  "tiempo_estimado": 25,
+  "fecha_creacion": "2026-01-24T09:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf32"
+  },
+  "producto_id": "PROD-011",
+  "nombre": "Motor Eléctrico",
+  "categoria": "Electrónica",
+  "descripcion": "Motor eléctrico de 5HP",
+  "precio_unitario": 450,
+  "costo_produccion": 320,
+  "tiempo_estimado": 150,
+  "fecha_creacion": "2026-01-25T15:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf33"
+  },
+  "producto_id": "PROD-012",
+  "nombre": "Manguera Hidráulica",
+  "categoria": "Mecánica",
+  "descripcion": "Manguera de alta presión",
+  "precio_unitario": 28,
+  "costo_produccion": 18,
+  "tiempo_estimado": 45,
+  "fecha_creacion": "2026-01-26T08:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf34"
+  },
+  "producto_id": "PROD-013",
+  "nombre": "Banda Transportadora",
+  "categoria": "Plásticos",
+  "descripcion": "Banda de transporte industrial",
+  "precio_unitario": 95,
+  "costo_produccion": 65,
+  "tiempo_estimado": 80,
+  "fecha_creacion": "2026-01-27T12:15:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf35"
+  },
+  "producto_id": "PROD-014",
+  "nombre": "Pintura Industrial",
+  "categoria": "Química",
+  "descripcion": "Pintura anti-corrosiva",
+  "precio_unitario": 32,
+  "costo_produccion": 20,
+  "tiempo_estimado": 35,
+  "fecha_creacion": "2026-01-28T14:20:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf36"
+  },
+  "producto_id": "PROD-015",
+  "nombre": "Soporte Metálico",
+  "categoria": "Metales",
+  "descripcion": "Soporte estructural metálico",
+  "precio_unitario": 42,
+  "costo_produccion": 28,
+  "tiempo_estimado": 60,
+  "fecha_creacion": "2026-01-29T10:45:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf37"
+  },
+  "producto_id": "PROD-016",
+  "nombre": "Cable Eléctrico",
+  "categoria": "Electrónica",
+  "descripcion": "Cable de cobre 12 AWG",
+  "precio_unitario": 18,
+  "costo_produccion": 10,
+  "tiempo_estimado": 30,
+  "fecha_creacion": "2026-01-30T16:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf38"
+  },
+  "producto_id": "PROD-017",
+  "nombre": "Engranaje",
+  "categoria": "Mecánica",
+  "descripcion": "Engranaje de acero templado",
+  "precio_unitario": 55,
+  "costo_produccion": 35,
+  "tiempo_estimado": 65,
+  "fecha_creacion": "2026-02-01T09:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf39"
+  },
+  "producto_id": "PROD-018",
+  "nombre": "Filtro Aceite",
+  "categoria": "Mecánica",
+  "descripcion": "Filtro de aceite hidráulico",
+  "precio_unitario": 22,
+  "costo_produccion": 14,
+  "tiempo_estimado": 40,
+  "fecha_creacion": "2026-02-02T11:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf3a"
+  },
+  "producto_id": "PROD-019",
+  "nombre": "Etiqueta RFID",
+  "categoria": "Electrónica",
+  "descripcion": "Etiqueta de identificación RFID",
+  "precio_unitario": 6.5,
+  "costo_produccion": 3.8,
+  "tiempo_estimado": 20,
+  "fecha_creacion": "2026-02-03T13:45:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf3b"
+  },
+  "producto_id": "PROD-020",
+  "nombre": "Tanque Plástico",
+  "categoria": "Plásticos",
+  "descripcion": "Tanque de almacenamiento",
+  "precio_unitario": 75,
+  "costo_produccion": 50,
+  "tiempo_estimado": 70,
+  "fecha_creacion": "2026-02-04T08:15:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf3c"
+  },
+  "producto_id": "PROD-021",
+  "nombre": "Ácido Sulfúrico",
+  "categoria": "Química",
+  "descripcion": "Ácido sulfúrico grado industrial",
+  "precio_unitario": 48,
+  "costo_produccion": 30,
+  "tiempo_estimado": 45,
+  "fecha_creacion": "2026-02-05T15:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf3d"
+  },
+  "producto_id": "PROD-022",
+  "nombre": "Resorte",
+  "categoria": "Metales",
+  "descripcion": "Resorte de compresión",
+  "precio_unitario": 7.5,
+  "costo_produccion": 4,
+  "tiempo_estimado": 25,
+  "fecha_creacion": "2026-02-06T10:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf3e"
+  },
+  "producto_id": "PROD-023",
+  "nombre": "Display LCD",
+  "categoria": "Electrónica",
+  "descripcion": "Display LCD industrial",
+  "precio_unitario": 120,
+  "costo_produccion": 78,
+  "tiempo_estimado": 85,
+  "fecha_creacion": "2026-02-07T12:00:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf3f"
+  },
+  "producto_id": "PROD-024",
+  "nombre": "Cinta Aislante",
+  "categoria": "Plásticos",
+  "descripcion": "Cinta aislante eléctrica",
+  "precio_unitario": 3.5,
+  "costo_produccion": 1.8,
+  "tiempo_estimado": 15,
+  "fecha_creacion": "2026-02-08T14:30:00",
+  "activo": true
+},
+{
+  "_id": {
+    "$oid": "6a82b29b402506d54d78cf40"
+  },
+  "producto_id": "PROD-025",
+  "nombre": "Válvula Solenoide",
+  "categoria": "Mecánica",
+  "descripcion": "Válvula solenoide neumática",
+  "precio_unitario": 38,
+  "costo_produccion": 24,
+  "tiempo_estimado": 50,
+  "fecha_creacion": "2026-02-09T09:45:00",
+  "activo": true
+}]
