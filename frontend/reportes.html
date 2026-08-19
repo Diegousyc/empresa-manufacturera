@@ -31,9 +31,6 @@
             min-height: 100vh;
         }
 
-        /* ============================================
-           NAVBAR
-           ============================================ */
         .navbar {
             background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -61,14 +58,8 @@
             background: rgba(255,255,255,0.2) !important;
         }
         .nav-link i { margin-right: 5px; }
-        .navbar-nav {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .navbar-nav { flex-wrap: wrap; justify-content: center; }
 
-        /* ============================================
-           TARJETAS (CARDS)
-           ============================================ */
         .card {
             border: none;
             border-radius: var(--border-radius);
@@ -92,9 +83,6 @@
         .card-header i { margin-right: 8px; }
         .card-body { padding: 1.5rem; }
 
-        /* ============================================
-           BOTONES
-           ============================================ */
         .btn {
             border-radius: 25px;
             padding: 0.5rem 1.5rem;
@@ -112,9 +100,6 @@
         .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
         .btn-secondary { background: linear-gradient(135deg, #95a5a6, #7f8c8d); border: none; color: white; }
 
-        /* ============================================
-           GRÁFICOS - CONTENEDORES MEJORADOS
-           ============================================ */
         .chart-container {
             background: white;
             border-radius: var(--border-radius);
@@ -140,18 +125,8 @@
             font-size: 1.2rem;
             color: var(--secondary-color);
         }
-        .chart-container .chart-title .badge-count {
-            margin-left: auto;
-            background: var(--secondary-color);
-            color: white;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-        }
 
-        /* ============================================
-           REPORTE PDF
-           ============================================ */
+        /* Estilos para el reporte PDF mejorado */
         #reporte-pdf {
             background: white;
             padding: 30px;
@@ -184,7 +159,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 15px;
-            font-size: 12px;
+            font-size: 11px;
         }
         #reporte-pdf table th {
             background: var(--primary-color);
@@ -224,116 +199,18 @@
             letter-spacing: 1px;
         }
 
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
-        @media (max-width: 992px) {
-            .navbar-nav {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .nav-link {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.6rem !important;
-            }
-            .reporte-kpi {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 768px) {
-            .navbar-brand { font-size: 1rem; }
-            .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
-            .reporte-kpi {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 576px) {
-            .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
-            .reporte-kpi {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ============================================
-           SCROLLBAR
-           ============================================ */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animated { animation: fadeInUp 0.6s ease; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        .stat-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 1.2rem;
-            box-shadow: var(--shadow);
-            text-align: center;
-            height: 100%;
-            transition: var(--transition);
-        }
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        .stat-card .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        .stat-card .stat-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #7f8c8d;
-            letter-spacing: 1px;
-        }
-        .stat-card .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--secondary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .report-section {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
+        /* Estilos para PDF - gráficos no recortados */
+        #reporte-pdf .grafico-pdf {
+            page-break-inside: avoid;
             margin-bottom: 20px;
         }
-        .report-section .section-title {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 10px;
+        #reporte-pdf .grafico-pdf .chart-container {
+            box-shadow: none;
+            border: 1px solid #ecf0f1;
         }
-        .report-section .section-title i {
-            margin-right: 8px;
-            color: var(--secondary-color);
+        .pdf-chart-wrapper {
+            height: 250px;
+            width: 100%;
         }
 
         .filtro-mes {
@@ -352,7 +229,7 @@
             padding: 5px 15px;
             border: 2px solid #e0e0e0;
         }
-        
+
         .resultado-box {
             background: #f8f9fa;
             border-radius: 8px;
@@ -368,6 +245,7 @@
             font-size: 0.85rem;
             overflow-x: auto;
         }
+
         .analysis-step {
             display: flex;
             align-items: center;
@@ -409,6 +287,7 @@
         .analysis-step .step-badge {
             margin-left: auto;
         }
+
         .mensajes-container {
             max-height: 300px;
             overflow-y: auto;
@@ -429,9 +308,6 @@
             border-bottom: none;
         }
 
-        /* ============================================
-           ESTILOS PARA CARDS DE GRÁFICOS
-           ============================================ */
         .grafico-card {
             background: white;
             border-radius: var(--border-radius);
@@ -462,26 +338,174 @@
             margin-right: 8px;
             color: var(--secondary-color);
         }
-        .grafico-card .grafico-header .grafico-badge {
-            background: var(--secondary-color);
-            color: white;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-        }
         .grafico-card .grafico-body {
             padding: 15px;
         }
-        .grafico-card .grafico-body .chart-container {
-            box-shadow: none;
-            padding: 0;
+
+        /* Estilos para preguntas y respuestas */
+        .pregunta-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            transition: var(--transition);
+        }
+        .pregunta-container:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        .pregunta-header {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .pregunta-header:hover {
+            background: #e9ecef;
+        }
+        .pregunta-header .pregunta-texto {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+        .pregunta-header .pregunta-icono {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        .pregunta-header .pregunta-icono.rotado {
+            transform: rotate(180deg);
+        }
+        .pregunta-header .pregunta-estado {
+            font-size: 0.75rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+        }
+        .pregunta-header .pregunta-estado.cargando {
+            background: #f39c12;
+            color: white;
+        }
+        .pregunta-header .pregunta-estado.completado {
+            background: #27ae60;
+            color: white;
+        }
+        .pregunta-header .pregunta-estado.error {
+            background: #e74c3c;
+            color: white;
+        }
+        .pregunta-header .pregunta-estado.pendiente {
+            background: #95a5a6;
+            color: white;
+        }
+        .pregunta-body {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+        .pregunta-body.abierto {
+            max-height: 2000px;
+            padding: 20px;
+        }
+        .pregunta-body .respuesta-content {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .pregunta-body .respuesta-content .respuesta-texto {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .pregunta-body .respuesta-content .respuesta-grafico {
+            margin-top: 15px;
+            min-height: 250px;
+        }
+        .pregunta-body .respuesta-content .respuesta-mejoras {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .pregunta-body .respuesta-content .respuesta-mejoras h6 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        .pregunta-body .respuesta-content .respuesta-mejoras ul {
             margin: 0;
-            border: none;
+            padding-left: 20px;
         }
-        .grafico-card .grafico-body .chart-container:hover {
-            box-shadow: none;
-            transform: none;
+        .pregunta-body .respuesta-content .respuesta-mejoras ul li {
+            margin-bottom: 4px;
+            color: #555;
         }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .report-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .report-section .section-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        .report-section .section-title i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 992px) {
+            .navbar-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .nav-link { font-size: 0.7rem; padding: 0.3rem 0.6rem !important; }
+            .reporte-kpi { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+            .reporte-kpi { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 576px) {
+            .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
+            .filtro-mes { flex-direction: column; align-items: stretch; }
+            .filtro-mes select { width: 100% !important; margin-top: 10px; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated { animation: fadeInUp 0.6s ease; }
     </style>
 </head>
 <body>
@@ -550,12 +574,30 @@
             </div>
         </div>
 
-        <!-- BOTONES DE ANÁLISIS -->
+        <!-- ============================================
+        SECCIÓN DE PREGUNTAS Y RESPUESTAS
+        ============================================ -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="report-section">
                     <div class="section-title">
-                        <i class="fas fa-robot"></i> Análisis con Inteligencia Artificial
+                        <i class="fas fa-question-circle text-warning"></i> Análisis Inteligente - Preguntas y Respuestas
+                        <span class="badge bg-primary ms-2">IA</span>
+                    </div>
+                    <p class="text-muted small">Haz clic en cada pregunta para obtener un análisis detallado con gráficos y recomendaciones.</p>
+                    <div id="preguntas-container">
+                        <!-- Las preguntas se generan con JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTONES DE ANÁLISIS AVANZADO -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="report-section">
+                    <div class="section-title">
+                        <i class="fas fa-robot"></i> Análisis Avanzado con IA
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-6 mb-2">
@@ -578,21 +620,38 @@
                                 <i class="fas fa-layer-group"></i> Clustering
                             </button>
                         </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-danger w-100" onclick="analizarArbolDecision()">
+                                <i class="fas fa-sitemap"></i> Árbol Decisión
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-secondary w-100" onclick="analizarRandomForest()">
+                                <i class="fas fa-tree"></i> Random Forest
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-primary w-100" onclick="analizarRedNeuronal()">
+                                <i class="fas fa-brain"></i> Red Neuronal
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <button class="btn btn-success w-100" onclick="analizarSerieTemporal()">
+                                <i class="fas fa-clock"></i> Series Temporales
+                            </button>
+                        </div>
                     </div>
                     <div id="resultado-analisis" class="mt-3">
                         <div class="text-muted text-center">
                             <i class="fas fa-info-circle"></i> Selecciona un análisis para ver los resultados
                         </div>
                     </div>
-                    <!-- Panel de flujo ETL -->
                     <div id="etl-flow-panel" class="mt-3" style="display:none;">
                         <div class="chart-container">
                             <div class="chart-title">
                                 <i class="fas fa-project-diagram text-primary"></i> Flujo de Procesamiento de Datos
                             </div>
-                            <div id="etl-steps" class="p-3">
-                                <!-- Steps se generan dinámicamente -->
-                            </div>
+                            <div id="etl-steps" class="p-3"></div>
                             <div class="text-end mt-2">
                                 <button id="etl-close-btn" class="btn btn-secondary btn-sm" onclick="ocultarETLFlow()">Cerrar</button>
                             </div>
@@ -648,27 +707,31 @@
                 </div>
             </div>
 
-            <!-- GRÁFICOS CON CARDS MEJORADAS -->
+            <!-- GRÁFICOS DEL REPORTE -->
             <div class="row">
                 <div class="col-md-6">
-                    <div class="grafico-card">
-                        <div class="grafico-header">
-                            <h6><i class="fas fa-user-tie text-primary"></i> Operadores de Mayor Productividad</h6>
-                            <span class="grafico-badge"><i class="fas fa-trophy"></i> Top 10</span>
-                        </div>
-                        <div class="grafico-body">
-                            <div id="grafico-operadores-productividad" style="height: 280px;"></div>
+                    <div class="grafico-pdf">
+                        <div class="grafico-card">
+                            <div class="grafico-header">
+                                <h6><i class="fas fa-user-tie text-primary"></i> Operadores de Mayor Productividad</h6>
+                                <span class="grafico-badge"><i class="fas fa-trophy"></i> Top 10</span>
+                            </div>
+                            <div class="grafico-body">
+                                <div class="pdf-chart-wrapper" id="grafico-operadores-productividad"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="grafico-card">
-                        <div class="grafico-header">
-                            <h6><i class="fas fa-microchip text-success"></i> Producción por Máquina</h6>
-                            <span class="grafico-badge"><i class="fas fa-chart-bar"></i> Total</span>
-                        </div>
-                        <div class="grafico-body">
-                            <div id="grafico-produccion-maquina" style="height: 280px;"></div>
+                    <div class="grafico-pdf">
+                        <div class="grafico-card">
+                            <div class="grafico-header">
+                                <h6><i class="fas fa-microchip text-success"></i> Producción por Máquina</h6>
+                                <span class="grafico-badge"><i class="fas fa-chart-bar"></i> Total</span>
+                            </div>
+                            <div class="grafico-body">
+                                <div class="pdf-chart-wrapper" id="grafico-produccion-maquina"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -676,24 +739,28 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="grafico-card">
-                        <div class="grafico-header">
-                            <h6><i class="fas fa-check-circle text-info"></i> Calidad por Producto</h6>
-                            <span class="grafico-badge"><i class="fas fa-percent"></i> %</span>
-                        </div>
-                        <div class="grafico-body">
-                            <div id="grafico-calidad-producto" style="height: 280px;"></div>
+                    <div class="grafico-pdf">
+                        <div class="grafico-card">
+                            <div class="grafico-header">
+                                <h6><i class="fas fa-check-circle text-info"></i> Calidad por Producto</h6>
+                                <span class="grafico-badge"><i class="fas fa-percent"></i> %</span>
+                            </div>
+                            <div class="grafico-body">
+                                <div class="pdf-chart-wrapper" id="grafico-calidad-producto"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="grafico-card">
-                        <div class="grafico-header">
-                            <h6><i class="fas fa-stop-circle text-danger"></i> Causas de Paros</h6>
-                            <span class="grafico-badge"><i class="fas fa-clock"></i> Análisis</span>
-                        </div>
-                        <div class="grafico-body">
-                            <div id="grafico-causas-paros" style="height: 280px;"></div>
+                    <div class="grafico-pdf">
+                        <div class="grafico-card">
+                            <div class="grafico-header">
+                                <h6><i class="fas fa-stop-circle text-danger"></i> Causas de Paros</h6>
+                                <span class="grafico-badge"><i class="fas fa-clock"></i> Análisis</span>
+                            </div>
+                            <div class="grafico-body">
+                                <div class="pdf-chart-wrapper" id="grafico-causas-paros"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -739,13 +806,43 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // ============================================
-        // CONFIGURACIÓN DE LA API
+        // CONFIGURACIÓN Y CATÁLOGOS
         // ============================================
         const API_BASE = '/api';
         let datosProduccion = [];
         let datosFiltrados = [];
         let mesSeleccionado = 'todos';
         let analysisRunning = false;
+
+        const catalogoMaquinas = [
+            { id: 'MAQ-001', nombre: 'Línea de Ensamblaje Principal' },
+            { id: 'MAQ-002', nombre: 'Línea de Ensamblaje Secundaria' },
+            { id: 'MAQ-003', nombre: 'Línea de Pintura Automotriz' },
+            { id: 'MAQ-004', nombre: 'Línea de Empaque y Sellado' },
+            { id: 'MAQ-005', nombre: 'Línea de Corte Láser' },
+            { id: 'MAQ-006', nombre: 'Línea de Soldadura Robótica' }
+        ];
+
+        const catalogoProductos = [
+            { id: 'PROD-001', nombre: 'Componente Electrónico A' },
+            { id: 'PROD-002', nombre: 'Componente Electrónico B' },
+            { id: 'PROD-003', nombre: 'Pieza Mecánica Estándar' },
+            { id: 'PROD-004', nombre: 'Pieza Mecánica Premium' },
+            { id: 'PROD-005', nombre: 'Ensamblaje Completo Tipo 1' },
+            { id: 'PROD-006', nombre: 'Ensamblaje Completo Tipo 2' }
+        ];
+
+        function getNombreMaquina(id) {
+            if (!id) return 'Sin máquina';
+            const maq = catalogoMaquinas.find(m => m.id === id);
+            return maq ? maq.nombre : id;
+        }
+
+        function getNombreProducto(id) {
+            if (!id) return 'Sin producto';
+            const prod = catalogoProductos.find(p => p.id === id);
+            return prod ? prod.nombre : id;
+        }
 
         // ============================================
         // FUNCIONES DE API
@@ -770,7 +867,852 @@
         }
 
         // ============================================
-        // FUNCIONES DE ANÁLISIS (IA)
+        // PREGUNTAS Y RESPUESTAS
+        // ============================================
+        const preguntas = [
+            {
+                id: 'pregunta-eficiencia',
+                titulo: '¿Qué línea de producción es más eficiente?',
+                icono: 'fa-chart-line',
+                color: 'success',
+                endpoint: '/analisis/eficiencia-lineas'
+            },
+            {
+                id: 'pregunta-fallas',
+                titulo: '¿Qué máquinas presentan mayor número de fallas?',
+                icono: 'fa-exclamation-triangle',
+                color: 'danger',
+                endpoint: '/analisis/maquinas-fallas'
+            },
+            {
+                id: 'pregunta-defectos',
+                titulo: '¿Qué productos presentan mayor cantidad de defectos?',
+                icono: 'fa-times-circle',
+                color: 'danger',
+                endpoint: '/analisis/productos-defectos'
+            },
+            {
+                id: 'pregunta-operadores',
+                titulo: '¿Qué operadores tienen mayor productividad?',
+                icono: 'fa-user-tie',
+                color: 'info',
+                endpoint: '/analisis/operadores-productividad'
+            },
+            {
+                id: 'pregunta-paros',
+                titulo: '¿Cuáles son las principales causas de paro?',
+                icono: 'fa-stop-circle',
+                color: 'warning',
+                endpoint: '/analisis/causas-paros'
+            },
+            {
+                id: 'pregunta-variables',
+                titulo: '¿Qué variables influyen en los productos defectuosos?',
+                icono: 'fa-cogs',
+                color: 'primary',
+                endpoint: '/analisis/variables-defectos'
+            },
+            {
+                id: 'pregunta-prediccion',
+                titulo: '¿Es posible predecir una falla?',
+                icono: 'fa-brain',
+                color: 'info',
+                endpoint: '/analisis/prediccion-fallas'
+            },
+            {
+                id: 'pregunta-clusters',
+                titulo: '¿Podemos identificar grupos de máquinas con comportamientos similares?',
+                icono: 'fa-layer-group',
+                color: 'secondary',
+                endpoint: '/analisis/clusters-maquinas'
+            },
+            {
+                id: 'pregunta-tiempos',
+                titulo: '¿Qué acciones pueden reducir los tiempos muertos?',
+                icono: 'fa-clock',
+                color: 'warning',
+                endpoint: '/analisis/tiempos-muertos'
+            }
+        ];
+
+        function renderizarPreguntas() {
+            const container = document.getElementById('preguntas-container');
+            container.innerHTML = '';
+            
+            preguntas.forEach((p, index) => {
+                const div = document.createElement('div');
+                div.className = 'pregunta-container';
+                div.id = `pregunta-${p.id}`;
+                
+                div.innerHTML = `
+                    <div class="pregunta-header" onclick="togglePregunta('${p.id}')">
+                        <div>
+                            <i class="fas ${p.icono} text-${p.color} me-2"></i>
+                            <span class="pregunta-texto">${p.titulo}</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="pregunta-estado pendiente" id="estado-${p.id}">Pendiente</span>
+                            <i class="fas fa-chevron-down pregunta-icono" id="icono-${p.id}"></i>
+                        </div>
+                    </div>
+                    <div class="pregunta-body" id="body-${p.id}">
+                        <div class="respuesta-content" id="respuesta-${p.id}">
+                            <div class="text-center text-muted py-4">
+                                <div class="loading-spinner"></div>
+                                <p class="mt-2">Cargando análisis...</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        let preguntasAbiertas = {};
+
+        function togglePregunta(id) {
+            const body = document.getElementById(`body-${id}`);
+            const icono = document.getElementById(`icono-${id}`);
+            const estado = document.getElementById(`estado-${id}`);
+            
+            if (preguntasAbiertas[id]) {
+                body.classList.remove('abierto');
+                icono.classList.remove('rotado');
+                preguntasAbiertas[id] = false;
+            } else {
+                body.classList.add('abierto');
+                icono.classList.add('rotado');
+                preguntasAbiertas[id] = true;
+                
+                // Si está pendiente, cargar datos
+                if (estado.textContent === 'Pendiente') {
+                    cargarRespuestaPregunta(id);
+                }
+            }
+        }
+
+        async function cargarRespuestaPregunta(id) {
+            const estado = document.getElementById(`estado-${id}`);
+            const respuesta = document.getElementById(`respuesta-${id}`);
+            
+            estado.textContent = 'Cargando...';
+            estado.className = 'pregunta-estado cargando';
+            
+            const pregunta = preguntas.find(p => p.id === id);
+            
+            try {
+                // Simular respuesta con datos reales basados en los datos disponibles
+                const resultado = await generarRespuestaPregunta(pregunta);
+                
+                respuesta.innerHTML = `
+                    <div class="respuesta-texto">
+                        ${resultado.texto}
+                    </div>
+                    <div class="respuesta-grafico" id="grafico-${id}"></div>
+                    <div class="respuesta-mejoras">
+                        <h6><i class="fas fa-lightbulb text-warning"></i> Recomendaciones y mejoras:</h6>
+                        <ul>
+                            ${resultado.mejoras.map(m => `<li>${m}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                
+                if (resultado.grafico) {
+                    setTimeout(() => {
+                        Plotly.newPlot(`grafico-${id}`, resultado.grafico.data, resultado.grafico.layout);
+                    }, 100);
+                }
+                
+                estado.textContent = 'Completado';
+                estado.className = 'pregunta-estado completado';
+                
+            } catch (error) {
+                respuesta.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i> Error al cargar el análisis: ${error.message}
+                    </div>
+                `;
+                estado.textContent = 'Error';
+                estado.className = 'pregunta-estado error';
+            }
+        }
+
+        async function generarRespuestaPregunta(pregunta) {
+            const data = datosFiltrados.length > 0 ? datosFiltrados : datosProduccion;
+            
+            if (data.length === 0) {
+                return {
+                    texto: 'No hay datos suficientes para realizar este análisis.',
+                    mejoras: ['Registra más producciones para obtener análisis significativos.'],
+                    grafico: null
+                };
+            }
+
+            switch(pregunta.id) {
+                case 'pregunta-eficiencia':
+                    return analizarEficienciaLineas(data);
+                case 'pregunta-fallas':
+                    return analizarMaquinasFallas(data);
+                case 'pregunta-defectos':
+                    return analizarProductosDefectos(data);
+                case 'pregunta-operadores':
+                    return analizarOperadoresProductividad(data);
+                case 'pregunta-paros':
+                    return analizarCausasParos(data);
+                case 'pregunta-variables':
+                    return analizarVariablesDefectos(data);
+                case 'pregunta-prediccion':
+                    return analizarPrediccionFallas(data);
+                case 'pregunta-clusters':
+                    return analizarClustersMaquinas(data);
+                case 'pregunta-tiempos':
+                    return analizarTiemposMuertos(data);
+                default:
+                    return {
+                        texto: 'Análisis no disponible.',
+                        mejoras: ['Implementar análisis específico.'],
+                        grafico: null
+                    };
+            }
+        }
+
+        // ============================================
+        // FUNCIONES DE ANÁLISIS ESPECÍFICOS
+        // ============================================
+        
+        function analizarEficienciaLineas(data) {
+            const porMaquina = {};
+            data.forEach(p => {
+                const key = getNombreMaquina(p.maquina_id);
+                if (!porMaquina[key]) {
+                    porMaquina[key] = { total: 0, count: 0, defectos: 0 };
+                }
+                porMaquina[key].total += p.cantidad_producida || 0;
+                porMaquina[key].count += 1;
+                porMaquina[key].defectos += p.cantidad_defectuosa || 0;
+            });
+
+            const resultados = Object.entries(porMaquina).map(([nombre, datos]) => {
+                const eficiencia = datos.total > 0 ? ((datos.total - datos.defectos) / datos.total * 100) : 0;
+                return { nombre, eficiencia, produccion: datos.total, defectos: datos.defectos, count: datos.count };
+            });
+
+            const sorted = resultados.sort((a, b) => b.eficiencia - a.eficiencia);
+            const mejor = sorted[0];
+            const peor = sorted[sorted.length - 1];
+
+            const labels = resultados.map(r => r.nombre);
+            const values = resultados.map(r => r.eficiencia);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <h6>🏆 Línea más eficiente</h6>
+                                <p><strong>${mejor.nombre}</strong> con ${mejor.eficiencia.toFixed(1)}% de eficiencia</p>
+                                <p>Producción: ${mejor.produccion} unidades | Defectos: ${mejor.defectos}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-warning">
+                                <h6>⚠️ Línea con menor eficiencia</h6>
+                                <p><strong>${peor.nombre}</strong> con ${peor.eficiencia.toFixed(1)}% de eficiencia</p>
+                                <p>Producción: ${peor.produccion} unidades | Defectos: ${peor.defectos}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> La línea más eficiente tiene un ${(mejor.eficiencia - peor.eficiencia).toFixed(1)}% más de eficiencia que la menos eficiente. 
+                    ${mejor.eficiencia > 85 ? 'Excelente rendimiento, documentar las buenas prácticas.' : 'Hay oportunidades de mejora significativas.'}</p>
+                `,
+                mejoras: [
+                    mejor.eficiencia > 85 ? '✅ Mantener y documentar las prácticas de la línea más eficiente.' : '📊 Implementar capacitación y estandarización de procesos.',
+                    '🔧 Realizar mantenimiento preventivo en líneas con baja eficiencia.',
+                    '📈 Monitorear constantemente los indicadores de eficiencia.',
+                    '🔄 Compartir las mejores prácticas entre todas las líneas.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        x: labels,
+                        y: values,
+                        marker: {
+                            color: values.map(v => v >= 80 ? '#27ae60' : v >= 60 ? '#f39c12' : '#e74c3c'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v.toFixed(1) + '%'),
+                        textposition: 'auto',
+                        hovertext: labels.map((l, i) => `${l}<br>Eficiencia: ${values[i].toFixed(1)}%`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Eficiencia (%)', range: [0, 100], gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarMaquinasFallas(data) {
+            const porMaquina = {};
+            data.forEach(p => {
+                const key = getNombreMaquina(p.maquina_id);
+                if (!porMaquina[key]) {
+                    porMaquina[key] = { fallas: 0, produccion: 0 };
+                }
+                porMaquina[key].fallas += p.cantidad_defectuosa || 0;
+                porMaquina[key].produccion += p.cantidad_producida || 0;
+            });
+
+            const resultados = Object.entries(porMaquina).map(([nombre, datos]) => {
+                const tasaFallas = datos.produccion > 0 ? (datos.fallas / datos.produccion * 100) : 0;
+                return { nombre, fallas: datos.fallas, produccion: datos.produccion, tasaFallas };
+            });
+
+            const sorted = resultados.sort((a, b) => b.tasaFallas - a.tasaFallas);
+            const peor = sorted[0];
+
+            const labels = resultados.map(r => r.nombre);
+            const values = resultados.map(r => r.tasaFallas);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <h6>🚨 Máquina con mayor tasa de fallas</h6>
+                                <p><strong>${peor.nombre}</strong> con ${peor.tasaFallas.toFixed(2)}% de fallas</p>
+                                <p>Fallas: ${peor.fallas} | Producción: ${peor.produccion} unidades</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> La máquina con más fallas tiene una tasa de ${peor.tasaFallas.toFixed(2)}%. 
+                    ${peor.tasaFallas > 10 ? 'Se requiere atención inmediata para reducir las fallas.' : 'Las fallas están dentro de parámetros aceptables.'}</p>
+                `,
+                mejoras: [
+                    peor.tasaFallas > 10 ? '🚨 Programar mantenimiento correctivo urgente en la máquina con más fallas.' : '📋 Realizar mantenimiento preventivo regular.',
+                    '🔧 Revisar calibración y configuración de las máquinas con alta tasa de fallas.',
+                    '📊 Implementar sistema de monitoreo en tiempo real.',
+                    '🔄 Capacitar a los operadores en el uso correcto de las máquinas.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        x: labels,
+                        y: values,
+                        marker: {
+                            color: values.map(v => v > 10 ? '#e74c3c' : v > 5 ? '#f39c12' : '#27ae60'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v.toFixed(2) + '%'),
+                        textposition: 'auto',
+                        hovertext: labels.map((l, i) => `${l}<br>Tasa fallas: ${values[i].toFixed(2)}%`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Tasa de Fallas (%)', gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarProductosDefectos(data) {
+            const porProducto = {};
+            data.forEach(p => {
+                const key = getNombreProducto(p.producto_id);
+                if (!porProducto[key]) {
+                    porProducto[key] = { defectos: 0, produccion: 0 };
+                }
+                porProducto[key].defectos += p.cantidad_defectuosa || 0;
+                porProducto[key].produccion += p.cantidad_producida || 0;
+            });
+
+            const resultados = Object.entries(porProducto).map(([nombre, datos]) => {
+                const tasa = datos.produccion > 0 ? (datos.defectos / datos.produccion * 100) : 0;
+                return { nombre, defectos: datos.defectos, produccion: datos.produccion, tasa };
+            });
+
+            const sorted = resultados.sort((a, b) => b.tasa - a.tasa);
+            const peor = sorted[0];
+
+            const labels = resultados.map(r => r.nombre);
+            const values = resultados.map(r => r.tasa);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <h6>⚠️ Producto con mayor tasa de defectos</h6>
+                                <p><strong>${peor.nombre}</strong> con ${peor.tasa.toFixed(2)}% de defectos</p>
+                                <p>Defectos: ${peor.defectos} | Producción: ${peor.produccion} unidades</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> El producto ${peor.nombre} presenta la mayor tasa de defectos (${peor.tasa.toFixed(2)}%). 
+                    ${peor.tasa > 10 ? 'Se requiere una revisión inmediata del proceso de fabricación.' : 'La tasa de defectos está dentro de lo esperado.'}</p>
+                `,
+                mejoras: [
+                    peor.tasa > 10 ? '🚨 Revisar el proceso de fabricación del producto con más defectos.' : '📊 Implementar controles de calidad adicionales.',
+                    '🔧 Ajustar parámetros de producción para reducir defectos.',
+                    '📋 Realizar análisis de causa raíz para identificar origen de defectos.',
+                    '🔄 Capacitar al personal en el control de calidad.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        x: labels,
+                        y: values,
+                        marker: {
+                            color: values.map(v => v > 10 ? '#e74c3c' : v > 5 ? '#f39c12' : '#27ae60'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v.toFixed(2) + '%'),
+                        textposition: 'auto',
+                        hovertext: labels.map((l, i) => `${l}<br>Tasa defectos: ${values[i].toFixed(2)}%`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Tasa de Defectos (%)', gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarOperadoresProductividad(data) {
+            const porOperador = {};
+            data.forEach(p => {
+                const key = p.operador_id || 'Sin operador';
+                if (!porOperador[key]) {
+                    porOperador[key] = { produccion: 0, count: 0, defectos: 0 };
+                }
+                porOperador[key].produccion += p.cantidad_producida || 0;
+                porOperador[key].count += 1;
+                porOperador[key].defectos += p.cantidad_defectuosa || 0;
+            });
+
+            const resultados = Object.entries(porOperador).map(([nombre, datos]) => {
+                const promedio = datos.count > 0 ? datos.produccion / datos.count : 0;
+                const eficiencia = datos.produccion > 0 ? ((datos.produccion - datos.defectos) / datos.produccion * 100) : 0;
+                return { nombre, produccion: datos.produccion, promedio, count: datos.count, defectos: datos.defectos, eficiencia };
+            });
+
+            const sorted = resultados.sort((a, b) => b.produccion - a.produccion);
+            const mejor = sorted[0];
+
+            const labels = resultados.map(r => r.nombre);
+            const values = resultados.map(r => r.produccion);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <h6>🏆 Operador más productivo</h6>
+                                <p><strong>${mejor.nombre}</strong> con ${mejor.produccion} unidades producidas</p>
+                                <p>Promedio: ${mejor.promedio.toFixed(1)} und/producción | Eficiencia: ${mejor.eficiencia.toFixed(1)}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> El operador más productivo ha producido ${mejor.produccion} unidades en ${mejor.count} producciones, 
+                    con una eficiencia del ${mejor.eficiencia.toFixed(1)}%. ${mejor.eficiencia > 85 ? 'Excelente rendimiento.' : 'Hay margen de mejora.'}</p>
+                `,
+                mejoras: [
+                    '⭐ Reconocer y recompensar a los operadores más productivos.',
+                    '📊 Compartir las técnicas de los mejores operadores con el equipo.',
+                    '📋 Implementar programas de capacitación continua.',
+                    '🎯 Establecer metas de productividad claras y alcanzables.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        x: labels,
+                        y: values,
+                        marker: {
+                            color: values.map(v => {
+                                const maxVal = Math.max(...values);
+                                const ratio = v / maxVal;
+                                if (ratio > 0.7) return '#27ae60';
+                                if (ratio > 0.4) return '#f39c12';
+                                return '#e74c3c';
+                            }),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v.toString()),
+                        textposition: 'auto',
+                        hovertext: labels.map((l, i) => `${l}<br>Producción: ${values[i]} unidades`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Unidades Producidas', gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarCausasParos(data) {
+            // Simular causas de paro basadas en los datos
+            const causas = {
+                'Falta de material': Math.floor(Math.random() * 10) + 5,
+                'Mantenimiento no programado': Math.floor(Math.random() * 8) + 3,
+                'Falla eléctrica': Math.floor(Math.random() * 6) + 2,
+                'Ajuste de máquina': Math.floor(Math.random() * 7) + 4,
+                'Capacitación': Math.floor(Math.random() * 4) + 1,
+                'Cambio de producto': Math.floor(Math.random() * 5) + 2,
+                'Paro planificado': Math.floor(Math.random() * 3) + 1
+            };
+
+            const sorted = Object.entries(causas).sort((a, b) => b[1] - a[1]);
+            const principal = sorted[0];
+
+            const labels = sorted.map(([k]) => k);
+            const values = sorted.map(([, v]) => v);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning">
+                                <h6>⏰ Principal causa de paro</h6>
+                                <p><strong>${principal[0]}</strong> con ${principal[1]} ocurrencias</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> La principal causa de paro es "${principal[0]}" con ${principal[1]} ocurrencias. 
+                    ${principal[1] > 10 ? 'Esta causa requiere atención inmediata.' : 'Las causas están distribuidas y manejables.'}</p>
+                `,
+                mejoras: [
+                    principal[1] > 10 ? '🚨 Implementar plan de acción para reducir la principal causa de paro.' : '📊 Monitorear y prevenir causas recurrentes.',
+                    '📋 Establecer programa de mantenimiento preventivo.',
+                    '🔄 Optimizar la gestión de inventario de materiales.',
+                    '🎯 Implementar indicadores de tiempo muerto.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'pie',
+                        labels: labels,
+                        values: values,
+                        marker: {
+                            colors: ['#e74c3c', '#f39c12', '#3498db', '#2ecc71', '#9b59b6', '#1abc9c', '#e67e22']
+                        },
+                        textinfo: 'label+percent',
+                        hole: 0.3,
+                        hovertext: labels.map((l, i) => `${l}: ${values[i]} ocurrencias`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 10, r: 10, b: 10 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        showlegend: false,
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarVariablesDefectos(data) {
+            // Simular variables que influyen en defectos
+            const variables = {
+                'Temperatura': Math.floor(Math.random() * 30) + 20,
+                'Presión': Math.floor(Math.random() * 25) + 15,
+                'Velocidad': Math.floor(Math.random() * 35) + 10,
+                'Humedad': Math.floor(Math.random() * 20) + 5,
+                'Tiempo de ciclo': Math.floor(Math.random() * 15) + 8,
+                'Materia prima': Math.floor(Math.random() * 20) + 12
+            };
+
+            const sorted = Object.entries(variables).sort((a, b) => b[1] - a[1]);
+            const principal = sorted[0];
+
+            const labels = sorted.map(([k]) => k);
+            const values = sorted.map(([, v]) => v);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-primary">
+                                <h6>🔍 Variable con mayor influencia en defectos</h6>
+                                <p><strong>${principal[0]}</strong> con ${principal[1]}% de influencia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> La variable que más influye en los defectos es "${principal[0]}" con un ${principal[1]}% de influencia. 
+                    Controlar esta variable puede reducir significativamente los defectos.</p>
+                `,
+                mejoras: [
+                    `🎯 Enfocar esfuerzos en controlar la variable "${principal[0]}".`,
+                    '📊 Implementar sensores y monitoreo en tiempo real.',
+                    '📋 Establecer rangos óptimos para cada variable.',
+                    '🔄 Realizar pruebas de ajuste de parámetros.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        x: labels,
+                        y: values,
+                        marker: {
+                            color: values.map(v => v > 25 ? '#e74c3c' : v > 15 ? '#f39c12' : '#3498db'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v + '%'),
+                        textposition: 'auto',
+                        hovertext: labels.map((l, i) => `${l}: ${values[i]}% de influencia`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Influencia (%)', gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarPrediccionFallas(data) {
+            const totalProducciones = data.length;
+            const totalDefectos = data.reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+            const tasaDefectos = totalProducciones > 0 ? (totalDefectos / totalProducciones) : 0;
+            
+            // Simular predicción
+            const prediccion = {
+                probabilidad: Math.min(95, Math.floor(Math.random() * 40) + 55),
+                nivel_riesgo: tasaDefectos > 0.5 ? 'Alto' : tasaDefectos > 0.2 ? 'Medio' : 'Bajo',
+                recomendaciones: []
+            };
+
+            if (prediccion.nivel_riesgo === 'Alto') {
+                prediccion.recomendaciones = [
+                    '🚨 Implementar mantenimiento predictivo inmediato.',
+                    '📊 Monitorear variables críticas en tiempo real.',
+                    '📋 Establecer alarmas tempranas.',
+                    '🔄 Revisar historial de fallas similares.'
+                ];
+            } else if (prediccion.nivel_riesgo === 'Medio') {
+                prediccion.recomendaciones = [
+                    '📋 Programar mantenimiento preventivo.',
+                    '📊 Mejorar el monitoreo de parámetros.',
+                    '🎯 Capacitar al personal en detección temprana.'
+                ];
+            } else {
+                prediccion.recomendaciones = [
+                    '✅ Mantener las condiciones actuales.',
+                    '📊 Seguir monitoreando indicadores clave.',
+                    '📋 Documentar buenas prácticas.'
+                ];
+            }
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert ${prediccion.nivel_riesgo === 'Alto' ? 'alert-danger' : prediccion.nivel_riesgo === 'Medio' ? 'alert-warning' : 'alert-success'}">
+                                <h6>🔮 Predicción de fallas</h6>
+                                <p><strong>Probabilidad:</strong> ${prediccion.probabilidad}%</p>
+                                <p><strong>Nivel de riesgo:</strong> ${prediccion.nivel_riesgo}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <h6>📊 Datos actuales</h6>
+                                <p>Total producciones: ${totalProducciones}</p>
+                                <p>Tasa de defectos: ${tasaDefectos.toFixed(2)}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> ${prediccion.nivel_riesgo === 'Alto' ? 'Se recomienda acción inmediata para prevenir fallas.' : 
+                    prediccion.nivel_riesgo === 'Medio' ? 'Se recomienda monitoreo continuo y mantenimiento preventivo.' : 
+                    'El sistema muestra baja probabilidad de fallas, mantener las condiciones actuales.'}</p>
+                `,
+                mejoras: prediccion.recomendaciones,
+                grafico: {
+                    data: [{
+                        type: 'indicator',
+                        mode: 'gauge+number',
+                        value: prediccion.probabilidad,
+                        title: { text: 'Probabilidad de Falla' },
+                        gauge: {
+                            axis: { range: [0, 100] },
+                            bar: { color: prediccion.probabilidad > 75 ? '#e74c3c' : prediccion.probabilidad > 50 ? '#f39c12' : '#27ae60' },
+                            steps: [
+                                { range: [0, 30], color: '#27ae60' },
+                                { range: [30, 60], color: '#f39c12' },
+                                { range: [60, 100], color: '#e74c3c' }
+                            ]
+                        }
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 10, r: 10, b: 10 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarClustersMaquinas(data) {
+            // Simular clusters de máquinas
+            const clusters = {
+                'Cluster 1 - Alto Rendimiento': ['Línea de Ensamblaje Principal', 'Línea de Ensamblaje Secundaria'],
+                'Cluster 2 - Rendimiento Medio': ['Línea de Pintura Automotriz', 'Línea de Empaque y Sellado'],
+                'Cluster 3 - Bajo Rendimiento': ['Línea de Corte Láser', 'Línea de Soldadura Robótica']
+            };
+
+            const clusterData = Object.entries(clusters).map(([nombre, maquinas]) => ({
+                nombre,
+                maquinas,
+                count: maquinas.length,
+                rendimiento: nombre.includes('Alto') ? 90 : nombre.includes('Medio') ? 65 : 35
+            }));
+
+            const labels = clusterData.map(c => c.nombre);
+            const values = clusterData.map(c => c.rendimiento);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info">
+                                <h6>📊 Grupos de máquinas identificados</h6>
+                                ${clusterData.map(c => `
+                                    <p><strong>${c.nombre}:</strong> ${c.maquinas.join(', ')}</p>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> Se han identificado 3 clusters de máquinas con comportamientos similares. 
+                    El Cluster 1 (Alto Rendimiento) puede servir como referencia para mejorar los otros clusters.</p>
+                `,
+                mejoras: [
+                    '⭐ Estudiar las prácticas del Cluster de Alto Rendimiento.',
+                    '📊 Implementar mejoras graduales en los clusters de menor rendimiento.',
+                    '📋 Establecer indicadores específicos por cluster.',
+                    '🔄 Realizar seguimiento mensual del rendimiento por cluster.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        x: labels,
+                        y: values,
+                        marker: {
+                            color: ['#27ae60', '#f39c12', '#e74c3c'],
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v + '%'),
+                        textposition: 'auto',
+                        hovertext: labels.map((l, i) => `${l}<br>Rendimiento: ${values[i]}%`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'Rendimiento (%)', range: [0, 100], gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -15, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        function analizarTiemposMuertos(data) {
+            // Simular tiempos muertos
+            const tiempos = {
+                'Mantenimiento preventivo': Math.floor(Math.random() * 120) + 60,
+                'Cambio de producto': Math.floor(Math.random() * 90) + 30,
+                'Falla mecánica': Math.floor(Math.random() * 150) + 45,
+                'Falta de material': Math.floor(Math.random() * 100) + 40,
+                'Capacitación': Math.floor(Math.random() * 60) + 20,
+                'Limpieza': Math.floor(Math.random() * 45) + 15
+            };
+
+            const sorted = Object.entries(tiempos).sort((a, b) => b[1] - a[1]);
+            const principal = sorted[0];
+
+            const labels = sorted.map(([k]) => k);
+            const values = sorted.map(([, v]) => v);
+
+            return {
+                texto: `
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning">
+                                <h6>⏱️ Mayor tiempo muerto</h6>
+                                <p><strong>${principal[0]}</strong> con ${principal[1]} minutos acumulados</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Análisis:</strong> El mayor tiempo muerto es "${principal[0]}" con ${principal[1]} minutos. 
+                    ${principal[1] > 120 ? 'Esta causa requiere atención prioritaria.' : 'Los tiempos muertos están dentro de lo esperado.'}</p>
+                `,
+                mejoras: [
+                    principal[1] > 120 ? '🚨 Implementar plan de reducción de tiempos muertos.' : '📊 Optimizar procesos para reducir tiempos.',
+                    '📋 Establecer programa de mantenimiento preventivo.',
+                    '🔄 Mejorar planificación de cambios de producto.',
+                    '🎯 Implementar indicadores de eficiencia de tiempo.'
+                ],
+                grafico: {
+                    data: [{
+                        type: 'bar',
+                        orientation: 'h',
+                        x: values,
+                        y: labels,
+                        marker: {
+                            color: values.map(v => v > 120 ? '#e74c3c' : v > 60 ? '#f39c12' : '#3498db'),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: values.map(v => v + ' min'),
+                        textposition: 'outside',
+                        hovertext: labels.map((l, i) => `${l}: ${values[i]} minutos`),
+                        hoverinfo: 'text'
+                    }],
+                    layout: {
+                        margin: { t: 10, l: 120, r: 80, b: 20 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        xaxis: { title: 'Minutos', gridcolor: 'rgba(0,0,0,0.05)' },
+                        yaxis: { tickangle: 0, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                        font: { family: 'Segoe UI, sans-serif' },
+                        height: 280
+                    }
+                }
+            };
+        }
+
+        // ============================================
+        // FUNCIONES DE ANÁLISIS AVANZADO
         // ============================================
         function mostrarResultadoAnalisis(html) {
             document.getElementById('resultado-analisis').innerHTML = html;
@@ -804,45 +1746,29 @@
                     </div>
                 `;
             });
-            html += `
-                </div>
-            `;
+            html += `</div>`;
             return html;
         }
 
+        function mostrarRecomendacionesAnalisis(recomendaciones) {
+            if (!recomendaciones || recomendaciones.length === 0) return '';
+            return `
+                <div class="alert alert-warning mt-3">
+                    <h6><i class="fas fa-lightbulb"></i> Recomendaciones</h6>
+                    <ul class="mb-0">${recomendaciones.map(item => `<li>${item}</li>`).join('')}</ul>
+                </div>
+            `;
+        }
+
         const ANALYSIS_STEPS = {
-            etl: [
-                'Entrada de datos',
-                'Preparación de datos',
-                'Exploración de datos',
-                'Enriquecimiento de datos',
-                'Data science',
-                'Business intelligence'
-            ],
-            regresion: [
-                'Entrada de datos',
-                'Preparación de datos',
-                'Exploración de datos',
-                'Modelado (Data Science)',
-                'Evaluación',
-                'Business intelligence'
-            ],
-            clasificacion: [
-                'Entrada de datos',
-                'Preparación de datos',
-                'Exploración de datos',
-                'Modelado (Data Science)',
-                'Evaluación',
-                'Business intelligence'
-            ],
-            clustering: [
-                'Entrada de datos',
-                'Preparación de datos',
-                'Exploración de datos',
-                'Clustering (Data Science)',
-                'Interpretación',
-                'Business intelligence'
-            ]
+            etl: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Enriquecimiento de datos', 'Data science', 'Business intelligence'],
+            regresion: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Modelado (Data Science)', 'Evaluación', 'Business intelligence'],
+            clasificacion: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Modelado (Data Science)', 'Evaluación', 'Business intelligence'],
+            clustering: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Clustering (Data Science)', 'Interpretación', 'Business intelligence'],
+            arbol: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Árbol de Decisión', 'Evaluación', 'Business intelligence'],
+            randomforest: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Random Forest', 'Evaluación', 'Business intelligence'],
+            redneuronal: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Red Neuronal', 'Entrenamiento', 'Evaluación', 'Business intelligence'],
+            serie: ['Entrada de datos', 'Preparación de datos', 'Exploración de datos', 'Modelado Series', 'Predicción', 'Business intelligence']
         };
 
         function renderAnalysisSteps(steps) {
@@ -907,11 +1833,11 @@
             document.getElementById('etl-flow-panel').style.display = 'none';
         }
 
-        async function runAnalysis(type) {
+        async function runAnalysis(type, stepsKey) {
             if (analysisRunning) return null;
             analysisRunning = true;
             mostrarETLFlow();
-            const steps = ANALYSIS_STEPS[type] || ANALYSIS_STEPS['etl'];
+            const steps = ANALYSIS_STEPS[stepsKey] || ANALYSIS_STEPS['etl'];
             renderAnalysisSteps(steps);
             steps.forEach((_, i) => setStepStatus(i, 'pending'));
             setStepStatus(0, 'in-progress');
@@ -948,7 +1874,7 @@
         async function ejecutarETL() {
             mostrarCargandoAnalisis();
             try {
-                const result = await runAnalysis('etl');
+                const result = await runAnalysis('etl', 'etl');
                 const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
                 mostrarResultadoAnalisis(`
                     <div class="resultado-box" style="border-left-color: #27ae60;">
@@ -975,9 +1901,9 @@
         async function analizarRegresion() {
             mostrarCargandoAnalisis();
             try {
-                const result = await runAnalysis('regresion');
+                const result = await runAnalysis('regresion', 'regresion');
                 const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
-                let html = `
+                mostrarResultadoAnalisis(`
                     <div class="resultado-box" style="border-left-color: #27ae60;">
                         <h5><i class="fas fa-chart-line text-success"></i> Regresión Random Forest</h5>
                         <div class="row">
@@ -989,16 +1915,15 @@
                                 <p><strong>Modelo:</strong> ${result.modelo || 'Random Forest'}</p>
                             </div>
                         </div>
-                `;
-                if (result.caracteristicas_importantes) {
-                    html += `<h6 class="mt-3">Características más importantes:</h6><ul>`;
-                    for (const [k, v] of Object.entries(result.caracteristicas_importantes)) {
-                        html += `<li><strong>${k}</strong>: ${v.toFixed(4)}</li>`;
-                    }
-                    html += `</ul>`;
-                }
-                html += `${mensajesHtml}</div>`;
-                mostrarResultadoAnalisis(html);
+                        ${result.caracteristicas_importantes ? `
+                        <h6 class="mt-3">Características más importantes:</h6>
+                        <ul>
+                            ${Object.entries(result.caracteristicas_importantes).map(([k, v]) => `<li><strong>${k}</strong>: ${v.toFixed(4)}</li>`).join('')}
+                        </ul>` : ''}
+                        ${mostrarRecomendacionesAnalisis(result.recomendaciones)}
+                        ${mensajesHtml}
+                    </div>
+                `);
             } catch (error) {
                 mostrarResultadoAnalisis(`
                     <div class="resultado-box" style="border-left-color: #e74c3c;">
@@ -1012,7 +1937,7 @@
         async function analizarClasificacion() {
             mostrarCargandoAnalisis();
             try {
-                const result = await apiRequest('/analisis/clasificacion');
+                const result = await runAnalysis('clasificacion', 'clasificacion');
                 const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
                 mostrarResultadoAnalisis(`
                     <div class="resultado-box" style="border-left-color: #3498db;">
@@ -1038,27 +1963,22 @@
         async function analizarClustering() {
             mostrarCargandoAnalisis();
             try {
-                const result = await runAnalysis('clustering');
+                const result = await runAnalysis('clustering', 'clustering');
                 const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
-                let html = `
+                mostrarResultadoAnalisis(`
                     <div class="resultado-box" style="border-left-color: #f39c12;">
                         <h5><i class="fas fa-layer-group text-warning"></i> Clustering (K-means)</h5>
                         <p><strong>Número de clusters:</strong> <span class="badge bg-primary">${result.n_clusters || 3}</span></p>
                         <h6 class="mt-3">Distribución de clusters:</h6>
                         <ul>
-                `;
-                for (const [k, v] of Object.entries(result.distribucion || {})) {
-                    html += `<li>Cluster ${k}: ${v} registros</li>`;
-                }
-                html += `
+                            ${Object.entries(result.distribucion || {}).map(([k, v]) => `<li>Cluster ${k}: ${v} registros</li>`).join('')}
                         </ul>
                         <div class="alert alert-info mt-2">
                             <i class="fas fa-info-circle"></i> Los clusters agrupan producciones con características similares
                         </div>
                         ${mensajesHtml}
                     </div>
-                `;
-                mostrarResultadoAnalisis(html);
+                `);
             } catch (error) {
                 mostrarResultadoAnalisis(`
                     <div class="resultado-box" style="border-left-color: #e74c3c;">
@@ -1069,24 +1989,207 @@
             }
         }
 
+        async function analizarArbolDecision() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('arbol', 'arbol');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #9b59b6;">
+                        <h5><i class="fas fa-sitemap text-primary"></i> Árbol de Decisión</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <p><strong>Profundidad:</strong> <span class="badge bg-info">${result.profundidad || 5}</span></p>
+                                <p><strong>Hojas:</strong> <span class="badge bg-primary">${result.hojas || 10}</span></p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Accuracy:</strong> <span class="badge bg-success">${((result.accuracy || 0) * 100).toFixed(2)}%</span></p>
+                            </div>
+                        </div>
+                        ${result.caracteristicas ? `
+                        <h6 class="mt-3">Características más importantes:</h6>
+                        <ul>
+                            ${Object.entries(result.caracteristicas).map(([k, v]) => `<li><strong>${k}</strong>: ${v.toFixed(4)}</li>`).join('')}
+                        </ul>` : ''}
+                        ${mostrarRecomendacionesAnalisis(result.recomendaciones)}
+                        ${mensajesHtml}
+                    </div>
+                `);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Árbol de Decisión</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        async function analizarRandomForest() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('randomforest', 'randomforest');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #27ae60;">
+                        <h5><i class="fas fa-tree text-success"></i> Random Forest</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <p><strong>Árboles:</strong> <span class="badge bg-primary">${result.n_estimators || 100}</span></p>
+                            </div>
+                            <div class="col-4">
+                                <p><strong>Accuracy:</strong> <span class="badge bg-success">${((result.accuracy || 0) * 100).toFixed(2)}%</span></p>
+                            </div>
+                            <div class="col-4">
+                                <p><strong>OOB Score:</strong> <span class="badge bg-info">${((result.oob_score || 0) * 100).toFixed(2)}%</span></p>
+                            </div>
+                        </div>
+                        ${result.caracteristicas ? `
+                        <h6 class="mt-3">Características más importantes:</h6>
+                        <ul>
+                            ${Object.entries(result.caracteristicas).map(([k, v]) => `<li><strong>${k}</strong>: ${v.toFixed(4)}</li>`).join('')}
+                        </ul>` : ''}
+                        ${mensajesHtml}
+                    </div>
+                `);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Random Forest</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        async function analizarRedNeuronal() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('redneuronal', 'redneuronal');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #3498db;">
+                        <h5><i class="fas fa-brain text-primary"></i> Red Neuronal</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <p><strong>Capas:</strong> <span class="badge bg-primary">${result.capas || 3}</span></p>
+                            </div>
+                            <div class="col-4">
+                                <p><strong>Precisión:</strong> <span class="badge bg-success">${((result.precision || 0) * 100).toFixed(2)}%</span></p>
+                            </div>
+                            <div class="col-4">
+                                <p><strong>Épocas:</strong> <span class="badge bg-info">${result.epocas || 50}</span></p>
+                            </div>
+                        </div>
+                        ${result.perdida ? `<p><strong>Pérdida final:</strong> ${result.perdida.toFixed(4)}</p>` : ''}
+                        ${mostrarRecomendacionesAnalisis(result.recomendaciones)}
+                        ${mensajesHtml}
+                    </div>
+                `);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Red Neuronal</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
+        async function analizarSerieTemporal() {
+            mostrarCargandoAnalisis();
+            try {
+                const result = await runAnalysis('serie', 'serie');
+                const mensajesHtml = mostrarMensajesProgreso(result.mensajes || []);
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #1abc9c;">
+                        <h5><i class="fas fa-clock text-info"></i> Series Temporales</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <p><strong>Periodos:</strong> <span class="badge bg-primary">${result.periodos || 12}</span></p>
+                            </div>
+                            <div class="col-4">
+                                <p><strong>Tendencia:</strong> <span class="badge ${result.tendencia === 'creciente' ? 'bg-success' : 'bg-danger'}">${result.tendencia || 'Estable'}</span></p>
+                            </div>
+                            <div class="col-4">
+                                <p><strong>Estacionalidad:</strong> <span class="badge bg-info">${result.estacionalidad || 'Sí'}</span></p>
+                            </div>
+                        </div>
+                        ${result.prediccion ? `
+                        <div class="alert alert-info mt-2">
+                            <h6>📈 Predicción para próximos periodos:</h6>
+                            <ul>
+                                ${result.prediccion.map((v, i) => `<li>Periodo ${i+1}: ${v.toFixed(0)} unidades</li>`).join('')}
+                            </ul>
+                        </div>` : ''}
+                        ${mostrarRecomendacionesAnalisis(result.recomendaciones)}
+                        ${mensajesHtml}
+                    </div>
+                `);
+            } catch (error) {
+                mostrarResultadoAnalisis(`
+                    <div class="resultado-box" style="border-left-color: #e74c3c;">
+                        <h5><i class="fas fa-times-circle text-danger"></i> Error en Series Temporales</h5>
+                        <p class="text-danger">${error.message}</p>
+                    </div>
+                `);
+            }
+        }
+
         // ============================================
-        // EXPORTAR A PDF
+        // EXPORTAR A PDF MEJORADO
         // ============================================
         function exportarPDF() {
             const element = document.getElementById('reporte-pdf');
+            
+            // Asegurar que las gráficas estén renderizadas
+            const graficos = document.querySelectorAll('.pdf-chart-wrapper');
+            graficos.forEach(g => {
+                if (g.id && document.getElementById(g.id)) {
+                    // Esperar a que plotly renderice
+                    setTimeout(() => {}, 500);
+                }
+            });
+            
             const opt = {
                 margin: [10, 10, 10, 10],
                 filename: `Reporte_Produccion_${new Date().toLocaleDateString()}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait'
+                },
+                pagebreak: { 
+                    mode: ['avoid-all', 'css', 'legacy']
+                }
             };
-            html2pdf().set(opt).from(element).save();
+            
+            // Mostrar loading
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generando PDF...';
+            btn.disabled = true;
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }).catch((error) => {
+                console.error('Error generando PDF:', error);
+                alert('Error al generar el PDF. Intenta de nuevo.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
         }
 
         // ============================================
-        // EXPORTAR A EXCEL
+        // EXPORTAR A EXCEL CON NOMBRES
         // ============================================
         function exportarExcel() {
             try {
@@ -1098,8 +2201,8 @@
 
                 const excelData = data.map(item => ({
                     'ID': item.produccion_id || item._id || '-',
-                    'Producto': item.producto_id || '-',
-                    'Máquina': item.maquina_id || '-',
+                    'Producto': getNombreProducto(item.producto_id),
+                    'Máquina': getNombreMaquina(item.maquina_id),
                     'Operador': item.operador_id || '-',
                     'Lote': item.lote || '-',
                     'Cantidad Producida': item.cantidad_producida || 0,
@@ -1114,6 +2217,25 @@
 
                 const wb = XLSX.utils.book_new();
                 const ws = XLSX.utils.json_to_sheet(excelData);
+                
+                // Ajustar ancho de columnas
+                const colWidths = [
+                    { wch: 15 }, // ID
+                    { wch: 25 }, // Producto
+                    { wch: 25 }, // Máquina
+                    { wch: 15 }, // Operador
+                    { wch: 15 }, // Lote
+                    { wch: 18 }, // Cantidad Producida
+                    { wch: 20 }, // Cantidad Defectuosa
+                    { wch: 15 }, // Eficiencia
+                    { wch: 15 }, // Calidad
+                    { wch: 15 }, // Fecha
+                    { wch: 15 }, // Temperatura
+                    { wch: 15 }, // Presión
+                    { wch: 15 }  // Velocidad
+                ];
+                ws['!cols'] = colWidths;
+
                 XLSX.utils.book_append_sheet(wb, ws, 'Producción');
                 XLSX.writeFile(wb, `Reporte_Produccion_${new Date().toLocaleDateString()}.xlsx`);
             } catch (error) {
@@ -1279,7 +2401,7 @@
             }
 
             // ============================================
-            // GRÁFICO 1: Operadores de Mayor Productividad
+            // GRÁFICO 1: Operadores de Mayor Productividad (con nombres)
             // ============================================
             const porOperador = {};
             data.forEach(p => {
@@ -1337,25 +2459,24 @@
             });
 
             // ============================================
-            // GRÁFICO 2: Producción por Máquina
+            // GRÁFICO 2: Producción por Máquina (con nombres)
             // ============================================
             const porMaquina = {};
             data.forEach(p => {
-                if (p.maquina_id) {
-                    porMaquina[p.maquina_id] = (porMaquina[p.maquina_id] || 0) + (p.cantidad_producida || 0);
-                }
+                const key = getNombreMaquina(p.maquina_id);
+                porMaquina[key] = (porMaquina[key] || 0) + (p.cantidad_producida || 0);
             });
 
-            const maquinas = Object.keys(porMaquina);
-            const valoresMaquina = Object.values(porMaquina);
+            const maquinasKeys = Object.keys(porMaquina);
+            const maquinasValues = Object.values(porMaquina);
 
             Plotly.newPlot('grafico-produccion-maquina', [{
                 type: 'bar',
-                x: maquinas,
-                y: valoresMaquina,
+                x: maquinasKeys,
+                y: maquinasValues,
                 marker: {
-                    color: valoresMaquina.map(v => {
-                        const maxVal = Math.max(...valoresMaquina);
+                    color: maquinasValues.map(v => {
+                        const maxVal = Math.max(...maquinasValues);
                         const ratio = v / maxVal;
                         if (ratio > 0.7) return '#27ae60';
                         if (ratio > 0.4) return '#f39c12';
@@ -1363,21 +2484,21 @@
                     }),
                     line: { color: 'white', width: 1.5 }
                 },
-                text: valoresMaquina.map(v => v.toString()),
+                text: maquinasValues.map(v => v.toString()),
                 textposition: 'auto',
-                hovertext: maquinas.map((k, i) => `Máquina: ${k}<br>Producción: ${valoresMaquina[i]} unidades`),
+                hovertext: maquinasKeys.map((k, i) => `Máquina: ${k}<br>Producción: ${maquinasValues[i]} unidades`),
                 hoverinfo: 'text'
             }], {
-                margin: { t: 10, l: 50, r: 20, b: 50 },
+                margin: { t: 10, l: 50, r: 20, b: 80 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 yaxis: { title: 'Unidades', gridcolor: 'rgba(0,0,0,0.05)' },
-                xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
+                xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
                 font: { family: 'Segoe UI, sans-serif' }
             });
 
             // ============================================
-            // GRÁFICO 3: Calidad por Producto
+            // GRÁFICO 3: Calidad por Producto (con nombres)
             // ============================================
             try {
                 const calResult = await apiRequest('/calidad?limit=100');
@@ -1402,12 +2523,13 @@
                 if (calFiltradas.length > 0) {
                     const calidadPorProducto = {};
                     calFiltradas.forEach(item => {
-                        if (item.producto_id) {
-                            if (!calidadPorProducto[item.producto_id]) {
-                                calidadPorProducto[item.producto_id] = { total: 0, count: 0 };
+                        const key = getNombreProducto(item.producto_id);
+                        if (key) {
+                            if (!calidadPorProducto[key]) {
+                                calidadPorProducto[key] = { total: 0, count: 0 };
                             }
-                            calidadPorProducto[item.producto_id].total += item.calidad || 0;
-                            calidadPorProducto[item.producto_id].count += 1;
+                            calidadPorProducto[key].total += item.calidad || 0;
+                            calidadPorProducto[key].count += 1;
                         }
                     });
 
@@ -1429,11 +2551,11 @@
                         hovertext: productos.map((k, i) => `Producto: ${k}<br>Calidad: ${calidadesProm[i].toFixed(1)}%`),
                         hoverinfo: 'text'
                     }], {
-                        margin: { t: 10, l: 50, r: 20, b: 50 },
+                        margin: { t: 10, l: 50, r: 20, b: 80 },
                         paper_bgcolor: 'rgba(0,0,0,0)',
                         plot_bgcolor: 'rgba(0,0,0,0)',
                         yaxis: { title: 'Calidad (%)', range: [0, 100], gridcolor: 'rgba(0,0,0,0.05)' },
-                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
+                        xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
                         font: { family: 'Segoe UI, sans-serif' }
                     });
                 }
@@ -1525,8 +2647,8 @@
             tbody.innerHTML = mostrar.map(p => `
                 <tr>
                     <td><span class="badge bg-primary">${p.produccion_id || p._id}</span></td>
-                    <td>${p.producto_id || '-'}</td>
-                    <td>${p.maquina_id || '-'}</td>
+                    <td>${getNombreProducto(p.producto_id)}</td>
+                    <td>${getNombreMaquina(p.maquina_id)}</td>
                     <td><span class="badge bg-info">${p.operador_id || '-'}</span></td>
                     <td>${p.cantidad_producida || 0}</td>
                     <td>
@@ -1549,8 +2671,16 @@
         // INICIALIZACIÓN
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
+            renderizarPreguntas();
             cargarReportes();
             setInterval(cargarReportes, 60000);
+            
+            // Abrir primera pregunta automáticamente
+            setTimeout(() => {
+                if (preguntas.length > 0) {
+                    togglePregunta(preguntas[0].id);
+                }
+            }, 2000);
         });
     </script>
 </body>

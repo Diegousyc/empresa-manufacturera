@@ -28,9 +28,6 @@
             min-height: 100vh;
         }
 
-        /* ============================================
-           NAVBAR
-           ============================================ */
         .navbar {
             background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #3498db 100%) !important;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -63,9 +60,6 @@
             justify-content: center;
         }
 
-        /* ============================================
-           TARJETAS
-           ============================================ */
         .card {
             border: none;
             border-radius: var(--border-radius);
@@ -88,9 +82,6 @@
         }
         .card-body { padding: 1.5rem; }
 
-        /* ============================================
-           TABLAS
-           ============================================ */
         .table-container {
             overflow-x: auto;
             background: white;
@@ -119,9 +110,6 @@
             vertical-align: middle;
         }
 
-        /* ============================================
-           BOTONES
-           ============================================ */
         .btn {
             border-radius: 25px;
             padding: 0.5rem 1.5rem;
@@ -136,22 +124,10 @@
         .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
         .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
         .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
-        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
-        .btn-outline-primary { border: 2px solid #3498db; color: #3498db; }
-        .btn-outline-primary:hover { background: #3498db; color: white; }
+        .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
 
-        /* ============================================
-           BADGES
-           ============================================ */
-        .badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 500;
-        }
+        .badge { padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; }
 
-        /* ============================================
-           FORMULARIOS
-           ============================================ */
         .form-control {
             border-radius: 20px;
             border: 2px solid #e0e0e0;
@@ -166,10 +142,31 @@
             font-weight: 500;
             color: var(--primary-color);
         }
+        .form-select {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.2rem;
+        }
 
-        /* ============================================
-           KPIs PEQUEÑOS
-           ============================================ */
+        .filtro-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filtro-container label {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        .filtro-container .form-select {
+            width: 200px;
+        }
+
         .kpi-mini {
             background: white;
             border-radius: var(--border-radius);
@@ -199,16 +196,12 @@
             margin-bottom: 5px;
         }
 
-        /* ============================================
-           GRÁFICOS
-           ============================================ */
         .chart-container {
             background: white;
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: 2rem;
             box-shadow: var(--shadow);
             margin-bottom: 20px;
-            cursor: pointer;
             transition: var(--transition);
             position: relative;
         }
@@ -220,7 +213,7 @@
             font-weight: 600;
             color: var(--primary-color);
             margin-bottom: 15px;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
         .chart-container .chart-title i {
             margin-right: 8px;
@@ -238,14 +231,47 @@
             opacity: 0.7;
             transition: var(--transition);
             pointer-events: none;
+            z-index: 10;
         }
         .chart-container:hover .click-hint {
             opacity: 1;
         }
+        .chart-container .chart-wrapper {
+            width: 100%;
+            height: 500px;
+            cursor: pointer;
+        }
+        .chart-container .chart-wrapper-scroll {
+            width: 100%;
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .chart-container .chart-wrapper-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chart-container .chart-wrapper-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .chart-container .chart-wrapper-scroll::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+        .chart-container .chart-click-msg {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px dashed #ddd;
+        }
+        .chart-container .chart-click-msg i {
+            color: var(--secondary-color);
+        }
 
-        /* ============================================
-           MODAL DE GRÁFICOS
-           ============================================ */
         .modal-grafico {
             background: white;
             border-radius: var(--border-radius);
@@ -262,7 +288,8 @@
             margin-bottom: 1.5rem;
         }
         .modal-grafico .modal-contenido {
-            min-height: 500px;
+            min-height: 650px;
+            width: 100%;
         }
         .modal-grafico .modal-estadisticas {
             background: #f8f9fa;
@@ -270,26 +297,142 @@
             padding: 15px;
             margin-top: 15px;
         }
-        .modal-grafico .modal-estadisticas .stat-item {
+
+        .modal-analisis .analisis-detalle {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .modal-analisis .analisis-detalle .detalle-item {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #ecf0f1;
         }
-        .modal-grafico .modal-estadisticas .stat-item:last-child {
+        .modal-analisis .analisis-detalle .detalle-item:last-child {
             border-bottom: none;
         }
-        .modal-grafico .modal-estadisticas .stat-label {
-            color: #7f8c8d;
+        .modal-analisis .analisis-recomendacion {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
         }
-        .modal-grafico .modal-estadisticas .stat-value {
+        .modal-analisis .analisis-recomendacion.recomendacion-alta {
+            background: #d4edda;
+            border-left: 4px solid #27ae60;
+        }
+        .modal-analisis .analisis-recomendacion.recomendacion-media {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+        }
+        .modal-analisis .analisis-recomendacion.recomendacion-baja {
+            background: #f8d7da;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .producto-card-detalle {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+        }
+        .producto-card-detalle .producto-nombre {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .producto-card-detalle .producto-desc {
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .producto-card-detalle .producto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .producto-card-detalle .producto-grid .item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+        .producto-card-detalle .producto-grid .item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 1px;
+        }
+        .producto-card-detalle .producto-grid .item .value {
             font-weight: 600;
+            font-size: 1.1rem;
             color: var(--primary-color);
         }
 
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
+        .categoria-detalle-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        .categoria-detalle-card .categoria-nombre {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            padding-left: 10px;
+        }
+        .categoria-detalle-card .categoria-productos {
+            margin-top: 15px;
+        }
+        .categoria-detalle-card .categoria-productos .producto-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            margin: 4px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .categoria-detalle-card .categoria-productos .producto-tag:hover {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Estilos adicionales para la categoría */
+        .categoria-mini-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .categoria-mini-stat {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 15px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .categoria-mini-stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .categoria-mini-stat .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .categoria-mini-stat .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 1px;
+        }
+
         @media (max-width: 992px) {
             .navbar-nav {
                 flex-direction: row;
@@ -300,23 +443,37 @@
                 font-size: 0.7rem;
                 padding: 0.3rem 0.6rem !important;
             }
+            .chart-container .chart-wrapper,
+            .chart-container .chart-wrapper-scroll {
+                height: 400px;
+            }
+            .filtro-container .form-select {
+                width: 150px;
+            }
         }
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1rem; }
             .nav-link { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
             .kpi-mini .kpi-number { font-size: 1.4rem; }
-            .modal-grafico .modal-contenido { min-height: 300px; }
+            .modal-grafico .modal-contenido { min-height: 400px; }
+            .chart-container .chart-wrapper,
+            .chart-container .chart-wrapper-scroll { height: 350px; }
+            .filtro-container .form-select { width: 100%; }
+            .chart-container { padding: 1rem; }
+            .producto-card-detalle .producto-grid {
+                grid-template-columns: 1fr;
+            }
         }
         @media (max-width: 576px) {
             .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
             .table-container { padding: 0.5rem; }
             .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
-            .modal-grafico .modal-contenido { min-height: 250px; }
+            .modal-grafico .modal-contenido { min-height: 300px; }
+            .chart-container .chart-wrapper,
+            .chart-container .chart-wrapper-scroll { height: 280px; }
+            .chart-container { padding: 0.5rem; }
         }
 
-        /* ============================================
-           SCROLLBAR
-           ============================================ */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
@@ -334,12 +491,21 @@
 
         .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
         .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+
+        .highlight-row {
+            animation: highlightPulse 2s ease;
+        }
+        @keyframes highlightPulse {
+            0% { background-color: #fff3cd; }
+            50% { background-color: #ffeaa7; }
+            100% { background-color: transparent; }
+        }
     </style>
 </head>
 <body>
 
     <!-- ============================================
-    NAVBAR CON 8 MÓDULOS - UNIFICADO
+    NAVBAR
     ============================================ -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -366,22 +532,21 @@
     </nav>
 
     <!-- ============================================
-    CONTENIDO DE LA PÁGINA
+    CONTENIDO
     ============================================ -->
     <div class="container mt-4">
 
-        <!-- TÍTULO -->
         <div class="row">
             <div class="col-12 text-center animated">
                 <h1 class="display-4 fw-bold text-primary">
                     <i class="fas fa-box text-secondary"></i> Gestión de Productos
                 </h1>
-                <p class="lead text-muted">Catálogo y análisis de productos fabricados</p>
+                <p class="lead text-muted">Catálogo, análisis y monitoreo de productos fabricados</p>
                 <hr class="my-4">
             </div>
         </div>
 
-        <!-- KPIs PEQUEÑOS -->
+        <!-- KPIs -->
         <div class="row mb-4">
             <div class="col-md-3 col-6 mb-3 animated delay-1">
                 <div class="kpi-mini">
@@ -414,56 +579,129 @@
         </div>
 
         <!-- ============================================
-        GRÁFICAS DE ANÁLISIS DE PRODUCTOS
+        GRÁFICAS
         ============================================ -->
         <div class="row mb-4">
             <div class="col-md-12">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-precios', 'Distribución de Precios por Producto', 'Gráfica de barras que muestra el precio de cada producto ordenado de mayor a menor. Permite identificar rápidamente los productos de mayor y menor valor.')">
+                <div class="chart-container">
                     <div class="chart-title">
                         <i class="fas fa-chart-bar text-primary"></i> Distribución de Precios por Producto
                     </div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-precios" style="height: 280px;"></div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
+                    <div class="chart-wrapper" id="grafico-precios-wrapper">
+                        <div id="grafico-precios" style="height: 100%; width: 100%;"></div>
+                    </div>
+                    <div class="chart-click-msg">
+                        <i class="fas fa-info-circle"></i> Haz clic en cualquier barra para ver el análisis detallado del producto
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="row mb-4">
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-categorias', 'Distribución por Categoría', 'Gráfica de pastel que muestra la cantidad de productos por categoría. Permite visualizar qué categorías tienen más productos y cuáles están subrepresentadas.')">
+                <div class="chart-container">
                     <div class="chart-title">
                         <i class="fas fa-chart-pie text-success"></i> Distribución por Categoría
                     </div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-categorias" style="height: 260px;"></div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier sector</span>
+                    <div class="chart-wrapper" id="grafico-categorias-wrapper">
+                        <div id="grafico-categorias" style="height: 100%; width: 100%;"></div>
+                    </div>
+                    <div class="chart-click-msg">
+                        <i class="fas fa-info-circle"></i> Haz clic en cualquier sector para ver el detalle de la categoría
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-tiempos', 'Tiempo de Producción por Producto', 'Gráfica de barras que muestra el tiempo estimado de producción por producto. Los colores indican: 🔴 Alto (>90 min), 🟡 Medio (60-90 min), 🟢 Bajo (<60 min).')">
+                <div class="chart-container">
                     <div class="chart-title">
                         <i class="fas fa-chart-bar text-warning"></i> Tiempo de Producción por Producto
                     </div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-tiempos" style="height: 260px;"></div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
+                    <div class="chart-wrapper" id="grafico-tiempos-wrapper">
+                        <div id="grafico-tiempos" style="height: 100%; width: 100%;"></div>
+                    </div>
+                    <div class="chart-click-msg">
+                        <i class="fas fa-info-circle"></i> Haz clic en cualquier barra para ver el análisis detallado del producto
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="row mb-4">
             <div class="col-md-12">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-precio-costo', 'Relación Precio vs Costo de Producción', 'Gráfica de dispersión que relaciona el precio unitario con el costo de producción. El tamaño del punto indica el margen de ganancia: 🔵 Grande = Alto margen. Los colores indican: 🟢 Verde (>30% margen), 🟡 Amarillo (15-30%), 🔴 Rojo (<15%).')">
+                <div class="chart-container">
                     <div class="chart-title">
-                        <i class="fas fa-chart-scatter text-info"></i> Relación Precio vs Costo de Producción
+                        <i class="fas fa-chart-bar text-info"></i> Relación Precio vs Costo de Producción
                     </div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-precio-costo" style="height: 260px;"></div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
+                    <div class="chart-wrapper-scroll" id="grafico-precio-costo-wrapper">
+                        <div id="grafico-precio-costo" style="height: 100%; min-height: 800px; width: 100%;"></div>
+                    </div>
+                    <div class="chart-click-msg">
+                        <i class="fas fa-info-circle"></i> Haz clic en cualquier barra para ver el análisis detallado del producto
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- ============================================
-        FORMULARIO Y TABLA
+        FILTRO Y TABLA
         ============================================ -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i> Catálogo de Productos
+                        <button class="btn btn-sm btn-light float-end" onclick="cargarProductos()">
+                            <i class="fas fa-refresh"></i> Actualizar
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="filtro-container">
+                            <label><i class="fas fa-filter text-primary"></i> Filtros:</label>
+                            <select class="form-select form-select-sm" id="filtro-categoria" onchange="aplicarFiltro()">
+                                <option value="todas">Todas las categorías</option>
+                            </select>
+                            <select class="form-select form-select-sm" id="filtro-nombre" onchange="aplicarFiltro()">
+                                <option value="todos">Todos los productos</option>
+                            </select>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="limpiarFiltro()">
+                                <i class="fas fa-times"></i> Limpiar filtro
+                            </button>
+                            <span class="text-muted small ms-2" id="contador-filtro">Mostrando: 0 productos</span>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="table table-hover" id="tabla-productos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Precio</th>
+                                        <th>Costo</th>
+                                        <th>Tiempo</th>
+                                        <th>Margen</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-productos">
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted">
+                                            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULARIO NUEVO PRODUCTO -->
         <div class="row mb-4">
             <div class="col-md-4 animated">
                 <div class="card">
@@ -514,50 +752,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- TABLA DE PRODUCTOS -->
-            <div class="col-md-8 animated">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-list"></i> Catálogo de Productos
-                        <button class="btn btn-sm btn-light float-end" onclick="cargarProductos()">
-                            <i class="fas fa-refresh"></i> Actualizar
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-container">
-                            <table class="table table-hover" id="tabla-productos">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Categoría</th>
-                                        <th>Precio</th>
-                                        <th>Costo</th>
-                                        <th>Tiempo</th>
-                                        <th>Margen</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody-productos">
-                                    <tr>
-                                        <td colspan="8" class="text-center text-muted">
-                                            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>
 
     <!-- ============================================
-    MODAL PARA GRÁFICOS COMPLETOS
+    MODALES
     ============================================ -->
+    <!-- Modal para gráficos -->
     <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
@@ -568,10 +770,8 @@
                 <div class="modal-body">
                     <div class="modal-grafico">
                         <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
-                        <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
-                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
-                            <!-- Estadísticas se generan dinámicamente -->
-                        </div>
+                        <div class="modal-contenido" id="modalGraficoContenido"></div>
+                        <div class="modal-estadisticas" id="modalGraficoEstadisticas"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -584,6 +784,45 @@
         </div>
     </div>
 
+    <!-- Modal para análisis de producto -->
+    <div class="modal fade" id="modalAnalisisProducto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title"><i class="fas fa-box"></i> Detalle del Producto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-analisis" id="analisis-producto-contenido"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="verProductoEnTablaDesdeAnalisis()">
+                        <i class="fas fa-eye"></i> Ver en la tabla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalle de categoría -->
+    <div class="modal fade" id="modalDetalleCategoria" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title"><i class="fas fa-tags"></i> Detalle de Categoría</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="categoria-detalle-card" id="detalle-categoria-contenido"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // ============================================
@@ -591,9 +830,8 @@
         // ============================================
         const API_BASE = '/api';
         let datosProductos = [];
-
-        // Variable para almacenar la gráfica del modal
-        let modalGraficoData = null;
+        let datosFiltrados = [];
+        let productoAnalisisActual = null;
 
         async function apiRequest(endpoint, options = {}) {
             const url = `${API_BASE}${endpoint}`;
@@ -623,26 +861,15 @@
             document.getElementById('modalGraficoDescripcion').textContent = descripcion;
             
             const container = document.getElementById('modalGraficoContenido');
-            
-            // Clonar la gráfica al modal
             const originalDiv = document.getElementById(graficoId);
+            
             if (originalDiv && originalDiv.data) {
-                // Guardar los datos de la gráfica
-                modalGraficoData = {
-                    divId: graficoId,
-                    data: originalDiv.data,
-                    layout: originalDiv.layout
-                };
-                
-                // Crear la gráfica en el modal con tamaño más grande
                 const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout));
-                layoutModificado.height = 500;
-                layoutModificado.margin = { t: 40, l: 80, r: 40, b: 80 };
+                layoutModificado.height = 650;
+                layoutModificado.margin = { t: 50, l: 80, r: 40, b: 100 };
                 layoutModificado.font = { size: 14 };
                 
-                Plotly.newPlot(container, originalDiv.data, layoutModificado);
-                
-                // Generar estadísticas según el tipo de gráfica
+                Plotly.newPlot(container, originalDiv.data, layoutModificado, { responsive: true });
                 generarEstadisticasModal(graficoId);
             } else {
                 container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>';
@@ -671,18 +898,13 @@
                 const min = Math.min(...precios);
                 const avg = precios.reduce((a, b) => a + b, 0) / precios.length;
                 const total = data.length;
-                const productosCaros = data.filter(p => (p.precio_unitario || 0) > 200).length;
-                const productosBaratos = data.filter(p => (p.precio_unitario || 0) < 50).length;
                 
                 html += `
                     <div class="row mt-2">
-                        <div class="col-md-3 col-6"><span class="stat-label">Productos analizados:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Productos:</span><br><span class="stat-value">${total}</span></div>
                         <div class="col-md-3 col-6"><span class="stat-label">Precio máximo:</span><br><span class="stat-value">$${max.toFixed(2)}</span></div>
                         <div class="col-md-3 col-6"><span class="stat-label">Precio mínimo:</span><br><span class="stat-value">$${min.toFixed(2)}</span></div>
                         <div class="col-md-3 col-6"><span class="stat-label">Precio promedio:</span><br><span class="stat-value">$${avg.toFixed(2)}</span></div>
-                        <div class="col-md-4 col-6 mt-2"><span class="stat-label">Productos caros (>$200):</span><br><span class="stat-value">${productosCaros}</span></div>
-                        <div class="col-md-4 col-6 mt-2"><span class="stat-label">Productos baratos (<$50):</span><br><span class="stat-value">${productosBaratos}</span></div>
-                        <div class="col-md-4 mt-2"><span class="stat-label">Rango de precios:</span><br><span class="stat-value">$${min.toFixed(2)} - $${max.toFixed(2)}</span></div>
                     </div>
                 `;
             } else if (graficoId === 'grafico-categorias') {
@@ -692,14 +914,12 @@
                     porCategoria[cat] = (porCategoria[cat] || 0) + 1;
                 });
                 const total = data.length;
-                const categorias = Object.keys(porCategoria);
                 const maxCat = Object.entries(porCategoria).sort((a, b) => b[1] - a[1])[0];
                 
                 html += `
                     <div class="row mt-2">
-                        <div class="col-md-4 col-6"><span class="stat-label">Total productos:</span><br><span class="stat-value">${total}</span></div>
-                        <div class="col-md-4 col-6"><span class="stat-label">Categorías:</span><br><span class="stat-value">${categorias.length}</span></div>
-                        <div class="col-md-4"><span class="stat-label">Categoría principal:</span><br><span class="stat-value">${maxCat ? maxCat[0] : '-'} (${maxCat ? maxCat[1] : 0} productos)</span></div>
+                        <div class="col-md-6"><span class="stat-label">Total productos:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-6"><span class="stat-label">Categoría principal:</span><br><span class="stat-value">${maxCat ? maxCat[0] : '-'} (${maxCat ? maxCat[1] : 0} productos)</span></div>
                     </div>
                 `;
             } else if (graficoId === 'grafico-tiempos') {
@@ -708,40 +928,26 @@
                 const min = Math.min(...tiempos);
                 const avg = tiempos.reduce((a, b) => a + b, 0) / tiempos.length;
                 const total = data.length;
-                const largos = data.filter(p => (p.tiempo_estimado || 0) > 90).length;
-                const cortos = data.filter(p => (p.tiempo_estimado || 0) < 30).length;
                 
                 html += `
                     <div class="row mt-2">
-                        <div class="col-md-3 col-6"><span class="stat-label">Productos:</span><br><span class="stat-value">${total}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Tiempo máximo:</span><br><span class="stat-value">${max} min</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Tiempo mínimo:</span><br><span class="stat-value">${min} min</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Tiempo promedio:</span><br><span class="stat-value">${avg.toFixed(0)} min</span></div>
-                        <div class="col-md-4 col-6 mt-2"><span class="stat-label">Producción larga (>90 min):</span><br><span class="stat-value">${largos}</span></div>
-                        <div class="col-md-4 col-6 mt-2"><span class="stat-label">Producción corta (<30 min):</span><br><span class="stat-value">${cortos}</span></div>
-                        <div class="col-md-4 mt-2"><span class="stat-label">Rango de tiempos:</span><br><span class="stat-value">${min} - ${max} min</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Productos:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Tiempo promedio:</span><br><span class="stat-value">${avg.toFixed(0)} min</span></div>
+                        <div class="col-md-4"><span class="stat-label">Rango:</span><br><span class="stat-value">${min} - ${max} min</span></div>
                     </div>
                 `;
             } else if (graficoId === 'grafico-precio-costo') {
                 const total = data.length;
-                const conMargen = data.filter(p => (p.precio_unitario || 0) > 0);
                 const margenAlto = data.filter(p => {
                     const precio = p.precio_unitario || 0;
                     const costo = p.costo_produccion || 0;
                     return precio > 0 && ((precio - costo) / precio * 100) > 30;
                 }).length;
-                const margenBajo = data.filter(p => {
-                    const precio = p.precio_unitario || 0;
-                    const costo = p.costo_produccion || 0;
-                    return precio > 0 && ((precio - costo) / precio * 100) < 15;
-                }).length;
                 
                 html += `
                     <div class="row mt-2">
-                        <div class="col-md-3 col-6"><span class="stat-label">Productos:</span><br><span class="stat-value">${total}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Margen alto (>30%):</span><br><span class="stat-value">${margenAlto}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Margen bajo (<15%):</span><br><span class="stat-value">${margenBajo}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Productos rentables:</span><br><span class="stat-value">${conMargen.length}</span></div>
+                        <div class="col-md-6"><span class="stat-label">Productos:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-6"><span class="stat-label">Margen alto (>30%):</span><br><span class="stat-value">${margenAlto}</span></div>
                     </div>
                 `;
             }
@@ -750,20 +956,349 @@
         }
 
         // ============================================
-        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
+        // EXPORTAR GRÁFICA
         // ============================================
         function exportarGraficoModal() {
             const container = document.getElementById('modalGraficoContenido');
             Plotly.downloadImage(container, {
                 filename: 'grafico_analisis_productos',
                 format: 'png',
-                width: 1200,
-                height: 800
+                width: 1600,
+                height: 900
             });
         }
 
         // ============================================
-        // CARGAR PRODUCTOS Y GRÁFICOS
+        // MOSTRAR ANÁLISIS DETALLADO DE PRODUCTO
+        // ============================================
+        function mostrarAnalisisProducto(productoId) {
+            const producto = datosProductos.find(p => (p.producto_id || p._id) === productoId);
+            if (!producto) {
+                alert('Producto no encontrado');
+                return;
+            }
+
+            productoAnalisisActual = producto;
+
+            const precio = producto.precio_unitario || 0;
+            const costo = producto.costo_produccion || 0;
+            const margen = precio > 0 ? ((precio - costo) / precio * 100) : 0;
+            const tiempo = producto.tiempo_estimado || 0;
+            
+            const preciosTodos = datosProductos.map(p => p.precio_unitario || 0).filter(p => p > 0);
+            const precioPromedio = preciosTodos.length > 0 ? preciosTodos.reduce((a, b) => a + b, 0) / preciosTodos.length : 0;
+            
+            const tiemposTodos = datosProductos.map(p => p.tiempo_estimado || 0);
+            const tiempoPromedio = tiemposTodos.length > 0 ? tiemposTodos.reduce((a, b) => a + b, 0) / tiemposTodos.length : 0;
+            
+            const margenesTodos = datosProductos
+                .filter(p => (p.precio_unitario || 0) > 0)
+                .map(p => ((p.precio_unitario - p.costo_produccion) / p.precio_unitario * 100));
+            const margenPromedio = margenesTodos.length > 0 ? margenesTodos.reduce((a, b) => a + b, 0) / margenesTodos.length : 0;
+
+            let recomendaciones = [];
+            let recomendacionClase = 'recomendacion-media';
+            
+            if (precio > precioPromedio * 1.5) {
+                recomendaciones.push('💰 El precio es significativamente superior al promedio. Verifica si el valor agregado justifica el costo.');
+            } else if (precio < precioPromedio * 0.5) {
+                recomendaciones.push('💰 El precio es muy bajo. Evalúa si es rentable o si puedes aumentarlo.');
+            } else {
+                recomendaciones.push('💰 El precio está alineado con el mercado.');
+            }
+            
+            if (margen < 15) {
+                recomendaciones.push('⚠️ El margen de ganancia es bajo (<15%). Se recomienda revisar la estructura de costos.');
+                recomendacionClase = 'recomendacion-baja';
+            } else if (margen > 30) {
+                recomendaciones.push('✅ El margen de ganancia es excelente (>30%). Aprovecha esta ventaja.');
+                recomendacionClase = 'recomendacion-alta';
+            } else {
+                recomendaciones.push('✅ El margen de ganancia es saludable (15-30%).');
+                recomendacionClase = 'recomendacion-media';
+            }
+            
+            if (tiempo > tiempoPromedio * 1.5) {
+                recomendaciones.push('⏱️ El tiempo de producción es alto. Considera optimizar el proceso.');
+            } else if (tiempo < tiempoPromedio * 0.5) {
+                recomendaciones.push('⏱️ Excelente tiempo de producción. Aprovecha para aumentar la producción.');
+            } else {
+                recomendaciones.push('⏱️ El tiempo de producción está alineado con el estándar.');
+            }
+
+            let nivelRentabilidad = 'Media';
+            let nivelColor = 'warning';
+            if (margen > 30) {
+                nivelRentabilidad = 'Alta';
+                nivelColor = 'success';
+            } else if (margen < 15) {
+                nivelRentabilidad = 'Baja';
+                nivelColor = 'danger';
+            }
+
+            const container = document.getElementById('analisis-producto-contenido');
+            container.innerHTML = `
+                <div class="analisis-detalle">
+                    <div class="producto-card-detalle">
+                        <div class="producto-nombre">${producto.nombre || 'Sin nombre'}</div>
+                        <div class="producto-desc">${producto.descripcion || 'Sin descripción'}</div>
+                        
+                        <div class="producto-grid">
+                            <div class="item">
+                                <div class="label">ID del Producto</div>
+                                <div class="value">${producto.producto_id || producto._id}</div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Categoría</div>
+                                <div class="value"><span class="badge bg-secondary">${producto.categoria || '-'}</span></div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Precio Unitario</div>
+                                <div class="value text-primary fw-bold">$${precio.toFixed(2)}</div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Costo de Producción</div>
+                                <div class="value">$${costo.toFixed(2)}</div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Margen de Ganancia</div>
+                                <div class="value fw-bold ${margen >= 30 ? 'text-success' : margen >= 15 ? 'text-warning' : 'text-danger'}">${margen.toFixed(1)}%</div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Nivel de Rentabilidad</div>
+                                <div class="value"><span class="badge bg-${nivelColor}">${nivelRentabilidad}</span></div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Tiempo Estimado</div>
+                                <div class="value">${tiempo} minutos</div>
+                            </div>
+                            <div class="item">
+                                <div class="label">Estado</div>
+                                <div class="value"><span class="badge ${producto.activo ? 'bg-success' : 'bg-danger'}">${producto.activo ? 'Activo' : 'Inactivo'}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h6><i class="fas fa-chart-bar text-primary"></i> Comparativa con el promedio</h6>
+                            <div class="row mt-2">
+                                <div class="col-md-4 col-6">
+                                    <span class="stat-label">Precio promedio:</span>
+                                    <span class="stat-value">$${precioPromedio.toFixed(2)}</span>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <span class="stat-label">Margen promedio:</span>
+                                    <span class="stat-value">${margenPromedio.toFixed(1)}%</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="stat-label">Tiempo promedio:</span>
+                                    <span class="stat-value">${tiempoPromedio.toFixed(0)} min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analisis-recomendacion ${recomendacionClase}">
+                    <h6><i class="fas fa-lightbulb"></i> Recomendaciones</h6>
+                    <ul class="mb-0">
+                        ${recomendaciones.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> 
+                        ${producto.nombre} se encuentra en el percentil 
+                        ${precio > precioPromedio ? 'superior' : 'inferior'} al promedio de precios 
+                        (${precio > precioPromedio ? '⬆' : '⬇'} ${Math.abs(((precio - precioPromedio) / precioPromedio * 100)).toFixed(1)}%)
+                    </small>
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('modalAnalisisProducto'));
+            modal.show();
+        }
+
+        // ============================================
+        // MOSTRAR DETALLE DE CATEGORÍA (CORREGIDA)
+        // ============================================
+        function mostrarDetalleCategoria(categoria) {
+            console.log('Mostrando detalle de categoría:', categoria);
+            
+            // Normalizar el nombre de la categoría
+            const categoriaNormalizada = categoria.trim();
+            
+            if (!categoriaNormalizada) {
+                alert('Categoría no válida');
+                return;
+            }
+
+            // Filtrar productos por categoría (comparación exacta)
+            const productosCategoria = datosProductos.filter(p => {
+                return (p.categoria || '').trim() === categoriaNormalizada;
+            });
+            
+            console.log('Productos encontrados:', productosCategoria);
+            
+            if (productosCategoria.length === 0) {
+                // Intentar búsqueda más flexible
+                const productosCategoriaFlexible = datosProductos.filter(p => {
+                    return (p.categoria || '').toLowerCase().includes(categoriaNormalizada.toLowerCase());
+                });
+                
+                if (productosCategoriaFlexible.length === 0) {
+                    alert(`No hay productos en la categoría "${categoriaNormalizada}"`);
+                    return;
+                }
+                
+                // Usar la búsqueda flexible
+                mostrarDetalleCategoriaConProductos(productosCategoriaFlexible, categoriaNormalizada);
+            } else {
+                mostrarDetalleCategoriaConProductos(productosCategoria, categoriaNormalizada);
+            }
+        }
+
+        function mostrarDetalleCategoriaConProductos(productosCategoria, categoria) {
+            // Calcular estadísticas de la categoría
+            const total = productosCategoria.length;
+            const precios = productosCategoria.map(p => p.precio_unitario || 0);
+            const precioPromedio = precios.reduce((a, b) => a + b, 0) / total;
+            const precioMax = Math.max(...precios);
+            const precioMin = Math.min(...precios);
+            const tiempos = productosCategoria.map(p => p.tiempo_estimado || 0);
+            const tiempoPromedio = tiempos.reduce((a, b) => a + b, 0) / total;
+            
+            // Productos con mayor y menor precio
+            const productoMasCaro = productosCategoria.find(p => (p.precio_unitario || 0) === precioMax);
+            const productoMasBarato = productosCategoria.find(p => (p.precio_unitario || 0) === precioMin);
+            
+            // Margen promedio de la categoría
+            const margenes = productosCategoria
+                .filter(p => (p.precio_unitario || 0) > 0)
+                .map(p => ((p.precio_unitario - p.costo_produccion) / p.precio_unitario * 100));
+            const margenPromedio = margenes.length > 0 ? margenes.reduce((a, b) => a + b, 0) / margenes.length : 0;
+
+            // Color de la categoría
+            const coloresCat = {
+                'Electrónica': '#3498db',
+                'Mecánica': '#2ecc71',
+                'Plásticos': '#f39c12',
+                'Metales': '#95a5a6',
+                'Química': '#9b59b6',
+                'Textil': '#e67e22',
+                'Alimentos': '#1abc9c',
+                'Sin categoría': '#95a5a6'
+            };
+            const colorCategoria = coloresCat[categoria] || '#3498db';
+
+            const container = document.getElementById('detalle-categoria-contenido');
+            container.innerHTML = `
+                <div class="categoria-nombre" style="color: ${colorCategoria}; border-left: 4px solid ${colorCategoria}; padding-left: 10px;">
+                    <i class="fas fa-tag"></i> ${categoria}
+                </div>
+                <div class="text-muted mb-3">${total} productos en esta categoría</div>
+                
+                <div class="categoria-mini-stats">
+                    <div class="categoria-mini-stat" style="border-bottom: 3px solid ${colorCategoria};">
+                        <div class="stat-value">${total}</div>
+                        <div class="stat-label">Productos</div>
+                    </div>
+                    <div class="categoria-mini-stat" style="border-bottom: 3px solid ${colorCategoria};">
+                        <div class="stat-value">$${precioPromedio.toFixed(2)}</div>
+                        <div class="stat-label">Precio Promedio</div>
+                    </div>
+                    <div class="categoria-mini-stat" style="border-bottom: 3px solid ${colorCategoria};">
+                        <div class="stat-value">${margenPromedio.toFixed(1)}%</div>
+                        <div class="stat-label">Margen Promedio</div>
+                    </div>
+                    <div class="categoria-mini-stat" style="border-bottom: 3px solid ${colorCategoria};">
+                        <div class="stat-value">${tiempoPromedio.toFixed(0)} min</div>
+                        <div class="stat-label">Tiempo Promedio</div>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                            <strong><i class="fas fa-arrow-up text-primary"></i> Producto más caro:</strong>
+                            <div class="mt-2">
+                                <span class="badge bg-primary">${productoMasCaro ? productoMasCaro.nombre : '-'}</span>
+                                <span class="ms-2 fw-bold">$${precioMax.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                            <strong><i class="fas fa-arrow-down text-success"></i> Producto más barato:</strong>
+                            <div class="mt-2">
+                                <span class="badge bg-success">${productoMasBarato ? productoMasBarato.nombre : '-'}</span>
+                                <span class="ms-2 fw-bold">$${precioMin.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class="categoria-productos">
+                    <strong><i class="fas fa-boxes"></i> Productos en esta categoría:</strong>
+                    <div class="mt-3">
+                        ${productosCategoria.map(p => `
+                            <button class="btn btn-sm btn-outline-primary m-1" 
+                                    onclick="mostrarAnalisisProducto('${p.producto_id || p._id}')" 
+                                    title="Ver análisis de ${p.nombre || p.producto_id}">
+                                <i class="fas fa-box"></i> ${p.nombre || p.producto_id}
+                                <span class="badge bg-primary ms-1">$${(p.precio_unitario || 0).toFixed(2)}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="text-muted small mt-3">
+                        <i class="fas fa-info-circle"></i> Haz clic en cualquier producto para ver su análisis detallado
+                    </div>
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('modalDetalleCategoria'));
+            modal.show();
+        }
+
+        // ============================================
+        // VER PRODUCTO EN TABLA
+        // ============================================
+        function verProductoEnTablaDesdeAnalisis() {
+            if (!productoAnalisisActual) return;
+            
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalAnalisisProducto'));
+            if (modal) modal.hide();
+            
+            const productoId = productoAnalisisActual.producto_id || productoAnalisisActual._id;
+            
+            document.getElementById('filtro-categoria').value = 'todas';
+            document.getElementById('filtro-nombre').value = 'todos';
+            aplicarFiltro();
+            
+            setTimeout(() => {
+                const rows = document.querySelectorAll('#tbody-productos tr');
+                rows.forEach(row => {
+                    if (row.textContent.includes(productoId)) {
+                        row.classList.add('highlight-row');
+                        row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(() => {
+                            row.classList.remove('highlight-row');
+                        }, 3000);
+                    }
+                });
+            }, 300);
+        }
+
+        // ============================================
+        // CARGAR PRODUCTOS
         // ============================================
         async function cargarProductos() {
             const tbody = document.getElementById('tbody-productos');
@@ -778,22 +1313,23 @@
             try {
                 const result = await apiRequest('/productos?limit=100');
                 datosProductos = result.data || [];
-                const data = datosProductos;
+                datosFiltrados = [...datosProductos];
 
-                // Actualizar KPIs
-                const total = data.length;
-                const categorias = new Set(data.map(p => p.categoria)).size;
-                const precios = data.map(p => p.precio_unitario || 0);
-                const tiempos = data.map(p => p.tiempo_estimado || 0);
+                const total = datosProductos.length;
+                const categoriasSet = new Set(datosProductos.map(p => p.categoria));
+                const precios = datosProductos.map(p => p.precio_unitario || 0);
+                const tiempos = datosProductos.map(p => p.tiempo_estimado || 0);
                 const precioPromedio = total > 0 ? precios.reduce((a, b) => a + b, 0) / total : 0;
                 const tiempoPromedio = total > 0 ? tiempos.reduce((a, b) => a + b, 0) / total : 0;
 
                 document.getElementById('total-productos').textContent = total;
-                document.getElementById('total-categorias').textContent = categorias;
+                document.getElementById('total-categorias').textContent = categoriasSet.size;
                 document.getElementById('precio-promedio').textContent = '$' + precioPromedio.toFixed(2);
                 document.getElementById('tiempo-promedio').textContent = tiempoPromedio.toFixed(0) + ' min';
 
-                if (data.length === 0) {
+                actualizarFiltros();
+
+                if (datosProductos.length === 0) {
                     tbody.innerHTML = `
                         <tr>
                             <td colspan="8" class="text-center text-muted">
@@ -804,31 +1340,8 @@
                     return;
                 }
 
-                // Cargar tabla con margen de ganancia
-                tbody.innerHTML = data.map(p => {
-                    const margen = p.precio_unitario && p.costo_produccion ? 
-                        ((p.precio_unitario - p.costo_produccion) / p.precio_unitario * 100).toFixed(1) : 0;
-                    const margenClass = margen >= 30 ? 'bg-success' : margen >= 15 ? 'bg-warning' : 'bg-danger';
-                    return `
-                        <tr>
-                            <td><span class="badge bg-primary">${p.producto_id || p._id}</span></td>
-                            <td><strong>${p.nombre || '-'}</strong></td>
-                            <td><span class="badge bg-secondary">${p.categoria || '-'}</span></td>
-                            <td>$${p.precio_unitario?.toFixed(2) || '0.00'}</td>
-                            <td>$${p.costo_produccion?.toFixed(2) || '0.00'}</td>
-                            <td>${p.tiempo_estimado || 0} min</td>
-                            <td><span class="badge ${margenClass}">${margen}%</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" onclick="eliminarProducto('${p.producto_id || p._id}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-
-                // Cargar gráficos
-                await cargarGraficos(data);
+                cargarTabla(datosProductos);
+                await cargarGraficos(datosProductos);
 
             } catch (error) {
                 console.error('Error cargando productos:', error);
@@ -843,6 +1356,112 @@
         }
 
         // ============================================
+        // ACTUALIZAR FILTROS
+        // ============================================
+        function actualizarFiltros() {
+            const selectCat = document.getElementById('filtro-categoria');
+            while (selectCat.options.length > 1) {
+                selectCat.remove(1);
+            }
+            const categoriasSet = new Set(datosProductos.map(p => p.categoria));
+            Array.from(categoriasSet).sort().forEach(cat => {
+                if (cat) {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    selectCat.appendChild(option);
+                }
+            });
+
+            const selectNom = document.getElementById('filtro-nombre');
+            while (selectNom.options.length > 1) {
+                selectNom.remove(1);
+            }
+            const nombres = datosProductos.map(p => p.nombre || p.producto_id).filter(n => n).sort();
+            nombres.forEach(nombre => {
+                const option = document.createElement('option');
+                option.value = nombre;
+                option.textContent = nombre;
+                selectNom.appendChild(option);
+            });
+        }
+
+        // ============================================
+        // APLICAR FILTRO
+        // ============================================
+        function aplicarFiltro() {
+            const categoria = document.getElementById('filtro-categoria').value;
+            const nombre = document.getElementById('filtro-nombre').value;
+            
+            datosFiltrados = [...datosProductos];
+            
+            if (categoria !== 'todas') {
+                datosFiltrados = datosFiltrados.filter(p => p.categoria === categoria);
+            }
+            
+            if (nombre !== 'todos') {
+                datosFiltrados = datosFiltrados.filter(p => (p.nombre || p.producto_id) === nombre);
+            }
+            
+            cargarTabla(datosFiltrados);
+            document.getElementById('contador-filtro').textContent = `Mostrando: ${datosFiltrados.length} productos`;
+        }
+
+        // ============================================
+        // LIMPIAR FILTRO
+        // ============================================
+        function limpiarFiltro() {
+            document.getElementById('filtro-categoria').value = 'todas';
+            document.getElementById('filtro-nombre').value = 'todos';
+            aplicarFiltro();
+        }
+
+        // ============================================
+        // CARGAR TABLA
+        // ============================================
+        function cargarTabla(data) {
+            const tbody = document.getElementById('tbody-productos');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">
+                            <i class="fas fa-inbox"></i> No hay productos que coincidan con el filtro
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = data.map(p => {
+                const margen = p.precio_unitario && p.costo_produccion ? 
+                    ((p.precio_unitario - p.costo_produccion) / p.precio_unitario * 100).toFixed(1) : 0;
+                const margenClass = margen >= 30 ? 'bg-success' : margen >= 15 ? 'bg-warning' : 'bg-danger';
+                return `
+                    <tr class="producto-fila" data-id="${p.producto_id || p._id}">
+                        <td><span class="badge bg-primary">${p.producto_id || p._id}</span></td>
+                        <td><strong>${p.nombre || '-'}</strong></td>
+                        <td><span class="badge bg-secondary">${p.categoria || '-'}</span></td>
+                        <td>$${p.precio_unitario?.toFixed(2) || '0.00'}</td>
+                        <td>$${p.costo_produccion?.toFixed(2) || '0.00'}</td>
+                        <td>${p.tiempo_estimado || 0} min</td>
+                        <td><span class="badge ${margenClass}">${margen}%</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="mostrarAnalisisProducto('${p.producto_id || p._id}')" title="Análisis detallado">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="eliminarProducto('${p.producto_id || p._id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('contador-filtro').textContent = `Mostrando: ${data.length} productos`;
+        }
+
+        // ============================================
         // CARGAR GRÁFICOS
         // ============================================
         async function cargarGraficos(data) {
@@ -851,45 +1470,45 @@
                 return;
             }
 
-            // Ordenar productos por precio
             const ordenados = [...data].sort((a, b) => (b.precio_unitario || 0) - (a.precio_unitario || 0));
 
-            // ----- GRÁFICO 1: Distribución de Precios por Producto (Barras) -----
+            // ----- GRÁFICO 1: PRECIOS -----
             const nombres = ordenados.map(p => p.nombre || p.producto_id);
             const precios = ordenados.map(p => p.precio_unitario || 0);
+            const ids = ordenados.map(p => p.producto_id || p._id);
             const coloresPrecios = precios.map(p => p > 200 ? '#e74c3c' : p > 100 ? '#f39c12' : '#27ae60');
 
-            Plotly.newPlot('grafico-precios', [
-                {
-                    type: 'bar',
-                    x: nombres,
-                    y: precios,
-                    marker: {
-                        color: coloresPrecios,
-                        line: { color: 'white', width: 1.5 }
-                    },
-                    text: precios.map(p => '$' + p.toFixed(2)),
-                    textposition: 'auto',
-                    hoverinfo: 'x+y',
-                    hovertemplate: '<b>%{x}</b><br>Precio: $%{y:.2f}<extra></extra>'
-                }
-            ], {
-                margin: { t: 10, l: 50, r: 10, b: 60 },
+            Plotly.newPlot('grafico-precios', [{
+                type: 'bar',
+                x: nombres,
+                y: precios,
+                marker: { color: coloresPrecios, line: { color: 'white', width: 1.5 } },
+                text: precios.map(p => '$' + p.toFixed(2)),
+                textposition: 'auto',
+                customdata: ids,
+                hoverinfo: 'x+y',
+                hovertemplate: '<b>%{x}</b><br>Precio: $%{y:.2f}<br>🔍 Clic para ver detalles<extra></extra>'
+            }], {
+                margin: { t: 20, l: 60, r: 20, b: 80 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                yaxis: { 
-                    title: 'Precio Unitario ($)',
-                    gridcolor: 'rgba(0,0,0,0.05)'
-                },
-                xaxis: { 
-                    title: 'Producto',
-                    tickangle: -45
-                },
-                font: { family: 'Segoe UI, sans-serif', size: 10 },
+                yaxis: { title: 'Precio Unitario ($)', gridcolor: 'rgba(0,0,0,0.05)', zeroline: false },
+                xaxis: { title: 'Producto', tickangle: -35, tickfont: { size: 10 } },
+                font: { family: 'Segoe UI, sans-serif', size: 11 },
                 showlegend: false
             });
 
-            // ----- GRÁFICO 2: Distribución por Categoría (Pie) -----
+            document.getElementById('grafico-precios').on('plotly_click', function(data) {
+                if (data.points && data.points.length > 0) {
+                    const point = data.points[0];
+                    const productoId = point.customdata;
+                    if (productoId) {
+                        mostrarAnalisisProducto(productoId);
+                    }
+                }
+            });
+
+            // ----- GRÁFICO 2: CATEGORÍAS (DONA CORREGIDA) -----
             const porCategoria = {};
             data.forEach(p => {
                 const cat = p.categoria || 'Sin categoría';
@@ -911,105 +1530,174 @@
             const values = Object.values(porCategoria);
             const colors = labels.map(l => coloresCat[l] || '#95a5a6');
 
-            Plotly.newPlot('grafico-categorias', [
-                {
-                    type: 'pie',
-                    labels: labels,
-                    values: values,
-                    marker: { colors: colors },
-                    textinfo: 'label+percent',
-                    hoverinfo: 'label+percent+value',
-                    hole: 0.3,
-                    sort: false
-                }
-            ], {
-                margin: { t: 10, l: 10, r: 10, b: 10 },
+            const donaTrace = {
+                type: 'pie',
+                labels: labels,
+                values: values,
+                marker: { colors: colors },
+                textinfo: 'label+percent',
+                hoverinfo: 'label+percent+value',
+                hole: 0.3,
+                sort: false,
+                customdata: labels,
+                hovertemplate: '<b>%{label}</b><br>Productos: %{value}<br>🔍 Clic para ver detalles<extra></extra>'
+            };
+
+            Plotly.newPlot('grafico-categorias', [donaTrace], {
+                margin: { t: 30, l: 10, r: 10, b: 10 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                font: { family: 'Segoe UI, sans-serif', size: 11 },
+                font: { family: 'Segoe UI, sans-serif', size: 12 },
                 showlegend: true,
                 legend: { orientation: 'h', y: -0.1 }
+            }).then(function() {
+                // Click en categorías → abre modal con detalle
+                document.getElementById('grafico-categorias').on('plotly_click', function(data) {
+                    console.log('Click en categoría:', data);
+                    if (data.points && data.points.length > 0) {
+                        const point = data.points[0];
+                        console.log('Point data:', point);
+                        
+                        // Obtener la categoría desde customdata o label
+                        let categoria = null;
+                        
+                        if (point.customdata) {
+                            categoria = point.customdata;
+                        } else if (point.label) {
+                            categoria = point.label;
+                        }
+                        
+                        console.log('Categoría seleccionada:', categoria);
+                        
+                        if (categoria && categoria !== 'Sin categoría') {
+                            mostrarDetalleCategoria(categoria);
+                        } else if (categoria === 'Sin categoría') {
+                            alert('Los productos sin categoría no tienen un detalle específico');
+                        }
+                    }
+                });
             });
 
-            // ----- GRÁFICO 3: Tiempo de Producción por Producto -----
+            // ----- GRÁFICO 3: TIEMPOS -----
             const tiempos = data.map(p => p.tiempo_estimado || 0);
             const nombresTiempos = data.map(p => p.nombre || p.producto_id);
+            const idsTiempos = data.map(p => p.producto_id || p._id);
             const coloresTiempos = tiempos.map(t => t > 90 ? '#e74c3c' : t > 60 ? '#f39c12' : '#27ae60');
 
-            Plotly.newPlot('grafico-tiempos', [
-                {
-                    type: 'bar',
-                    x: nombresTiempos,
-                    y: tiempos,
-                    marker: {
-                        color: coloresTiempos,
-                        line: { color: 'white', width: 1.5 }
-                    },
-                    text: tiempos.map(t => t + ' min'),
-                    textposition: 'auto',
-                    hoverinfo: 'x+y',
-                    hovertemplate: '<b>%{x}</b><br>Tiempo: %{y} min<extra></extra>'
-                }
-            ], {
-                margin: { t: 10, l: 50, r: 10, b: 60 },
+            Plotly.newPlot('grafico-tiempos', [{
+                type: 'bar',
+                x: nombresTiempos,
+                y: tiempos,
+                marker: { color: coloresTiempos, line: { color: 'white', width: 1.5 } },
+                text: tiempos.map(t => t + ' min'),
+                textposition: 'auto',
+                customdata: idsTiempos,
+                hoverinfo: 'x+y',
+                hovertemplate: '<b>%{x}</b><br>Tiempo: %{y} min<br>🔍 Clic para ver detalles<extra></extra>'
+            }], {
+                margin: { t: 20, l: 60, r: 20, b: 80 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                yaxis: { 
-                    title: 'Tiempo (minutos)',
-                    gridcolor: 'rgba(0,0,0,0.05)'
-                },
-                xaxis: { 
-                    title: 'Producto',
-                    tickangle: -45
-                },
-                font: { family: 'Segoe UI, sans-serif', size: 10 },
+                yaxis: { title: 'Tiempo (minutos)', gridcolor: 'rgba(0,0,0,0.05)', zeroline: false },
+                xaxis: { title: 'Producto', tickangle: -35, tickfont: { size: 10 } },
+                font: { family: 'Segoe UI, sans-serif', size: 11 },
                 showlegend: false
             });
 
-            // ----- GRÁFICO 4: Relación Precio vs Costo (Scatter) -----
-            const preciosScatter = data.map(p => p.precio_unitario || 0);
-            const costosScatter = data.map(p => p.costo_produccion || 0);
-            const nombresScatter = data.map(p => p.nombre || p.producto_id);
-            const margenes = data.map(p => {
-                const precio = p.precio_unitario || 0;
-                const costo = p.costo_produccion || 0;
-                return precio > 0 ? ((precio - costo) / precio * 100) : 0;
+            document.getElementById('grafico-tiempos').on('plotly_click', function(data) {
+                if (data.points && data.points.length > 0) {
+                    const point = data.points[0];
+                    const productoId = point.customdata;
+                    if (productoId) {
+                        mostrarAnalisisProducto(productoId);
+                    }
+                }
             });
+
+            // ----- GRÁFICO 4: PRECIO VS COSTO -----
+            const sortedByPrecio = [...data].sort((a, b) => (b.precio_unitario || 0) - (a.precio_unitario || 0));
+            
+            const nombresBar = sortedByPrecio.map(p => p.nombre || p.producto_id);
+            const preciosBar = sortedByPrecio.map(p => p.precio_unitario || 0);
+            const costosBar = sortedByPrecio.map(p => p.costo_produccion || 0);
+            const idsBar = sortedByPrecio.map(p => p.producto_id || p._id);
+            
+            const alturaGrafica = Math.max(800, nombresBar.length * 35);
+            document.getElementById('grafico-precio-costo').style.minHeight = alturaGrafica + 'px';
 
             Plotly.newPlot('grafico-precio-costo', [
                 {
-                    type: 'scatter',
-                    mode: 'markers+text',
-                    x: preciosScatter,
-                    y: costosScatter,
-                    text: nombresScatter,
-                    textposition: 'top center',
-                    marker: {
-                        size: margenes.map(m => 15 + m * 0.3),
-                        color: margenes.map(m => m >= 30 ? '#27ae60' : m >= 15 ? '#f39c12' : '#e74c3c'),
-                        line: { color: 'white', width: 1.5 },
-                        sizemin: 8,
-                        sizemax: 40
+                    type: 'bar',
+                    orientation: 'h',
+                    y: nombresBar,
+                    x: preciosBar,
+                    name: 'Precio',
+                    marker: { 
+                        color: '#3498db',
+                        line: { color: 'white', width: 1 }
                     },
-                    hoverinfo: 'text',
-                    hovertext: nombresScatter.map((n, i) => 
-                        `${n}<br>Precio: $${preciosScatter[i].toFixed(2)}<br>Costo: $${costosScatter[i].toFixed(2)}<br>Margen: ${margenes[i].toFixed(1)}%`
-                    )
+                    text: preciosBar.map(p => '$' + p.toFixed(2)),
+                    textposition: 'outside',
+                    customdata: idsBar,
+                    hoverinfo: 'x+y',
+                    hovertemplate: '<b>%{y}</b><br>Precio: $%{x:.2f}<br>🔍 Clic para ver detalles<extra></extra>'
+                },
+                {
+                    type: 'bar',
+                    orientation: 'h',
+                    y: nombresBar,
+                    x: costosBar,
+                    name: 'Costo',
+                    marker: { 
+                        color: '#e74c3c',
+                        line: { color: 'white', width: 1 }
+                    },
+                    text: costosBar.map(c => '$' + c.toFixed(2)),
+                    textposition: 'outside',
+                    customdata: idsBar,
+                    hoverinfo: 'x+y',
+                    hovertemplate: '<b>%{y}</b><br>Costo: $%{x:.2f}<br>🔍 Clic para ver detalles<extra></extra>'
                 }
             ], {
-                margin: { t: 30, l: 60, r: 20, b: 60 },
+                margin: { t: 40, l: 150, r: 120, b: 40 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 xaxis: { 
-                    title: 'Precio Unitario ($)',
-                    gridcolor: 'rgba(0,0,0,0.05)'
+                    title: 'Monto ($)',
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    zeroline: true,
+                    zerolinecolor: '#ddd'
                 },
                 yaxis: { 
-                    title: 'Costo de Producción ($)',
-                    gridcolor: 'rgba(0,0,0,0.05)'
+                    title: 'Producto',
+                    automargin: true,
+                    tickfont: { size: 11 },
+                    autorange: 'reversed'
                 },
-                font: { family: 'Segoe UI, sans-serif', size: 10 },
-                showlegend: false
+                font: { family: 'Segoe UI, sans-serif', size: 11 },
+                showlegend: true,
+                legend: { orientation: 'h', y: 1.05 },
+                barmode: 'group',
+                bargap: 0.15,
+                annotations: [{
+                    x: 0.5,
+                    y: 1.1,
+                    xref: 'paper',
+                    yref: 'paper',
+                    text: '🔵 Precio | 🔴 Costo | 📊 Diferencia = Margen | 💡 Desplázate hacia abajo para ver más productos',
+                    showarrow: false,
+                    font: { size: 11, color: '#7f8c8d' }
+                }]
+            });
+
+            document.getElementById('grafico-precio-costo').on('plotly_click', function(data) {
+                if (data.points && data.points.length > 0) {
+                    const point = data.points[0];
+                    const productoId = point.customdata;
+                    if (productoId) {
+                        mostrarAnalisisProducto(productoId);
+                    }
+                }
             });
         }
 

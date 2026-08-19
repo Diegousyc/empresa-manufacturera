@@ -90,7 +90,7 @@
         .card-body { padding: 1.5rem; }
 
         /* ============================================
-           TABLAS
+           TABLAS - COMPLETAS Y GRANDES
            ============================================ */
         .table-container {
             overflow-x: auto;
@@ -105,9 +105,13 @@
         }
         .table thead th {
             border: none;
-            padding: 1rem;
+            padding: 1rem 1.2rem;
             font-weight: 500;
             letter-spacing: 0.5px;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         .table tbody tr {
             transition: var(--transition);
@@ -116,8 +120,27 @@
             background: rgba(52, 152, 219, 0.1);
         }
         .table tbody td {
-            padding: 0.8rem 1rem;
+            padding: 0.8rem 1.2rem;
             vertical-align: middle;
+        }
+
+        /* Tabla sin límite de altura - MUESTRA TODOS LOS DATOS */
+        .tabla-scroll-container {
+            overflow-x: auto;
+            max-height: none;
+            overflow-y: visible;
+        }
+        .tabla-scroll-container::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        .tabla-scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        .tabla-scroll-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            border-radius: 5px;
         }
 
         /* ============================================
@@ -138,15 +161,12 @@
         .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
         .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
         .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
+        .btn-info { background: linear-gradient(135deg, #1abc9c, #16a085); border: none; color: white; }
 
         /* ============================================
            BADGES
            ============================================ */
-        .badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 500;
-        }
+        .badge { padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; }
 
         /* ============================================
            KPIs
@@ -214,6 +234,28 @@
         }
 
         /* ============================================
+           FILTROS
+           ============================================ */
+        .filtro-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filtro-container label {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        .filtro-container .form-select {
+            width: 200px;
+        }
+
+        /* ============================================
            GRÁFICOS
            ============================================ */
         .chart-container {
@@ -222,7 +264,6 @@
             padding: 1.5rem;
             box-shadow: var(--shadow);
             margin-bottom: 20px;
-            cursor: pointer;
             transition: var(--transition);
             position: relative;
         }
@@ -252,13 +293,112 @@
             opacity: 0.7;
             transition: var(--transition);
             pointer-events: none;
+            z-index: 10;
         }
         .chart-container:hover .click-hint {
             opacity: 1;
         }
 
         /* ============================================
-           MODAL DE GRÁFICOS
+           MODAL DE DETALLE MATERIAL - MEJORADO
+           ============================================ */
+        .material-detalle-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+        }
+        .material-detalle-card .material-nombre {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .material-detalle-card .material-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .material-detalle-card .material-grid .item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .material-detalle-card .material-grid .item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 1px;
+        }
+        .material-detalle-card .material-grid .item .value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        .material-detalle-card .material-info {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .material-detalle-card .material-info .info-item {
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .material-detalle-card .material-info .info-item .label {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+        .material-detalle-card .material-info .info-item .value {
+            font-weight: 600;
+        }
+        .material-detalle-card .estado-badge {
+            font-size: 1rem;
+            padding: 5px 15px;
+        }
+
+        /* Recomendaciones detalladas */
+        .analisis-recomendacion {
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-radius: 8px;
+        }
+        .analisis-recomendacion h6 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .analisis-recomendacion ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .analisis-recomendacion ul li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+        .recomendacion-alta {
+            background: #d4edda;
+            border-left: 4px solid #27ae60;
+        }
+        .recomendacion-media {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+        }
+        .recomendacion-baja {
+            background: #f8d7da;
+            border-left: 4px solid #e74c3c;
+        }
+        .recomendacion-info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        /* ============================================
+           MODAL GRÁFICOS
            ============================================ */
         .modal-grafico {
             background: white;
@@ -284,22 +424,6 @@
             padding: 15px;
             margin-top: 15px;
         }
-        .modal-grafico .modal-estadisticas .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        .modal-grafico .modal-estadisticas .stat-item:last-child {
-            border-bottom: none;
-        }
-        .modal-grafico .modal-estadisticas .stat-label {
-            color: #7f8c8d;
-        }
-        .modal-grafico .modal-estadisticas .stat-value {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
 
         /* ============================================
            RESPONSIVE
@@ -314,6 +438,12 @@
                 font-size: 0.7rem;
                 padding: 0.3rem 0.6rem !important;
             }
+            .material-detalle-card .material-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .material-detalle-card .material-info {
+                grid-template-columns: 1fr;
+            }
         }
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1rem; }
@@ -321,7 +451,13 @@
             .kpi-card .kpi-number { font-size: 1.5rem; }
             .kpi-card .kpi-icon { font-size: 2rem; }
             .btn { padding: 0.4rem 1rem; font-size: 0.9rem; }
-            .modal-grafico .modal-contenido { min-height: 300px; }
+            .filtro-container .form-select { width: 100%; }
+            .material-detalle-card .material-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .material-detalle-card .material-info {
+                grid-template-columns: 1fr;
+            }
         }
         @media (max-width: 576px) {
             .kpi-card { padding: 1rem; }
@@ -329,16 +465,14 @@
             .table-container { padding: 0.5rem; }
             .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
             .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
-            .modal-grafico .modal-contenido { min-height: 250px; }
+            .material-detalle-card .material-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* ============================================
-           SCROLLBAR
-           ============================================ */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #2c3e50; }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -353,6 +487,60 @@
         .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
         .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
         .alert-warning { background: #fff3cd; border-color: #ffecb5; color: #856404; }
+
+        .highlight-row {
+            animation: highlightPulse 2s ease;
+        }
+        @keyframes highlightPulse {
+            0% { background-color: #fff3cd; }
+            50% { background-color: #ffeaa7; }
+            100% { background-color: transparent; }
+        }
+
+        /* Texto con tooltip */
+        .texto-largo {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .texto-largo:hover {
+            white-space: normal;
+            overflow: visible;
+            background: white;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .chart-container .chart-wrapper {
+            width: 100%;
+            height: 300px;
+        }
+
+        /* ============================================
+           FIX: EVITA QUE EL MODAL QUEDE EN GRIS
+           ============================================ */
+        .modal-backdrop {
+            z-index: 1040 !important;
+        }
+        .modal {
+            z-index: 1050 !important;
+        }
+        .modal.fade .modal-dialog {
+            transition: transform 0.3s ease-out;
+        }
+        /* Asegura que el backdrop se elimine correctamente */
+        .modal-backdrop.fade {
+            opacity: 0.5;
+        }
+        .modal-backdrop.show {
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -437,21 +625,21 @@
         ============================================ -->
         <div class="row mb-4">
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-consumo-tipo', 'Consumo por Tipo de Material', 'Gráfica de barras que muestra la cantidad total de cada tipo de material en inventario. Permite identificar qué tipos de materiales son los más utilizados en la producción.')">
+                <div class="chart-container">
                     <div class="chart-title">
                         <i class="fas fa-chart-bar text-primary"></i> Consumo por Tipo de Material
                     </div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-consumo-tipo" style="height: 280px;"></div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
+                    <div id="grafico-consumo-tipo" style="height: 300px;"></div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-consumo-nombre', 'Materiales Más Utilizados', 'Gráfica de barras que muestra los materiales con mayor cantidad en inventario. Permite identificar qué materiales son los más consumidos en el proceso productivo.')">
+                <div class="chart-container">
                     <div class="chart-title">
                         <i class="fas fa-chart-bar text-success"></i> Materiales Más Utilizados
                     </div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-consumo-nombre" style="height: 280px;"></div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
+                    <div id="grafico-consumo-nombre" style="height: 300px;"></div>
                 </div>
             </div>
         </div>
@@ -528,7 +716,7 @@
                 </div>
             </div>
 
-            <!-- TABLA DE MATERIALES -->
+            <!-- TABLA DE MATERIALES - COMPLETA -->
             <div class="col-md-8 animated">
                 <div class="card">
                     <div class="card-header">
@@ -538,19 +726,35 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        <div class="table-container">
+                        <!-- FILTROS -->
+                        <div class="filtro-container">
+                            <label><i class="fas fa-filter text-primary"></i> Filtros:</label>
+                            <select class="form-select form-select-sm" id="filtro-tipo" onchange="aplicarFiltro()">
+                                <option value="todos">Todos los tipos</option>
+                            </select>
+                            <select class="form-select form-select-sm" id="filtro-nombre" onchange="aplicarFiltro()">
+                                <option value="todos">Todos los materiales</option>
+                            </select>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="limpiarFiltro()">
+                                <i class="fas fa-times"></i> Limpiar filtro
+                            </button>
+                            <span class="text-muted small ms-2" id="contador-filtro">Mostrando: 0 materiales</span>
+                        </div>
+
+                        <!-- TABLA SIN LÍMITE DE ALTURA - MUESTRA TODOS LOS DATOS -->
+                        <div class="tabla-scroll-container">
                             <table class="table table-hover" id="tabla-materiales">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Tipo</th>
-                                        <th>Cantidad</th>
-                                        <th>Unidad</th>
-                                        <th>Costo</th>
-                                        <th>Stock Mínimo</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
+                                        <th style="min-width: 80px;">ID</th>
+                                        <th style="min-width: 160px;">Nombre</th>
+                                        <th style="min-width: 120px;">Tipo</th>
+                                        <th style="min-width: 100px;">Cantidad</th>
+                                        <th style="min-width: 80px;">Unidad</th>
+                                        <th style="min-width: 100px;">Costo</th>
+                                        <th style="min-width: 120px;">Stock Mínimo</th>
+                                        <th style="min-width: 120px;">Estado</th>
+                                        <th style="min-width: 120px;">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody-materiales">
@@ -570,29 +774,20 @@
     </div>
 
     <!-- ============================================
-    MODAL PARA GRÁFICOS COMPLETOS
+    MODAL PARA DETALLE DE MATERIAL - MEJORADO
     ============================================ -->
-    <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal fade" id="modalDetalleMaterial" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
-                    <h5 class="modal-title" id="modalGraficoTitulo"><i class="fas fa-chart-bar"></i> Gráfica</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title"><i class="fas fa-cube"></i> Detalle del Material</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModalDetalle()"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="modal-grafico">
-                        <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
-                        <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
-                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
-                            <!-- Estadísticas se generan dinámicamente -->
-                        </div>
-                    </div>
+                    <div id="detalle-material-contenido"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="exportarGraficoModal()">
-                        <i class="fas fa-download"></i> Exportar como PNG
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarModalDetalle()">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -605,6 +800,56 @@
         // ============================================
         const API_BASE = '/api';
         let datosMateriales = [];
+        let datosFiltrados = [];
+        let materialSeleccionado = null;
+        let modalDetalleInstance = null;
+
+        // ============================================
+        // FUNCIÓN PARA CERRAR MODAL CORRECTAMENTE
+        // ============================================
+        function cerrarModalDetalle() {
+            // Obtener la instancia del modal
+            const modalElement = document.getElementById('modalDetalleMaterial');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+            
+            // Forzar la eliminación del backdrop si queda
+            setTimeout(() => {
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => {
+                    backdrop.remove();
+                });
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            }, 100);
+        }
+
+        // ============================================
+        // INICIALIZAR MODAL
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalElement = document.getElementById('modalDetalleMaterial');
+            modalDetalleInstance = new bootstrap.Modal(modalElement, {
+                backdrop: true,
+                keyboard: true
+            });
+            
+            // Evento cuando el modal se oculta
+            modalElement.addEventListener('hidden.bs.modal', function() {
+                // Limpiar cualquier backdrop residual
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => {
+                    backdrop.remove();
+                });
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            });
+        });
 
         async function apiRequest(endpoint, options = {}) {
             const url = `${API_BASE}${endpoint}`;
@@ -626,105 +871,307 @@
         }
 
         // ============================================
-        // ABRIR MODAL CON GRÁFICA COMPLETA
+        // MOSTRAR DETALLE DE MATERIAL POR NOMBRE
+        // CON RECOMENDACIONES DETALLADAS Y ESPECÍFICAS
         // ============================================
-        function abrirModalGrafico(graficoId, titulo, descripcion) {
-            const modal = new bootstrap.Modal(document.getElementById('modalGrafico'));
-            document.getElementById('modalGraficoTitulo').textContent = '📊 ' + titulo;
-            document.getElementById('modalGraficoDescripcion').textContent = descripcion;
+        function mostrarDetalleMaterialPorNombre(nombre) {
+            const material = datosMateriales.find(m => (m.nombre || m.material_id) === nombre);
             
-            const container = document.getElementById('modalGraficoContenido');
-            
-            const originalDiv = document.getElementById(graficoId);
-            if (originalDiv && originalDiv.data) {
-                const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout));
-                layoutModificado.height = 500;
-                layoutModificado.margin = { t: 40, l: 80, r: 40, b: 80 };
-                layoutModificado.font = { size: 14 };
-                
-                Plotly.newPlot(container, originalDiv.data, layoutModificado);
-                generarEstadisticasModal(graficoId);
-            } else {
-                container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>';
-            }
-            
-            modal.show();
-        }
-
-        // ============================================
-        // GENERAR ESTADÍSTICAS PARA EL MODAL
-        // ============================================
-        function generarEstadisticasModal(graficoId) {
-            const container = document.getElementById('modalGraficoEstadisticas');
-            const data = datosMateriales;
-            
-            if (!data || data.length === 0) {
-                container.innerHTML = '<div class="text-center text-muted">No hay datos para mostrar estadísticas</div>';
+            if (!material) {
+                alert(`Material "${nombre}" no encontrado`);
                 return;
             }
 
-            let html = '<h6><i class="fas fa-chart-simple text-primary"></i> Estadísticas del análisis:</h6>';
+            materialSeleccionado = material;
+
+            const cantidad = material.cantidad || 0;
+            const stockMinimo = material.stock_minimo || 0;
+            const costoUnitario = material.costo_unitario || 0;
+            const valorTotal = cantidad * costoUnitario;
             
-            if (graficoId === 'grafico-consumo-tipo') {
-                const porTipo = {};
-                data.forEach(m => {
-                    const tipo = m.tipo || 'Sin tipo';
-                    porTipo[tipo] = (porTipo[tipo] || 0) + (m.cantidad || 0);
+            // Determinar estado
+            let estado, badgeClass;
+            let nivelStock = '';
+            if (cantidad <= stockMinimo) {
+                estado = '⚠️ Stock Bajo - CRÍTICO';
+                badgeClass = 'bg-danger';
+                nivelStock = 'crítico';
+            } else if (cantidad <= stockMinimo * 2) {
+                estado = '⚠️ Atención - Stock Reducido';
+                badgeClass = 'bg-warning';
+                nivelStock = 'bajo';
+            } else {
+                estado = '✅ OK - Stock Saludable';
+                badgeClass = 'bg-success';
+                nivelStock = 'saludable';
+            }
+
+            // ============================================
+            // RECOMENDACIONES DETALLADAS Y ESPECÍFICAS
+            // ============================================
+            let recomendaciones = [];
+            let recomendacionClase = 'recomendacion-media';
+            
+            // Recomendación de stock
+            if (cantidad <= stockMinimo) {
+                recomendacionClase = 'recomendacion-baja';
+                recomendaciones.push({
+                    icono: '🚨',
+                    titulo: 'STOCK CRÍTICO - ACCIÓN INMEDIATA',
+                    descripcion: `La cantidad actual (${cantidad} ${material.unidad}) está por debajo del stock mínimo establecido (${stockMinimo} ${material.unidad}).`,
+                    accion: `Se recomienda realizar una compra URGENTE de al menos ${(stockMinimo * 2 - cantidad).toFixed(2)} ${material.unidad} para restablecer el inventario a un nivel seguro.`
                 });
-                const total = data.length;
-                const tipos = Object.keys(porTipo);
-                const maxTipo = Object.entries(porTipo).sort((a, b) => b[1] - a[1])[0];
-                const cantidadTotal = Object.values(porTipo).reduce((a, b) => a + b, 0);
-                
-                html += `
-                    <div class="row mt-2">
-                        <div class="col-md-3 col-6"><span class="stat-label">Total materiales:</span><br><span class="stat-value">${total}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Tipos de material:</span><br><span class="stat-value">${tipos.length}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Cantidad total:</span><br><span class="stat-value">${cantidadTotal.toFixed(2)}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Tipo principal:</span><br><span class="stat-value">${maxTipo ? maxTipo[0] : '-'} (${maxTipo ? maxTipo[1].toFixed(2) : 0})</span></div>
+            } else if (cantidad <= stockMinimo * 2) {
+                recomendacionClase = 'recomendacion-media';
+                recomendaciones.push({
+                    icono: '⚠️',
+                    titulo: 'STOCK REDUCIDO - PLANIFICAR REPOSICIÓN',
+                    descripcion: `La cantidad actual (${cantidad} ${material.unidad}) se acerca al stock mínimo (${stockMinimo} ${material.unidad}).`,
+                    accion: `Se recomienda programar una compra de ${(stockMinimo * 3 - cantidad).toFixed(2)} ${material.unidad} en las próximas 2 semanas para mantener un margen de seguridad.`
+                });
+            } else {
+                recomendacionClase = 'recomendacion-alta';
+                recomendaciones.push({
+                    icono: '✅',
+                    titulo: 'STOCK SALUDABLE - MANTENER',
+                    descripcion: `La cantidad actual (${cantidad} ${material.unidad}) está muy por encima del stock mínimo (${stockMinimo} ${material.unidad}).`,
+                    accion: `Mantener el nivel actual de inventario. Revisar en ${Math.floor(cantidad / (stockMinimo * 0.5))} semanas para evaluar consumo.`
+                });
+            }
+
+            // Recomendación por valor de inventario
+            if (valorTotal > 10000) {
+                recomendaciones.push({
+                    icono: '💰',
+                    titulo: 'ALTO VALOR DE INVENTARIO',
+                    descripcion: `El valor total del inventario de este material es $${valorTotal.toFixed(2)}.`,
+                    accion: `Optimizar el almacenamiento y rotación. Considerar reducir el stock si el consumo es bajo (promedio de ventas/uso por período).`
+                });
+            }
+
+            // Recomendación por costo unitario alto
+            if (costoUnitario > 100) {
+                recomendaciones.push({
+                    icono: '💎',
+                    titulo: 'MATERIAL DE ALTO COSTO',
+                    descripcion: `El costo unitario es $${costoUnitario.toFixed(2)}.`,
+                    accion: `Implementar controles estrictos de uso y almacenamiento. Capacitar al personal en manejo cuidadoso. Considerar negociación con proveedores para mejores precios por volumen.`
+                });
+            }
+
+            // Recomendación por proveedor
+            if (material.proveedor && material.proveedor !== 'No especificado') {
+                recomendaciones.push({
+                    icono: '🏭',
+                    titulo: 'PROVEEDOR REGISTRADO',
+                    descripcion: `Proveedor actual: ${material.proveedor}`,
+                    accion: `Mantener comunicación regular con ${material.proveedor}. Evaluar calidad y tiempos de entrega. Considerar tener un proveedor alternativo.`
+                });
+            }
+
+            // Recomendación de ubicación
+            if (material.ubicacion && material.ubicacion !== 'No especificada') {
+                recomendaciones.push({
+                    icono: '📍',
+                    titulo: 'UBICACIÓN REGISTRADA',
+                    descripcion: `Ubicación: ${material.ubicacion}`,
+                    accion: `Asegurar que el material esté correctamente etiquetado en ${material.ubicacion}. Realizar inventario físico periódico.`
+                });
+            }
+
+            // Recomendación general de consumo
+            const diasEstimados = cantidad / (stockMinimo * 0.3);
+            if (diasEstimados > 0 && nivelStock !== 'crítico') {
+                recomendaciones.push({
+                    icono: '📊',
+                    titulo: 'PROYECCIÓN DE CONSUMO',
+                    descripcion: `Con un consumo estimado de ${(stockMinimo * 0.3).toFixed(2)} ${material.unidad} por día,`,
+                    accion: `el stock actual duraría aproximadamente ${Math.round(diasEstimados)} días. Planificar reposición en ${Math.round(diasEstimados * 0.7)} días.`
+                });
+            }
+
+            // Generar HTML del modal
+            const container = document.getElementById('detalle-material-contenido');
+            
+            let recomendacionesHTML = recomendaciones.map(r => `
+                <div class="analisis-recomendacion recomendacion-media" style="margin-top: 8px; padding: 12px 15px; border-radius: 8px; background: #f8f9fa; border-left: 4px solid #3498db;">
+                    <h6 style="margin-bottom: 4px; font-weight: 700;">${r.icono} ${r.titulo}</h6>
+                    <p style="margin-bottom: 2px; font-size: 0.9rem;"><strong>Descripción:</strong> ${r.descripcion}</p>
+                    <p style="margin-bottom: 0; font-size: 0.9rem; color: #2c3e50;"><strong>Acción recomendada:</strong> ${r.accion}</p>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="material-detalle-card">
+                    <div class="material-nombre">
+                        <i class="fas fa-cube"></i> ${material.nombre || 'Sin nombre'}
                     </div>
-                `;
-            } else if (graficoId === 'grafico-consumo-nombre') {
-                const materiales = data.map(m => ({
-                    nombre: m.nombre || m.material_id,
-                    cantidad: m.cantidad || 0
-                })).sort((a, b) => b.cantidad - a.cantidad);
-                
-                const total = data.length;
-                const top3 = materiales.slice(0, 3);
-                const cantidadTotal = materiales.reduce((a, b) => a + b.cantidad, 0);
-                const promedio = cantidadTotal / total;
-                
-                html += `
-                    <div class="row mt-2">
-                        <div class="col-md-3 col-6"><span class="stat-label">Total materiales:</span><br><span class="stat-value">${total}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Cantidad total:</span><br><span class="stat-value">${cantidadTotal.toFixed(2)}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Promedio por material:</span><br><span class="stat-value">${promedio.toFixed(2)}</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Material principal:</span><br><span class="stat-value">${top3.length > 0 ? top3[0].nombre : '-'}</span></div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <span class="stat-label">Top 3 materiales:</span><br>
-                            <span class="stat-value">${top3.map((m, i) => `${i+1}. ${m.nombre} (${m.cantidad.toFixed(2)})`).join(' | ')}</span>
+                    <div class="text-muted mb-3">ID: ${material.material_id || material._id}</div>
+                    
+                    <div class="material-grid">
+                        <div class="item">
+                            <div class="label">Tipo</div>
+                            <div class="value">${material.tipo || '-'}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Cantidad</div>
+                            <div class="value">${cantidad} ${material.unidad || ''}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Costo Unitario</div>
+                            <div class="value">$${costoUnitario.toFixed(2)}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Valor Total</div>
+                            <div class="value">$${valorTotal.toFixed(2)}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Stock Mínimo</div>
+                            <div class="value">${stockMinimo} ${material.unidad || ''}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Estado</div>
+                            <div class="value"><span class="badge ${badgeClass}" style="font-size: 0.9rem; padding: 6px 12px;">${estado}</span></div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Proveedor</div>
+                            <div class="value">${material.proveedor || '-'}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Ubicación</div>
+                            <div class="value">${material.ubicacion || '-'}</div>
                         </div>
                     </div>
-                `;
+                    
+                    <div class="material-info">
+                        <div class="info-item">
+                            <span class="label">Fecha de compra</span>
+                            <span class="value">${material.fecha_compra ? new Date(material.fecha_compra).toLocaleDateString() : '-'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Nivel de stock</span>
+                            <span class="value">
+                                ${cantidad <= stockMinimo ? '⚠️ Crítico' : 
+                                  cantidad <= stockMinimo * 2 ? '⚠️ Bajo' : '✅ Adecuado'}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h6><i class="fas fa-lightbulb text-warning"></i> Recomendaciones detalladas</h6>
+                    <div class="${recomendacionClase}" style="padding: 10px 15px; border-radius: 8px; margin-top: 10px;">
+                        ${recomendacionesHTML}
+                    </div>
+                    
+                    <div class="mt-3 p-2 bg-light rounded" style="font-size: 0.85rem; color: #7f8c8d;">
+                        <i class="fas fa-info-circle"></i> 
+                        ${cantidad <= stockMinimo ? '⚠️ ACCIÓN URGENTE: Reabastecer inmediatamente.' : 
+                          cantidad <= stockMinimo * 2 ? '⚠️ Planificar reposición en los próximos días.' : 
+                          '✅ Inventario en buen estado. Monitorear consumo regularmente.'}
+                    </div>
+                </div>
+            `;
+
+            // Abrir el modal usando la instancia guardada
+            if (modalDetalleInstance) {
+                modalDetalleInstance.show();
+            } else {
+                // Si no hay instancia, crearla
+                const modalElement = document.getElementById('modalDetalleMaterial');
+                modalDetalleInstance = new bootstrap.Modal(modalElement, {
+                    backdrop: true,
+                    keyboard: true
+                });
+                modalDetalleInstance.show();
             }
-            
-            container.innerHTML = html;
         }
 
         // ============================================
-        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
+        // MOSTRAR DETALLE DE TIPO DE MATERIAL
         // ============================================
-        function exportarGraficoModal() {
-            const container = document.getElementById('modalGraficoContenido');
-            Plotly.downloadImage(container, {
-                filename: 'grafico_analisis_materia_prima',
-                format: 'png',
-                width: 1200,
-                height: 800
-            });
+        function mostrarDetalleTipo(tipo) {
+            const materialesTipo = datosMateriales.filter(m => (m.tipo || 'Sin tipo') === tipo);
+            
+            if (materialesTipo.length === 0) {
+                alert(`No hay materiales del tipo "${tipo}"`);
+                return;
+            }
+
+            const total = materialesTipo.length;
+            const cantidadTotal = materialesTipo.reduce((sum, m) => sum + (m.cantidad || 0), 0);
+            const valorTotal = materialesTipo.reduce((sum, m) => sum + (m.cantidad || 0) * (m.costo_unitario || 0), 0);
+            const stockBajo = materialesTipo.filter(m => (m.cantidad || 0) <= (m.stock_minimo || 0));
+
+            // Si hay un solo material, mostrar su detalle
+            if (materialesTipo.length === 1) {
+                mostrarDetalleMaterialPorNombre(materialesTipo[0].nombre || materialesTipo[0].material_id);
+                return;
+            }
+
+            // Si hay varios, mostrar una vista resumida
+            const container = document.getElementById('detalle-material-contenido');
+            container.innerHTML = `
+                <div class="material-detalle-card">
+                    <div class="material-nombre">
+                        <i class="fas fa-tag"></i> Tipo: ${tipo}
+                    </div>
+                    <div class="text-muted mb-3">${total} materiales de este tipo</div>
+                    
+                    <div class="material-grid">
+                        <div class="item">
+                            <div class="label">Total Materiales</div>
+                            <div class="value">${total}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Cantidad Total</div>
+                            <div class="value">${cantidadTotal.toFixed(2)}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Valor Total</div>
+                            <div class="value">$${valorTotal.toFixed(2)}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Stock Bajo</div>
+                            <div class="value">${stockBajo.length} materiales</div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <strong><i class="fas fa-list"></i> Materiales de este tipo:</strong>
+                    <div class="mt-2">
+                        ${materialesTipo.map(m => `
+                            <button class="btn btn-sm btn-outline-primary m-1" 
+                                    onclick="mostrarDetalleMaterialPorNombre('${m.nombre || m.material_id}')">
+                                <i class="fas fa-cube"></i> ${m.nombre || m.material_id}
+                                <span class="badge bg-primary ms-1">${m.cantidad || 0} ${m.unidad || ''}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    
+                    ${stockBajo.length > 0 ? `
+                    <div class="analisis-recomendacion recomendacion-baja mt-3">
+                        <h6><i class="fas fa-exclamation-triangle"></i> Alertas de Stock</h6>
+                        <ul class="mb-0">
+                            ${stockBajo.map(m => `<li>${m.nombre}: ${m.cantidad} ${m.unidad} (mínimo: ${m.stock_minimo})</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+
+            // Abrir el modal usando la instancia guardada
+            if (modalDetalleInstance) {
+                modalDetalleInstance.show();
+            } else {
+                const modalElement = document.getElementById('modalDetalleMaterial');
+                modalDetalleInstance = new bootstrap.Modal(modalElement, {
+                    backdrop: true,
+                    keyboard: true
+                });
+                modalDetalleInstance.show();
+            }
         }
 
         // ============================================
@@ -743,6 +1190,7 @@
             try {
                 const result = await apiRequest('/materia-prima?limit=100');
                 datosMateriales = result.data || [];
+                datosFiltrados = [...datosMateriales];
                 const data = datosMateriales;
 
                 if (data.length === 0) {
@@ -777,41 +1225,8 @@
                 document.getElementById('stock-minimo').textContent = stockMinimoCount;
                 document.getElementById('valor-inventario').textContent = '$' + valorTotal.toFixed(2);
 
-                tbody.innerHTML = data.map(m => {
-                    const cantidad = m.cantidad || 0;
-                    const stockMinimo = m.stock_minimo || 0;
-                    let estado, badgeClass;
-                    if (cantidad <= stockMinimo) {
-                        estado = '⚠️ Stock Bajo';
-                        badgeClass = 'bg-danger';
-                    } else if (cantidad <= stockMinimo * 2) {
-                        estado = '⚠️ Atención';
-                        badgeClass = 'bg-warning';
-                    } else {
-                        estado = '✅ OK';
-                        badgeClass = 'bg-success';
-                    }
-
-                    return `
-                        <tr>
-                            <td><span class="badge bg-primary">${m.material_id || m._id}</span></td>
-                            <td><strong>${m.nombre || '-'}</strong></td>
-                            <td>${m.tipo || '-'}</td>
-                            <td>${cantidad}</td>
-                            <td>${m.unidad || '-'}</td>
-                            <td>$${m.costo_unitario?.toFixed(2) || '0.00'}</td>
-                            <td>${stockMinimo}</td>
-                            <td><span class="badge ${badgeClass}">${estado}</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" onclick="eliminarMaterial('${m.material_id || m._id}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-
-                // Cargar gráficos
+                actualizarFiltros();
+                cargarTabla(datosFiltrados);
                 await cargarGraficos(data);
 
             } catch (error) {
@@ -827,11 +1242,133 @@
         }
 
         // ============================================
-        // CARGAR GRÁFICOS
+        // ACTUALIZAR FILTROS
+        // ============================================
+        function actualizarFiltros() {
+            const selectTipo = document.getElementById('filtro-tipo');
+            while (selectTipo.options.length > 1) {
+                selectTipo.remove(1);
+            }
+            const tiposSet = new Set(datosMateriales.map(m => m.tipo));
+            Array.from(tiposSet).sort().forEach(tipo => {
+                if (tipo) {
+                    const option = document.createElement('option');
+                    option.value = tipo;
+                    option.textContent = tipo;
+                    selectTipo.appendChild(option);
+                }
+            });
+
+            const selectNombre = document.getElementById('filtro-nombre');
+            while (selectNombre.options.length > 1) {
+                selectNombre.remove(1);
+            }
+            const nombres = datosMateriales.map(m => m.nombre || m.material_id).filter(n => n).sort();
+            nombres.forEach(nombre => {
+                const option = document.createElement('option');
+                option.value = nombre;
+                option.textContent = nombre;
+                selectNombre.appendChild(option);
+            });
+        }
+
+        // ============================================
+        // APLICAR FILTRO
+        // ============================================
+        function aplicarFiltro() {
+            const tipo = document.getElementById('filtro-tipo').value;
+            const nombre = document.getElementById('filtro-nombre').value;
+            
+            datosFiltrados = [...datosMateriales];
+            
+            if (tipo !== 'todos') {
+                datosFiltrados = datosFiltrados.filter(m => m.tipo === tipo);
+            }
+            
+            if (nombre !== 'todos') {
+                datosFiltrados = datosFiltrados.filter(m => (m.nombre || m.material_id) === nombre);
+            }
+            
+            cargarTabla(datosFiltrados);
+            document.getElementById('contador-filtro').textContent = `Mostrando: ${datosFiltrados.length} materiales`;
+            
+            if (datosFiltrados.length === 1) {
+                const material = datosFiltrados[0];
+                mostrarDetalleMaterialPorNombre(material.nombre || material.material_id);
+            }
+        }
+
+        // ============================================
+        // LIMPIAR FILTRO
+        // ============================================
+        function limpiarFiltro() {
+            document.getElementById('filtro-tipo').value = 'todos';
+            document.getElementById('filtro-nombre').value = 'todos';
+            aplicarFiltro();
+        }
+
+        // ============================================
+        // CARGAR TABLA - COMPLETA
+        // ============================================
+        function cargarTabla(data) {
+            const tbody = document.getElementById('tbody-materiales');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">
+                            <i class="fas fa-inbox"></i> No hay materiales que coincidan con el filtro
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = data.map(m => {
+                const cantidad = m.cantidad || 0;
+                const stockMinimo = m.stock_minimo || 0;
+                let estado, badgeClass;
+                if (cantidad <= stockMinimo) {
+                    estado = '⚠️ Stock Bajo';
+                    badgeClass = 'bg-danger';
+                } else if (cantidad <= stockMinimo * 2) {
+                    estado = '⚠️ Atención';
+                    badgeClass = 'bg-warning';
+                } else {
+                    estado = '✅ OK';
+                    badgeClass = 'bg-success';
+                }
+
+                return `
+                    <tr class="material-fila" data-id="${m.material_id || m._id}">
+                        <td><span class="badge bg-primary">${m.material_id || m._id}</span></td>
+                        <td><strong>${m.nombre || '-'}</strong></td>
+                        <td>${m.tipo || '-'}</td>
+                        <td>${cantidad}</td>
+                        <td>${m.unidad || '-'}</td>
+                        <td>$${m.costo_unitario?.toFixed(2) || '0.00'}</td>
+                        <td>${stockMinimo}</td>
+                        <td><span class="badge ${badgeClass}">${estado}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="mostrarDetalleMaterialPorNombre('${m.nombre || m.material_id}')" title="Ver detalle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="eliminarMaterial('${m.material_id || m._id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('contador-filtro').textContent = `Mostrando: ${data.length} materiales`;
+        }
+
+        // ============================================
+        // CARGAR GRÁFICOS - CLICK MUESTRA TARJETA
         // ============================================
         async function cargarGraficos(data) {
             if (data.length === 0) {
-                mostrarMensajeGraficos('No hay datos para mostrar gráficos');
                 return;
             }
 
@@ -857,22 +1394,21 @@
             };
             const colores = tipos.map(t => coloresTipos[t] || '#95a5a6');
 
-            Plotly.newPlot('grafico-consumo-tipo', [
-                {
-                    type: 'bar',
-                    x: tipos,
-                    y: cantidades,
-                    marker: {
-                        color: colores,
-                        line: { color: 'white', width: 1.5 }
-                    },
-                    text: cantidades.map(v => v.toFixed(2)),
-                    textposition: 'auto',
-                    hoverinfo: 'x+y',
-                    hovertemplate: '<b>%{x}</b><br>Cantidad: %{y:.2f}<extra></extra>'
-                }
-            ], {
-                margin: { t: 10, l: 50, r: 10, b: 50 },
+            Plotly.newPlot('grafico-consumo-tipo', [{
+                type: 'bar',
+                x: tipos,
+                y: cantidades,
+                marker: {
+                    color: colores,
+                    line: { color: 'white', width: 1.5 }
+                },
+                text: cantidades.map(v => v.toFixed(2)),
+                textposition: 'auto',
+                customdata: tipos,
+                hoverinfo: 'x+y',
+                hovertemplate: '<b>%{x}</b><br>Cantidad: %{y:.2f}<br>🔍 Clic para ver detalle<extra></extra>'
+            }], {
+                margin: { t: 20, l: 50, r: 20, b: 50 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 yaxis: { 
@@ -880,10 +1416,20 @@
                     gridcolor: 'rgba(0,0,0,0.05)'
                 },
                 xaxis: { 
-                    title: 'Tipo de Material'
+                    title: 'Tipo de Material',
+                    tickangle: -30
                 },
-                font: { family: 'Segoe UI, sans-serif', size: 11 },
+                font: { family: 'Segoe UI, sans-serif', size: 10 },
                 showlegend: false
+            });
+
+            // Click en gráfico de tipos - muestra detalle del tipo
+            document.getElementById('grafico-consumo-tipo').on('plotly_click', function(data) {
+                if (data.points && data.points.length > 0) {
+                    const point = data.points[0];
+                    const tipo = point.customdata;
+                    mostrarDetalleTipo(tipo);
+                }
             });
 
             // ----- GRÁFICO 2: Materiales Más Utilizados (Top 10) -----
@@ -896,22 +1442,21 @@
             const cantidadesTop = materiales.map(m => m.cantidad);
             const coloresTop = cantidadesTop.map(v => v > 500 ? '#e74c3c' : v > 200 ? '#f39c12' : '#27ae60');
 
-            Plotly.newPlot('grafico-consumo-nombre', [
-                {
-                    type: 'bar',
-                    x: nombres,
-                    y: cantidadesTop,
-                    marker: {
-                        color: coloresTop,
-                        line: { color: 'white', width: 1.5 }
-                    },
-                    text: cantidadesTop.map(v => v.toFixed(2)),
-                    textposition: 'auto',
-                    hoverinfo: 'x+y',
-                    hovertemplate: '<b>%{x}</b><br>Cantidad: %{y:.2f}<extra></extra>'
-                }
-            ], {
-                margin: { t: 10, l: 50, r: 10, b: 60 },
+            Plotly.newPlot('grafico-consumo-nombre', [{
+                type: 'bar',
+                x: nombres,
+                y: cantidadesTop,
+                marker: {
+                    color: coloresTop,
+                    line: { color: 'white', width: 1.5 }
+                },
+                text: cantidadesTop.map(v => v.toFixed(2)),
+                textposition: 'auto',
+                customdata: nombres,
+                hoverinfo: 'x+y',
+                hovertemplate: '<b>%{x}</b><br>Cantidad: %{y:.2f}<br>🔍 Clic para ver detalle<extra></extra>'
+            }], {
+                margin: { t: 20, l: 50, r: 20, b: 60 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 yaxis: { 
@@ -925,22 +1470,13 @@
                 font: { family: 'Segoe UI, sans-serif', size: 10 },
                 showlegend: false
             });
-        }
 
-        // ============================================
-        // MOSTRAR MENSAJE EN GRÁFICOS
-        // ============================================
-        function mostrarMensajeGraficos(mensaje) {
-            const contenedores = ['grafico-consumo-tipo', 'grafico-consumo-nombre'];
-            contenedores.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.innerHTML = `
-                        <div class="text-center text-muted py-5">
-                            <i class="fas fa-info-circle fa-3x mb-3"></i>
-                            <p>${mensaje}</p>
-                        </div>
-                    `;
+            // Click en gráfico de materiales - muestra tarjeta detallada
+            document.getElementById('grafico-consumo-nombre').on('plotly_click', function(data) {
+                if (data.points && data.points.length > 0) {
+                    const point = data.points[0];
+                    const nombre = point.x;
+                    mostrarDetalleMaterialPorNombre(nombre);
                 }
             });
         }
@@ -952,6 +1488,8 @@
             if (!confirm('¿Estás seguro de eliminar este material?')) return;
             try {
                 await apiRequest(`/materia-prima/${id}`, { method: 'DELETE' });
+                // Cerrar cualquier modal abierto
+                cerrarModalDetalle();
                 cargarMateriales();
             } catch (error) {
                 alert('Error al eliminar: ' + error.message);
@@ -964,28 +1502,46 @@
         document.getElementById('form-material').addEventListener('submit', async function(e) {
             e.preventDefault();
 
+            const nombre = document.getElementById('nombre').value.trim();
+            const tipo = document.getElementById('tipo').value;
+            
+            // Validar duplicados
+            const materialExistente = datosMateriales.find(m => 
+                (m.nombre || '').toLowerCase() === nombre.toLowerCase() && 
+                m.tipo === tipo
+            );
+            
+            if (materialExistente) {
+                document.getElementById('mensaje-form').innerHTML = `
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-exclamation-triangle"></i> Ya existe un material con el nombre "${nombre}" del tipo "${tipo}".
+                    </div>
+                `;
+                return;
+            }
+
             const data = {
                 material_id: 'MAT-' + Date.now(),
-                nombre: document.getElementById('nombre').value,
-                tipo: document.getElementById('tipo').value,
+                nombre: nombre,
+                tipo: tipo,
                 unidad: document.getElementById('unidad').value,
                 cantidad: parseFloat(document.getElementById('cantidad').value),
                 costo_unitario: parseFloat(document.getElementById('costo_unitario').value),
                 stock_minimo: parseFloat(document.getElementById('stock_minimo').value),
-                proveedor: document.getElementById('proveedor').value,
-                ubicacion: document.getElementById('ubicacion').value,
+                proveedor: document.getElementById('proveedor').value || 'No especificado',
+                ubicacion: document.getElementById('ubicacion').value || 'No especificada',
                 fecha_compra: new Date().toISOString()
             };
 
             try {
-                const result = await apiRequest('/materia-prima', { method: 'POST', body: JSON.stringify(data) });
+                await apiRequest('/materia-prima', { method: 'POST', body: JSON.stringify(data) });
                 document.getElementById('mensaje-form').innerHTML = `
                     <div class="alert alert-success mt-2">
                         <i class="fas fa-check-circle"></i> Material registrado exitosamente
                     </div>
                 `;
                 this.reset();
-                cargarMateriales();
+                await cargarMateriales();
                 setTimeout(() => {
                     document.getElementById('mensaje-form').innerHTML = '';
                 }, 3000);
@@ -1001,8 +1557,10 @@
         // ============================================
         // INICIALIZACIÓN
         // ============================================
-        document.addEventListener('DOMContentLoaded', cargarMateriales);
-        setInterval(cargarMateriales, 30000);
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarMateriales();
+            setInterval(cargarMateriales, 30000);
+        });
     </script>
 </body>
 </html>

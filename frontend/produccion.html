@@ -74,7 +74,6 @@
         }
         .card-body { padding: 1.5rem; }
 
-        /* KPIs MEJORADOS CON INDICADORES */
         .kpi-card {
             padding: 1.2rem 1.5rem;
             border-radius: var(--border-radius);
@@ -115,20 +114,13 @@
             align-items: center;
             gap: 5px;
         }
-        .kpi-card .kpi-change .change-up {
-            color: #2ecc71;
-        }
-        .kpi-card .kpi-change .change-down {
-            color: #e74c3c;
-        }
+        .kpi-card .kpi-change .change-up { color: #2ecc71; }
+        .kpi-card .kpi-change .change-down { color: #e74c3c; }
         .kpi-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
         .kpi-green { background: linear-gradient(135deg, #27ae60, #229954); }
         .kpi-yellow { background: linear-gradient(135deg, #f39c12, #e67e22); }
         .kpi-red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        .kpi-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-        .kpi-teal { background: linear-gradient(135deg, #1abc9c, #16a085); }
 
-        /* GRÁFICOS CON MODAL */
         .chart-container {
             background: white;
             border-radius: var(--border-radius);
@@ -150,16 +142,6 @@
             font-size: 1.1rem;
         }
         .chart-container .chart-title i { margin-right: 8px; color: var(--secondary-color); }
-        .chart-container .chart-desc {
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 4px solid var(--secondary-color);
-        }
-        .chart-container .chart-desc strong { color: var(--primary-color); }
         .chart-container .click-hint {
             position: absolute;
             top: 15px;
@@ -173,16 +155,160 @@
             transition: var(--transition);
             pointer-events: none;
         }
-        .chart-container:hover .click-hint {
-            opacity: 1;
+        .chart-container:hover .click-hint { opacity: 1; }
+
+        .filtro-periodo {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .filtro-periodo .btn-group .btn {
+            border-radius: 20px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+        }
+        .filtro-periodo .btn-group .btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+        .filtro-periodo label {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-right: 5px;
         }
 
-        /* MODAL DE GRÁFICOS */
-        .modal-grafico {
+        .selector-semana {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 5px 15px;
+            border-radius: 25px;
+            border: 2px solid #e0e0e0;
         }
+        .selector-semana button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+        .selector-semana button:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: scale(1.1);
+        }
+        .selector-semana .semana-info {
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 180px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .selector-semana .semana-info small {
+            display: block;
+            font-weight: 400;
+            color: #6c757d;
+            font-size: 0.75rem;
+        }
+
+        .mini-calendario {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            padding: 15px;
+            z-index: 1000;
+            min-width: 280px;
+            margin-top: 5px;
+        }
+        .mini-calendario.active { display: block; }
+        .mini-calendario .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .mini-calendario .cal-header button {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .mini-calendario .cal-header button:hover { background: rgba(52, 152, 219, 0.1); }
+        .mini-calendario .cal-header .cal-mes {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .mini-calendario .cal-dias {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            text-align: center;
+        }
+        .mini-calendario .cal-dias .dia-nombre {
+            font-size: 0.65rem;
+            color: #6c757d;
+            font-weight: 600;
+            padding: 5px 0;
+        }
+        .mini-calendario .cal-dias .dia {
+            padding: 6px 4px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .mini-calendario .cal-dias .dia:hover { background: rgba(52, 152, 219, 0.2); }
+        .mini-calendario .cal-dias .dia.seleccionado {
+            background: var(--secondary-color);
+            color: white;
+        }
+        .mini-calendario .cal-dias .dia.otro-mes { color: #ccc; }
+        .mini-calendario .cal-dias .dia.fin-de-semana { color: #e74c3c; }
+
+        .filtros-historial {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            align-items: center;
+        }
+        .filtros-historial select,
+        .filtros-historial input {
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            min-width: 150px;
+        }
+        .filtros-historial select:focus,
+        .filtros-historial input:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        .filtros-historial .btn {
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .modal-grafico { background: white; border-radius: var(--border-radius); padding: 2rem; }
         .modal-grafico .modal-titulo {
             font-size: 1.5rem;
             font-weight: 700;
@@ -193,9 +319,7 @@
             color: #7f8c8d;
             margin-bottom: 1.5rem;
         }
-        .modal-grafico .modal-contenido {
-            min-height: 500px;
-        }
+        .modal-grafico .modal-contenido { min-height: 500px; }
         .modal-grafico .modal-estadisticas {
             background: #f8f9fa;
             border-radius: 8px;
@@ -208,31 +332,43 @@
             padding: 5px 0;
             border-bottom: 1px solid #ecf0f1;
         }
-        .modal-grafico .modal-estadisticas .stat-item:last-child {
-            border-bottom: none;
+        .modal-grafico .modal-estadisticas .stat-item:last-child { border-bottom: none; }
+        .modal-grafico .modal-estadisticas .stat-label { color: #7f8c8d; }
+        .modal-grafico .modal-estadisticas .stat-value { font-weight: 600; color: var(--primary-color); }
+
+        .modal-grafico .modal-recomendaciones {
+            background: #e8f4fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary-color);
         }
-        .modal-grafico .modal-estadisticas .stat-label {
-            color: #7f8c8d;
-        }
-        .modal-grafico .modal-estadisticas .stat-value {
+        .modal-grafico .modal-recomendaciones .rec-title {
             font-weight: 600;
             color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .modal-grafico .modal-recomendaciones ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .modal-grafico .modal-recomendaciones ul li {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
         }
 
-        /* TABLAS Y BOTONES */
         .btn {
             border-radius: 25px;
             padding: 0.5rem 1.5rem;
             font-weight: 500;
             transition: var(--transition);
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .btn-primary { background: linear-gradient(135deg, #3498db, #2980b9); border: none; }
         .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); border: none; }
         .btn-success { background: linear-gradient(135deg, #27ae60, #229954); border: none; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; }
         .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
         .badge { padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; }
         .table-container {
@@ -246,22 +382,10 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
         }
-        .table thead th {
-            border: none;
-            padding: 1rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .table tbody tr {
-            transition: var(--transition);
-        }
-        .table tbody tr:hover {
-            background: rgba(52, 152, 219, 0.1);
-        }
-        .table tbody td {
-            padding: 0.8rem 1rem;
-            vertical-align: middle;
-        }
+        .table thead th { border: none; padding: 1rem; font-weight: 500; letter-spacing: 0.5px; }
+        .table tbody tr { transition: var(--transition); cursor: pointer; }
+        .table tbody tr:hover { background: rgba(52, 152, 219, 0.1); }
+        .table tbody td { padding: 0.8rem 1rem; vertical-align: middle; }
         .form-control {
             border-radius: 20px;
             border: 2px solid #e0e0e0;
@@ -273,26 +397,21 @@
             box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
         }
         .form-label { font-weight: 500; color: var(--primary-color); }
-        .form-select {
-            border-radius: 20px;
-            border: 2px solid #e0e0e0;
-            padding: 0.6rem 1.2rem;
-        }
 
-        /* ANIMACIONES */
         @keyframes pulse-update {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-        .kpi-update {
-            animation: pulse-update 0.5s ease;
-        }
+        .kpi-update { animation: pulse-update 0.5s ease; }
 
-        /* RESPONSIVE */
         @media (max-width: 992px) {
             .navbar-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; }
             .nav-link { font-size: 0.7rem; padding: 0.3rem 0.6rem !important; }
+            .filtros-historial { flex-direction: column; align-items: stretch; }
+            .filtros-historial select,
+            .filtros-historial input { min-width: 100%; }
+            .selector-semana { flex-wrap: wrap; justify-content: center; }
         }
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1rem; }
@@ -300,6 +419,10 @@
             .kpi-card .kpi-number { font-size: 1.5rem; }
             .kpi-card .kpi-icon { font-size: 2rem; }
             .modal-grafico .modal-contenido { min-height: 300px; }
+            .filtro-periodo { flex-direction: column; align-items: stretch; }
+            .filtro-periodo .btn-group { flex-wrap: wrap; }
+            .filtro-periodo .btn-group .btn { flex: 1; text-align: center; }
+            .mini-calendario { position: fixed; left: 50%; transform: translateX(-50%); top: 50%; }
         }
         @media (max-width: 576px) {
             .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
@@ -308,9 +431,9 @@
             .table-container { padding: 0.5rem; }
             .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
             .modal-grafico .modal-contenido { min-height: 250px; }
+            .selector-semana .semana-info { min-width: 120px; font-size: 0.75rem; }
         }
 
-        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
@@ -326,8 +449,21 @@
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
 
-        .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
-        .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .detalle-produccion {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .detalle-produccion .detalle-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detalle-produccion .detalle-item:last-child { border-bottom: none; }
+        .detalle-produccion .detalle-label { color: #6c757d; font-weight: 500; }
+        .detalle-produccion .detalle-value { font-weight: 600; color: var(--primary-color); }
+        .detalle-produccion .badge { font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -365,7 +501,7 @@
             </div>
         </div>
 
-        <!-- KPIs CON INDICADORES DE CAMBIO EN TIEMPO REAL -->
+        <!-- KPIs -->
         <div class="row mt-4">
             <div class="col-md-3 col-6 mb-3 animated delay-1">
                 <div class="kpi-card kpi-blue" id="kpi-producciones">
@@ -413,17 +549,63 @@
             </div>
         </div>
 
-        <!-- GRÁFICAS DE PRODUCCIÓN CON MODAL -->
+        <!-- GRÁFICA DE PRODUCCIÓN POR PERIODO -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-periodo', 'Producción por Periodo', 'Esta gráfica muestra la tendencia de producción a lo largo del tiempo.')">
+                    <div class="chart-title"><i class="fas fa-chart-line text-warning"></i> Producción por Periodo</div>
+                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    
+                    <div class="filtro-periodo" onclick="event.stopPropagation();">
+                        <label><i class="fas fa-calendar-alt"></i> Periodo:</label>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-primary btn-sm periodo-btn active" data-periodo="semana">Semanal</button>
+                            <button class="btn btn-outline-primary btn-sm periodo-btn" data-periodo="mes">Mensual</button>
+                            <button class="btn btn-outline-primary btn-sm periodo-btn" data-periodo="semestre">Semestral</button>
+                        </div>
+                        
+                        <div class="selector-semana" id="selector-semana">
+                            <button onclick="event.stopPropagation();cambiarSemana(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <div class="semana-info" id="semana-info">
+                                <span id="semana-label">Cargando...</span>
+                                <small id="semana-rango">Selecciona una semana</small>
+                            </div>
+                            <button onclick="event.stopPropagation();cambiarSemana(1)"><i class="fas fa-chevron-right"></i></button>
+                            <button onclick="event.stopPropagation();toggleCalendario()" class="btn btn-sm btn-outline-secondary" style="border-radius:50%;padding:5px 10px;">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
+
+                        <div class="mini-calendario" id="mini-calendario">
+                            <div class="cal-header">
+                                <button onclick="event.stopPropagation();cambiarMesCalendario(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <span class="cal-mes" id="cal-mes-titulo">Enero 2026</span>
+                                <button onclick="event.stopPropagation();cambiarMesCalendario(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="cal-dias" id="cal-dias"></div>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" onclick="aplicarFiltroPeriodo()">
+                            <i class="fas fa-sync"></i> Actualizar
+                        </button>
+                    </div>
+                    
+                    <div id="grafico-produccion-periodo" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRÁFICAS DE PRODUCCIÓN -->
         <div class="row">
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-linea', 'Producción por Línea', 'Esta gráfica de barras muestra la cantidad producida por cada línea de producción. Permite identificar qué líneas son más productivas y cuáles requieren optimización.')">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-linea', 'Producción por Línea', 'Cantidad producida por cada línea de producción. Haz clic en cualquier barra para ver el detalle completo.')">
                     <div class="chart-title"><i class="fas fa-chart-bar text-primary"></i> Producción por Línea</div>
                     <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
                     <div id="grafico-produccion-linea" style="height: 280px;"></div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-producto', 'Top Productos Más Producidos', 'Esta gráfica de dona muestra los productos que más se producen, ordenados de mayor a menor. Permite identificar cuáles son los productos estrella de la producción.')">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-producto', 'Top Productos Más Producidos', 'Distribución de los productos más producidos. Haz clic en cualquier sector para ver el detalle completo.')">
                     <div class="chart-title"><i class="fas fa-chart-pie text-success"></i> Top Productos Más Producidos</div>
                     <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
                     <div id="grafico-produccion-producto" style="height: 280px;"></div>
@@ -431,20 +613,10 @@
             </div>
         </div>
 
+        <!-- PRODUCTOS CON MÁS DEFECTOS -->
         <div class="row">
             <div class="col-md-12">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-produccion-periodo', 'Producción por Periodo', 'Esta gráfica de líneas muestra la tendencia de producción a lo largo del tiempo. Permite visualizar el comportamiento de la producción, identificar picos y tendencias estacionales.')">
-                    <div class="chart-title"><i class="fas fa-chart-line text-warning"></i> Producción por Periodo</div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
-                    <div id="grafico-produccion-periodo" style="height: 280px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- NUEVA GRÁFICA: PRODUCTOS CON MÁS DEFECTOS -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-defectos-productos', 'Productos con Más Defectos', 'Esta gráfica muestra los productos que presentan mayor cantidad de defectos. Permite identificar qué productos requieren atención en calidad y procesos de mejora.')">
+                <div class="chart-container" onclick="abrirModalGrafico('grafico-defectos-productos', 'Productos con Más Defectos', 'Productos que presentan mayor cantidad de defectos. Haz clic en cualquier barra para ver el detalle completo.')">
                     <div class="chart-title"><i class="fas fa-exclamation-triangle text-danger"></i> Productos con Más Defectos</div>
                     <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
                     <div id="grafico-defectos-productos" style="height: 280px;"></div>
@@ -452,7 +624,7 @@
             </div>
         </div>
 
-        <!-- FORMULARIO Y TABLA -->
+        <!-- FORMULARIO Y TABLA CON FILTROS -->
         <div class="row mt-4">
             <div class="col-md-4 animated">
                 <div class="card">
@@ -460,12 +632,16 @@
                     <div class="card-body">
                         <form id="form-produccion">
                             <div class="mb-3">
-                                <label class="form-label">Producto ID</label>
-                                <input type="text" class="form-control" id="producto_id" placeholder="PROD-001" required>
+                                <label class="form-label">Producto</label>
+                                <select class="form-select" id="producto_id" required>
+                                    <option value="">Seleccionar producto...</option>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Máquina ID</label>
-                                <input type="text" class="form-control" id="maquina_id" placeholder="MAQ-001" required>
+                                <label class="form-label">Máquina</label>
+                                <select class="form-select" id="maquina_id" required>
+                                    <option value="">Seleccionar máquina...</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Operador ID</label>
@@ -518,6 +694,23 @@
                         <button class="btn btn-sm btn-light float-end" onclick="cargarProducciones()"><i class="fas fa-refresh"></i> Actualizar</button>
                     </div>
                     <div class="card-body">
+                        <div class="filtros-historial">
+                            <select class="form-select" id="filtro-producto" style="min-width:150px;">
+                                <option value="">Todos los productos</option>
+                            </select>
+                            <select class="form-select" id="filtro-maquina" style="min-width:150px;">
+                                <option value="">Todas las máquinas</option>
+                            </select>
+                            <select class="form-select" id="filtro-eficiencia" style="min-width:120px;">
+                                <option value="">Eficiencia</option>
+                                <option value="80">Alta (>80%)</option>
+                                <option value="60">Media (60-80%)</option>
+                                <option value="0">Baja (<60%)</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="aplicarFiltrosHistorial()"><i class="fas fa-filter"></i> Filtrar</button>
+                            <button class="btn btn-secondary btn-sm" onclick="limpiarFiltrosHistorial()"><i class="fas fa-undo"></i> Limpiar</button>
+                        </div>
+
                         <div class="table-container">
                             <table class="table table-hover" id="tabla-producciones">
                                 <thead>
@@ -534,9 +727,7 @@
         </div>
     </div>
 
-    <!-- ============================================
-    MODAL PARA GRÁFICOS COMPLETOS
-    ============================================ -->
+    <!-- MODAL PARA GRÁFICOS -->
     <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
@@ -548,9 +739,8 @@
                     <div class="modal-grafico">
                         <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
                         <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
-                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
-                            <!-- Estadísticas se generan dinámicamente -->
-                        </div>
+                        <div class="modal-estadisticas" id="modalGraficoEstadisticas"></div>
+                        <div class="modal-recomendaciones" id="modalGraficoRecomendaciones"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -563,54 +753,435 @@
         </div>
     </div>
 
+    <!-- MODAL DE DETALLE DE PRODUCCIÓN -->
+    <div class="modal fade" id="modalDetalleProduccion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title"><i class="fas fa-info-circle"></i> Detalle de Producción</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="detalle-produccion-body">
+                    <div class="detalle-produccion" id="detalle-produccion-contenido"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const API_BASE = '/api';
         let datosProduccion = [];
+        let datosMaquinas = [];
+        let datosProductos = [];
         let valoresAnteriores = {};
+        let periodoSeleccionado = 'semana';
+        let datosFiltrados = [];
+        
+        let semanaActual = new Date();
+        let mesCalendario = new Date();
 
-        async function apiRequest(endpoint, options = {}) {
-            const url = `${API_BASE}${endpoint}`;
-            const config = { headers: { 'Content-Type': 'application/json', ...options.headers }, ...options };
+        // ============================================
+        // CATÁLOGO DE MÁQUINAS Y PRODUCTOS CON NOMBRES REALES
+        // ============================================
+        let catalogoMaquinas = [
+            { id: 'MAQ-001', nombre: 'Línea de Ensamblaje Principal' },
+            { id: 'MAQ-002', nombre: 'Línea de Ensamblaje Secundaria' },
+            { id: 'MAQ-003', nombre: 'Línea de Pintura Automotriz' },
+            { id: 'MAQ-004', nombre: 'Línea de Empaque y Sellado' },
+            { id: 'MAQ-005', nombre: 'Línea de Corte Láser' },
+            { id: 'MAQ-006', nombre: 'Línea de Soldadura Robótica' },
+            { id: 'MAQ-007', nombre: 'Línea de Inspección de Calidad' },
+            { id: 'MAQ-008', nombre: 'Línea de Pruebas de Funcionalidad' },
+            { id: 'MAQ-009', nombre: 'Línea de Montaje de Circuitos' },
+            { id: 'MAQ-010', nombre: 'Línea de Ensamblaje de Motores' },
+            { id: 'MAQ-011', nombre: 'Línea de Ensamblaje de Chasis'} ,
+            { id: 'MAQ-013', nombre: 'Línea de Ensamblaje de Transmisiones'},
+            { id: 'MAQ-014', nombre: 'Línea de Ensamblaje de Suspensión'},
+            { id: 'MAQ-015', nombre: 'Línea de Ensamblaje de Frenos'},
+            { id: 'MAQ-012', nombre: 'Línea de Pintura Industrial'},
+             { id: 'MAQ-019', nombre: 'Línea de Ensamblaje de Motores Avanzada 2' },
+            { id: 'MAQ-025', nombre: 'Línea de Ensamblaje de Motores Avanzada' },
+            { id: 'MAQ-016', nombre: 'Línea de Ensamblaje de Motores Avanzada 3'},
+            { id: 'MAQ-017', nombre: 'Línea de Ensamblaje de Motores Avanzada 4'},
+            { id: 'MAQ-018', nombre: 'Línea de Ensamblaje de Motores Avanzada 5'},
+            { id: 'MAQ-020', nombre: 'Línea de Ensamblaje de Motores Avanzada 6'},
+            { id: 'MAQ-021', nombre: 'Línea de Ensamblaje de Motores Avanzada 7'},
+            { id: 'MAQ-022', nombre: 'Línea de Ensamblaje de Motores Avanzada 8'},
+            { id: 'MAQ-023', nombre: 'Línea de Ensamblaje de Motores Avanzada 9'},
+            { id: 'MAQ-024', nombre: 'Línea de Ensamblaje de Motores Avanzada 10'}
+
+            
+        ];
+
+        let catalogoProductos = [
+            { id: 'PROD-001', nombre: 'Componente Electrónico A' },
+            { id: 'PROD-002', nombre: 'Componente Electrónico B' },
+            { id: 'PROD-003', nombre: 'Pieza Mecánica Estándar' },
+            { id: 'PROD-004', nombre: 'Pieza Mecánica Premium' },
+            { id: 'PROD-005', nombre: 'Ensamblaje Completo Tipo 1' },
+            { id: 'PROD-006', nombre: 'Ensamblaje Completo Tipo 2' }
+        ];
+
+        function getNombreMaquina(id) {
+            if (!id) return 'Sin máquina';
+            const maq = catalogoMaquinas.find(m => m.id === id);
+            return maq ? maq.nombre : id;
+        }
+
+        function getNombreProducto(id) {
+            if (!id) return 'Sin producto';
+            const prod = catalogoProductos.find(p => p.id === id);
+            return prod ? prod.nombre : id;
+        }
+
+        function actualizarCatalogo(catalogo, registros, idCampo) {
+            const nombresPorId = new Map(registros
+                .filter(registro => registro[idCampo] && registro.nombre)
+                .map(registro => [registro[idCampo], registro.nombre]));
+
+            return catalogo.map(item => ({
+                ...item,
+                nombre: nombresPorId.get(item.id) || item.nombre
+            })).concat(registros
+                .filter(registro => registro[idCampo] && registro.nombre && !catalogo.some(item => item.id === registro[idCampo]))
+                .map(registro => ({ id: registro[idCampo], nombre: registro.nombre })));
+        }
+
+        // ============================================
+        // FUNCIONES DEL CALENDARIO
+        // ============================================
+        function obtenerSemana(fecha) {
+            const d = new Date(fecha);
+            d.setHours(0,0,0,0);
+            d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+            const week1 = new Date(d.getFullYear(), 0, 4);
+            return 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+        }
+
+        function obtenerRangoSemana(fecha) {
+            const d = new Date(fecha);
+            const dia = d.getDay();
+            const diff = d.getDate() - dia + (dia === 0 ? -6 : 1);
+            const lunes = new Date(d);
+            lunes.setDate(diff);
+            const domingo = new Date(lunes);
+            domingo.setDate(lunes.getDate() + 6);
+            return { lunes, domingo };
+        }
+
+        function actualizarSelectorSemana() {
+            const rango = obtenerRangoSemana(semanaActual);
+            const semanaNum = obtenerSemana(semanaActual);
+            const label = `Semana ${semanaNum}`;
+            const rangoText = `${rango.lunes.toLocaleDateString('es', { day: '2-digit', month: 'short' })} - ${rango.domingo.toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' })}`;
+            
+            document.getElementById('semana-label').textContent = label;
+            document.getElementById('semana-rango').textContent = rangoText;
+            generarCalendario();
+        }
+
+        function cambiarSemana(delta) {
+            const nuevaFecha = new Date(semanaActual);
+            nuevaFecha.setDate(nuevaFecha.getDate() + delta * 7);
+            semanaActual = nuevaFecha;
+            actualizarSelectorSemana();
+            if (periodoSeleccionado === 'semana') {
+                cargarGraficoPeriodo(datosProduccion);
+            }
+        }
+
+        function toggleCalendario() {
+            const cal = document.getElementById('mini-calendario');
+            cal.classList.toggle('active');
+            if (cal.classList.contains('active')) {
+                mesCalendario = new Date(semanaActual);
+                generarCalendario();
+            }
+        }
+
+        function generarCalendario() {
+            const container = document.getElementById('cal-dias');
+            const titulo = document.getElementById('cal-mes-titulo');
+            
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            titulo.textContent = `${meses[mesCalendario.getMonth()]} ${mesCalendario.getFullYear()}`;
+            
+            const primerDia = new Date(mesCalendario.getFullYear(), mesCalendario.getMonth(), 1);
+            const ultimoDia = new Date(mesCalendario.getFullYear(), mesCalendario.getMonth() + 1, 0);
+            const diasEnMes = ultimoDia.getDate();
+            const diaInicio = primerDia.getDay();
+            
+            let html = '';
+            const diasSemana = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+            diasSemana.forEach(d => {
+                html += `<div class="dia-nombre">${d}</div>`;
+            });
+            
+            const mesAnterior = new Date(mesCalendario.getFullYear(), mesCalendario.getMonth(), 0);
+            const diasMesAnterior = mesAnterior.getDate();
+            for (let i = diaInicio - 1; i >= 0; i--) {
+                const dia = diasMesAnterior - i;
+                html += `<div class="dia otro-mes">${dia}</div>`;
+            }
+            
+            const hoy = new Date();
+            const rangoSemana = obtenerRangoSemana(semanaActual);
+            
+            for (let i = 1; i <= diasEnMes; i++) {
+                const fecha = new Date(mesCalendario.getFullYear(), mesCalendario.getMonth(), i);
+                const diaSemana = fecha.getDay();
+                const esFinSemana = diaSemana === 0 || diaSemana === 6;
+                const estaEnSemana = fecha >= rangoSemana.lunes && fecha <= rangoSemana.domingo;
+                
+                let clases = 'dia';
+                if (esFinSemana) clases += ' fin-de-semana';
+                if (estaEnSemana) clases += ' seleccionado';
+                
+                html += `<div class="${clases}" onclick="seleccionarDiaCalendario(${i}, ${mesCalendario.getMonth()}, ${mesCalendario.getFullYear()})">${i}</div>`;
+            }
+            
+            const totalDias = diaInicio + diasEnMes;
+            const diasRestantes = (7 - (totalDias % 7)) % 7;
+            for (let i = 1; i <= diasRestantes; i++) {
+                html += `<div class="dia otro-mes">${i}</div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function cambiarMesCalendario(delta) {
+            mesCalendario.setMonth(mesCalendario.getMonth() + delta);
+            generarCalendario();
+        }
+
+        function seleccionarDiaCalendario(dia, mes, año) {
+            const fecha = new Date(año, mes, dia);
+            semanaActual = fecha;
+            actualizarSelectorSemana();
+            document.getElementById('mini-calendario').classList.remove('active');
+            if (periodoSeleccionado === 'semana') {
+                cargarGraficoPeriodo(datosProduccion);
+            }
+        }
+
+        // ============================================
+        // CARGAR SELECTORES CON NOMBRES
+        // ============================================
+        async function cargarSelectores() {
+            const selectProducto = document.getElementById('producto_id');
+            const selectMaquina = document.getElementById('maquina_id');
+            const filtroProducto = document.getElementById('filtro-producto');
+            const filtroMaquina = document.getElementById('filtro-maquina');
+
             try {
-                const response = await fetch(url, config);
-                if (!response.ok) { const error = await response.json(); throw new Error(error.detail || error.message || 'Error'); }
-                return await response.json();
-            } catch (error) { console.error('API Error:', error); throw error; }
+                const [productosResult, maquinasResult] = await Promise.all([
+                    apiRequest('/productos?limit=1000'),
+                    apiRequest('/maquinas?limit=1000')
+                ]);
+                datosProductos = productosResult.data || [];
+                datosMaquinas = maquinasResult.data || [];
+                catalogoProductos = actualizarCatalogo(catalogoProductos, datosProductos, 'producto_id');
+                catalogoMaquinas = actualizarCatalogo(catalogoMaquinas, datosMaquinas, 'maquina_id');
+            } catch (error) {
+                console.warn('No se pudieron cargar los catálogos; se usará el catálogo local.', error);
+            }
+
+            selectProducto.innerHTML = '<option value="">Seleccionar producto...</option>';
+            filtroProducto.innerHTML = '<option value="">Todos los productos</option>';
+            catalogoProductos.forEach(p => {
+                selectProducto.innerHTML += `<option value="${p.id}">${p.nombre}</option>`;
+                filtroProducto.innerHTML += `<option value="${p.id}">${p.nombre}</option>`;
+            });
+
+            selectMaquina.innerHTML = '<option value="">Seleccionar máquina...</option>';
+            filtroMaquina.innerHTML = '<option value="">Todas las máquinas</option>';
+            catalogoMaquinas.forEach(m => {
+                selectMaquina.innerHTML += `<option value="${m.id}">${m.nombre}</option>`;
+                filtroMaquina.innerHTML += `<option value="${m.id}">${m.nombre}</option>`;
+            });
         }
 
         // ============================================
-        // ACTUALIZAR KPIs CON ANIMACIÓN
+        // FILTROS DEL HISTORIAL
         // ============================================
-        function actualizarKPI(elementId, valor, unidad = '', cambio = null) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-            
-            const valorFormateado = typeof valor === 'number' ? valor.toFixed(1) : valor;
-            const displayText = unidad ? `${valorFormateado}${unidad}` : valorFormateado;
-            
-            if (element.textContent !== displayText) {
-                element.textContent = displayText;
-                const card = element.closest('.kpi-card');
-                if (card) {
-                    card.classList.remove('kpi-update');
-                    void card.offsetWidth;
-                    card.classList.add('kpi-update');
+        function aplicarFiltrosHistorial() {
+            const productoId = document.getElementById('filtro-producto').value;
+            const maquinaId = document.getElementById('filtro-maquina').value;
+            const eficiencia = document.getElementById('filtro-eficiencia').value;
+
+            datosFiltrados = datosProduccion.filter(p => {
+                let match = true;
+                if (productoId && p.producto_id !== productoId) match = false;
+                if (maquinaId && p.maquina_id !== maquinaId) match = false;
+                if (eficiencia !== '') {
+                    const eff = p.eficiencia || 0;
+                    if (eficiencia === '80' && eff < 80) match = false;
+                    else if (eficiencia === '60' && (eff < 60 || eff >= 80)) match = false;
+                    else if (eficiencia === '0' && eff >= 60) match = false;
                 }
-            }
-            
-            if (cambio !== null && elementId.includes('cambio-')) {
-                const cambioElement = document.getElementById(elementId);
-                if (cambioElement) {
-                    cambioElement.textContent = cambio;
-                }
-            }
+                return match;
+            });
+
+            renderizarTabla(datosFiltrados);
         }
 
+        function limpiarFiltrosHistorial() {
+            document.getElementById('filtro-producto').value = '';
+            document.getElementById('filtro-maquina').value = '';
+            document.getElementById('filtro-eficiencia').value = '';
+            datosFiltrados = [...datosProduccion];
+            renderizarTabla(datosFiltrados);
+        }
+
+        function renderizarTabla(data) {
+            const tbody = document.getElementById('tbody-producciones');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted"><i class="fas fa-inbox"></i> No hay registros con estos filtros</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(p => {
+                const nombreProducto = getNombreProducto(p.producto_id);
+                const nombreMaquina = getNombreMaquina(p.maquina_id);
+                return `
+                    <tr onclick="verDetalleProduccion('${p.produccion_id || p._id}')">
+                        <td><span class="badge bg-primary">${p.produccion_id || p._id}</span></td>
+                        <td><strong>${nombreProducto}</strong></td>
+                        <td><strong>${nombreMaquina}</strong></td>
+                        <td><span class="badge bg-info">${p.operador_id || '-'}</span></td>
+                        <td>${p.cantidad_producida || 0}</td>
+                        <td><span class="badge ${(p.eficiencia||0)>=80?'bg-success':(p.eficiencia||0)>=60?'bg-warning':'bg-danger'}">${(p.eficiencia||0).toFixed(1)}%</span></td>
+                        <td><span class="badge ${(p.calidad||0)>=80?'bg-success':(p.calidad||0)>=60?'bg-warning':'bg-danger'}">${(p.calidad||0).toFixed(1)}%</span></td>
+                        <td>${p.fecha_inicio ? new Date(p.fecha_inicio).toLocaleDateString() : '-'}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="event.stopPropagation();verDetalleProduccion('${p.produccion_id || p._id}')" title="Ver detalle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="event.stopPropagation();eliminarProduccion('${p.produccion_id||p._id}')" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // ============================================
+        // VER DETALLE DE PRODUCCIÓN CON NOMBRES
+        // ============================================
+        function verDetalleProduccion(id) {
+            const prod = datosProduccion.find(p => (p.produccion_id || p._id) === id);
+            if (!prod) {
+                alert('No se encontró el registro');
+                return;
+            }
+
+            const eficiencia = prod.eficiencia || 0;
+            const calidad = prod.calidad || 0;
+            const nombreProducto = getNombreProducto(prod.producto_id);
+            const nombreMaquina = getNombreMaquina(prod.maquina_id);
+
+            let calidadColor = calidad >= 80 ? 'success' : calidad >= 60 ? 'warning' : 'danger';
+            let eficienciaColor = eficiencia >= 80 ? 'success' : eficiencia >= 60 ? 'warning' : 'danger';
+
+            const html = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="detalle-item">
+                            <span class="detalle-label">📋 ID Producción</span>
+                            <span class="detalle-value">${prod.produccion_id || prod._id}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">📦 Producto</span>
+                            <span class="detalle-value"><strong>${nombreProducto}</strong></span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">🏭 Máquina</span>
+                            <span class="detalle-value"><strong>${nombreMaquina}</strong></span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">👤 Operador</span>
+                            <span class="detalle-value">${prod.operador_id || '-'}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">📦 Lote</span>
+                            <span class="detalle-value">${prod.lote || '-'}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">📅 Fecha Inicio</span>
+                            <span class="detalle-value">${prod.fecha_inicio ? new Date(prod.fecha_inicio).toLocaleString() : '-'}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">📅 Fecha Fin</span>
+                            <span class="detalle-value">${prod.fecha_fin ? new Date(prod.fecha_fin).toLocaleString() : '-'}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="detalle-item">
+                            <span class="detalle-label">📊 Cantidad Producida</span>
+                            <span class="detalle-value">${prod.cantidad_producida || 0}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">⚠️ Cantidad Defectuosa</span>
+                            <span class="detalle-value" style="color:${(prod.cantidad_defectuosa||0) > 0 ? '#e74c3c' : '#27ae60'}">${prod.cantidad_defectuosa || 0}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">⏱️ Tiempo Producción</span>
+                            <span class="detalle-value">${prod.tiempo_produccion || 0} min</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">🌡️ Temperatura</span>
+                            <span class="detalle-value">${prod.temperatura || 0} °C</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">💨 Presión</span>
+                            <span class="detalle-value">${prod.presion || 0} bar</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">⚡ Velocidad</span>
+                            <span class="detalle-value">${prod.velocidad || 0} RPM</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">✅ Eficiencia</span>
+                            <span class="detalle-value"><span class="badge bg-${eficienciaColor}">${eficiencia.toFixed(1)}%</span></span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">⭐ Calidad</span>
+                            <span class="detalle-value"><span class="badge bg-${calidadColor}">${calidad.toFixed(1)}%</span></span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <h6><i class="fas fa-lightbulb text-warning"></i> Recomendaciones:</h6>
+                        <ul class="list-unstyled">
+                            ${eficiencia < 60 ? '<li class="text-danger">⚠️ Baja eficiencia. Revisar mantenimiento y capacitación del operador.</li>' : ''}
+                            ${eficiencia >= 60 && eficiencia < 80 ? '<li class="text-warning">📈 Eficiencia aceptable. Optimizar tiempos y reducir desperdicios.</li>' : ''}
+                            ${eficiencia >= 80 ? '<li class="text-success">🌟 Excelente eficiencia. Mantener buenas prácticas.</li>' : ''}
+                            ${(prod.cantidad_defectuosa||0) > (prod.cantidad_producida||0) * 0.1 ? '<li class="text-danger">⚠️ Alta tasa de defectos (>10%). Revisar proceso de fabricación.</li>' : ''}
+                            ${(prod.cantidad_defectuosa||0) > 0 && (prod.cantidad_defectuosa||0) <= (prod.cantidad_producida||0) * 0.1 ? '<li class="text-warning">📊 Defectos moderados. Considerar ajustes en parámetros.</li>' : ''}
+                            ${(prod.cantidad_defectuosa||0) === 0 ? '<li class="text-success">✅ Sin defectos. Excelente calidad.</li>' : ''}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detalle-produccion-contenido').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('modalDetalleProduccion'));
+            modal.show();
+        }
+
+        // ============================================
+        // ACTUALIZAR KPIs
+        // ============================================
         function actualizarIndicadorCambio(idIcon, idText, cambio) {
             const iconElement = document.getElementById(idIcon);
             const textElement = document.getElementById(idText);
-            
             if (!iconElement || !textElement) return;
             
             if (cambio > 0) {
@@ -632,7 +1203,206 @@
         }
 
         // ============================================
-        // ABRIR MODAL CON GRÁFICA COMPLETA
+        // APLICAR FILTRO DE PERIODO
+        // ============================================
+        function aplicarFiltroPeriodo() {
+            const btnActivo = document.querySelector('.periodo-btn.active');
+            if (btnActivo) {
+                periodoSeleccionado = btnActivo.dataset.periodo;
+            }
+            const selector = document.getElementById('selector-semana');
+            if (periodoSeleccionado === 'semana') {
+                selector.style.display = 'flex';
+            } else {
+                selector.style.display = 'none';
+            }
+            cargarGraficoPeriodo(datosProduccion);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.periodo-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    periodoSeleccionado = this.dataset.periodo;
+                    aplicarFiltroPeriodo();
+                });
+            });
+            actualizarSelectorSemana();
+        });
+
+        document.addEventListener('click', function(e) {
+            const cal = document.getElementById('mini-calendario');
+            const btn = e.target.closest('.selector-semana') || e.target.closest('#mini-calendario');
+            if (!btn && cal) {
+                cal.classList.remove('active');
+            }
+        });
+
+        // ============================================
+        // GENERAR GRÁFICO DE PERIODO
+        // ============================================
+        function cargarGraficoPeriodo(data) {
+            if (!data || data.length === 0) {
+                document.getElementById('grafico-produccion-periodo').innerHTML = 
+                    `<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>`;
+                return;
+            }
+
+            let fechaInicio, fechaFin, agrupacion, tituloEje;
+
+            switch(periodoSeleccionado) {
+                case 'semana':
+                    const rango = obtenerRangoSemana(semanaActual);
+                    fechaInicio = rango.lunes;
+                    fechaFin = rango.domingo;
+                    agrupacion = 'dia';
+                    tituloEje = 'Día de la semana';
+                    break;
+                case 'mes':
+                    const ahora = new Date();
+                    fechaInicio = new Date(ahora.getFullYear(), ahora.getMonth(), 1);
+                    fechaFin = new Date(ahora.getFullYear(), ahora.getMonth() + 1, 0);
+                    agrupacion = 'dia';
+                    tituloEje = 'Día del mes';
+                    break;
+                case 'semestre':
+                    const mesActual = new Date().getMonth();
+                    const semestreInicio = mesActual < 6 ? 0 : 6;
+                    const semestreFin = semestreInicio + 5;
+                    fechaInicio = new Date(new Date().getFullYear(), semestreInicio, 1);
+                    fechaFin = new Date(new Date().getFullYear(), semestreFin + 1, 0);
+                    agrupacion = 'mes';
+                    tituloEje = 'Mes';
+                    break;
+                default:
+                    fechaInicio = new Date();
+                    fechaInicio.setDate(fechaInicio.getDate() - 7);
+                    fechaFin = new Date();
+                    agrupacion = 'dia';
+                    tituloEje = 'Día';
+            }
+
+            const datosFiltrados = data.filter(p => {
+                if (!p.fecha_inicio) return false;
+                const fecha = new Date(p.fecha_inicio);
+                return fecha >= fechaInicio && fecha <= fechaFin;
+            });
+
+            if (datosFiltrados.length === 0) {
+                document.getElementById('grafico-produccion-periodo').innerHTML = 
+                    `<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos en el periodo seleccionado</p></div>`;
+                return;
+            }
+
+            const porPeriodo = {};
+            datosFiltrados.forEach(p => {
+                if (p.fecha_inicio) {
+                    const fecha = new Date(p.fecha_inicio);
+                    let key;
+                    if (agrupacion === 'dia') {
+                        key = fecha.toLocaleDateString('es', { day: '2-digit', month: 'short' });
+                    } else if (agrupacion === 'mes') {
+                        key = fecha.toLocaleDateString('es', { month: 'long' });
+                    }
+                    porPeriodo[key] = (porPeriodo[key] || 0) + (p.cantidad_producida || 0);
+                }
+            });
+
+            const periodos = Object.keys(porPeriodo);
+            const valores = periodos.map(p => porPeriodo[p]);
+
+            const hoverTexts = periodos.map((p, i) => {
+                const produccion = porPeriodo[p];
+                const datosPeriodo = datosFiltrados.filter(d => {
+                    if (!d.fecha_inicio) return false;
+                    const fecha = new Date(d.fecha_inicio);
+                    let key;
+                    if (agrupacion === 'dia') {
+                        key = fecha.toLocaleDateString('es', { day: '2-digit', month: 'short' });
+                    } else if (agrupacion === 'mes') {
+                        key = fecha.toLocaleDateString('es', { month: 'long' });
+                    }
+                    return key === p;
+                });
+                const totalDefectos = datosPeriodo.reduce((sum, d) => sum + (d.cantidad_defectuosa || 0), 0);
+                const totalProd = datosPeriodo.reduce((sum, d) => sum + (d.cantidad_producida || 0), 0);
+                const eficiencia = totalProd > 0 ? ((totalProd - totalDefectos) / totalProd * 100) : 0;
+                const maquinas = [...new Set(datosPeriodo.map(d => getNombreMaquina(d.maquina_id)))];
+                const productos = [...new Set(datosPeriodo.map(d => getNombreProducto(d.producto_id)))];
+                return `<b>📅 Periodo:</b> ${p}<br><b>📦 Producción:</b> ${produccion} unidades<br><b>⚠️ Defectos:</b> ${totalDefectos}<br><b>✅ Eficiencia:</b> ${eficiencia.toFixed(1)}%<br><b>🏭 Máquinas:</b> ${maquinas.join(', ') || 'N/A'}<br><b>📦 Productos:</b> ${productos.join(', ') || 'N/A'}`;
+            });
+
+            Plotly.newPlot('grafico-produccion-periodo', [{
+                type: 'scatter',
+                mode: 'lines+markers',
+                x: periodos,
+                y: valores,
+                marker: { 
+                    color: '#f39c12', 
+                    size: 12,
+                    line: { color: 'white', width: 2 }
+                },
+                line: { color: '#f39c12', width: 3 },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(243, 156, 18, 0.15)',
+                hovertext: hoverTexts,
+                hoverinfo: 'text',
+                hoverlabel: { 
+                    bgcolor: 'white',
+                    font: { size: 14, family: 'Segoe UI' },
+                    bordercolor: '#f39c12',
+                    borderwidth: 2
+                }
+            }], {
+                margin: { t: 10, l: 60, r: 20, b: 50 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { 
+                    title: 'Cantidad Producida', 
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    zeroline: true,
+                    zerolinecolor: 'rgba(0,0,0,0.1)'
+                },
+                xaxis: { 
+                    title: tituloEje,
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    tickangle: -30
+                },
+                font: { family: 'Segoe UI, sans-serif' },
+                hovermode: 'closest'
+            });
+
+            const container = document.getElementById('grafico-produccion-periodo');
+            if (container) {
+                container.data = [{
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    x: periodos,
+                    y: valores,
+                    marker: { color: '#f39c12', size: 12, line: { color: 'white', width: 2 } },
+                    line: { color: '#f39c12', width: 3 },
+                    fill: 'tozeroy',
+                    fillcolor: 'rgba(243, 156, 18, 0.15)',
+                    hovertext: hoverTexts,
+                    hoverinfo: 'text',
+                    hoverlabel: { bgcolor: 'white', font: { size: 14, family: 'Segoe UI' }, bordercolor: '#f39c12', borderwidth: 2 }
+                }];
+                container.layout = {
+                    margin: { t: 10, l: 60, r: 20, b: 50 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: 'Cantidad Producida', gridcolor: 'rgba(0,0,0,0.05)', zeroline: true, zerolinecolor: 'rgba(0,0,0,0.1)' },
+                    xaxis: { title: tituloEje, gridcolor: 'rgba(0,0,0,0.05)', tickangle: -30 },
+                    font: { family: 'Segoe UI, sans-serif' },
+                    hovermode: 'closest'
+                };
+                container.periodo = periodoSeleccionado;
+            }
+        }
+
+        // ============================================
+        // ABRIR MODAL CON GRÁFICA
         // ============================================
         function abrirModalGrafico(graficoId, titulo, descripcion) {
             const modal = new bootstrap.Modal(document.getElementById('modalGrafico'));
@@ -640,25 +1410,183 @@
             document.getElementById('modalGraficoDescripcion').textContent = descripcion;
             
             const container = document.getElementById('modalGraficoContenido');
-            
             const originalDiv = document.getElementById(graficoId);
+            
             if (originalDiv && originalDiv.data) {
-                const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout));
+                const layoutModificado = JSON.parse(JSON.stringify(originalDiv.layout || {}));
                 layoutModificado.height = 500;
                 layoutModificado.margin = { t: 40, l: 80, r: 40, b: 80 };
                 layoutModificado.font = { size: 14 };
+                layoutModificado.hovermode = 'closest';
                 
-                Plotly.newPlot(container, originalDiv.data, layoutModificado);
+                const dataCopy = JSON.parse(JSON.stringify(originalDiv.data));
+                
+                Plotly.newPlot(container, dataCopy, layoutModificado);
+                
+                container.on('plotly_click', function(data) {
+                    if (data.points && data.points.length > 0) {
+                        const point = data.points[0];
+                        mostrarDetallePunto(point, graficoId);
+                    }
+                });
+                
                 generarEstadisticasModal(graficoId);
+                generarRecomendacionesModal(graficoId);
             } else {
                 container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos para mostrar</p></div>';
+                document.getElementById('modalGraficoEstadisticas').innerHTML = '';
+                document.getElementById('modalGraficoRecomendaciones').innerHTML = '';
             }
             
             modal.show();
         }
 
         // ============================================
-        // GENERAR ESTADÍSTICAS PARA EL MODAL
+        // MOSTRAR DETALLE DEL PUNTO SELECCIONADO
+        // ============================================
+        function mostrarDetallePunto(point, graficoId) {
+            let detalle = '';
+            let recomendacion = '';
+            
+            if (graficoId === 'grafico-produccion-linea') {
+                const linea = point.x;
+                const produccion = point.y;
+                const totalData = datosProduccion.filter(p => getNombreMaquina(p.maquina_id) === linea);
+                const totalProducciones = totalData.length;
+                const totalDefectos = totalData.reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+                const eficiencia = produccion > 0 ? ((produccion - totalDefectos) / produccion * 100) : 0;
+                const productos = [...new Set(totalData.map(p => getNombreProducto(p.producto_id)))];
+                
+                detalle = `
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-microchip"></i> Línea: <strong>${linea}</strong></h6>
+                        <p><strong>📦 Producción total:</strong> ${produccion} unidades</p>
+                        <p><strong>📋 Total producciones:</strong> ${totalProducciones}</p>
+                        <p><strong>⚠️ Defectos totales:</strong> ${totalDefectos}</p>
+                        <p><strong>✅ Eficiencia:</strong> ${eficiencia.toFixed(1)}%</p>
+                        <p><strong>📦 Productos fabricados:</strong> ${productos.join(', ') || 'Sin productos'}</p>
+                    </div>
+                `;
+                
+                if (eficiencia < 60) {
+                    recomendacion = '⚠️ Esta línea tiene baja eficiencia. Se recomienda revisar mantenimiento, capacitación del operador o ajustes en el proceso.';
+                } else if (eficiencia < 80) {
+                    recomendacion = '📈 Esta línea tiene eficiencia aceptable pero puede mejorar. Considere optimizar tiempos y reducir desperdicios.';
+                } else {
+                    recomendacion = '🌟 Excelente eficiencia en esta línea. Mantener las buenas prácticas y documentar el proceso.';
+                }
+                
+            } else if (graficoId === 'grafico-produccion-producto') {
+                const producto = point.label || point.x;
+                const produccion = point.value || point.y;
+                const totalData = datosProduccion.filter(p => getNombreProducto(p.producto_id) === producto);
+                const totalProducciones = totalData.length;
+                const totalDefectos = totalData.reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+                const eficiencia = produccion > 0 ? ((produccion - totalDefectos) / produccion * 100) : 0;
+                const maquinas = [...new Set(totalData.map(p => getNombreMaquina(p.maquina_id)))];
+                
+                detalle = `
+                    <div class="alert alert-success">
+                        <h6><i class="fas fa-box"></i> Producto: <strong>${producto}</strong></h6>
+                        <p><strong>📦 Producción total:</strong> ${produccion} unidades</p>
+                        <p><strong>📋 Total producciones:</strong> ${totalProducciones}</p>
+                        <p><strong>⚠️ Defectos totales:</strong> ${totalDefectos}</p>
+                        <p><strong>✅ Eficiencia:</strong> ${eficiencia.toFixed(1)}%</p>
+                        <p><strong>🏭 Máquinas utilizadas:</strong> ${maquinas.join(', ') || 'Sin máquinas'}</p>
+                    </div>
+                `;
+                
+                if (totalDefectos > produccion * 0.1) {
+                    recomendacion = '⚠️ Este producto tiene una tasa de defectos alta (>10%). Se recomienda revisar el proceso de fabricación y control de calidad.';
+                } else if (totalDefectos > produccion * 0.05) {
+                    recomendacion = '📊 Este producto tiene defectos moderados. Considere ajustar parámetros o mejorar materiales.';
+                } else {
+                    recomendacion = '✅ Este producto tiene buena calidad. Mantener el estándar actual.';
+                }
+                
+            } else if (graficoId === 'grafico-produccion-periodo') {
+                const periodo = point.x;
+                const produccion = point.y;
+                const datosPeriodo = datosProduccion.filter(p => {
+                    if (!p.fecha_inicio) return false;
+                    const fecha = new Date(p.fecha_inicio);
+                    let key;
+                    if (periodoSeleccionado === 'semana') {
+                        key = fecha.toLocaleDateString('es', { day: '2-digit', month: 'short' });
+                    } else if (periodoSeleccionado === 'mes') {
+                        key = fecha.toLocaleDateString('es', { day: '2-digit', month: 'short' });
+                    } else {
+                        key = fecha.toLocaleDateString('es', { month: 'long' });
+                    }
+                    return key === periodo;
+                });
+                
+                const totalProducciones = datosPeriodo.length;
+                const totalDefectos = datosPeriodo.reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+                const eficiencia = produccion > 0 ? ((produccion - totalDefectos) / produccion * 100) : 0;
+                const maquinas = [...new Set(datosPeriodo.map(p => getNombreMaquina(p.maquina_id)))];
+                const productos = [...new Set(datosPeriodo.map(p => getNombreProducto(p.producto_id)))];
+                
+                detalle = `
+                    <div class="alert alert-warning">
+                        <h6><i class="fas fa-calendar-alt"></i> Periodo: <strong>${periodo}</strong></h6>
+                        <p><strong>📦 Producción total:</strong> ${produccion} unidades</p>
+                        <p><strong>📋 Total producciones:</strong> ${totalProducciones}</p>
+                        <p><strong>⚠️ Defectos totales:</strong> ${totalDefectos}</p>
+                        <p><strong>✅ Eficiencia:</strong> ${eficiencia.toFixed(1)}%</p>
+                        <p><strong>🏭 Máquinas utilizadas:</strong> ${maquinas.join(', ') || 'Sin máquinas'}</p>
+                        <p><strong>📦 Productos fabricados:</strong> ${productos.join(', ') || 'Sin productos'}</p>
+                    </div>
+                `;
+                
+                if (produccion === 0) {
+                    recomendacion = '⚠️ No hubo producción en este periodo. Verificar si es un día festivo o si hay problemas con la línea.';
+                } else if (eficiencia < 60) {
+                    recomendacion = '⚠️ Baja eficiencia en este periodo. Revisar posibles paros, defectos o problemas de mantenimiento.';
+                } else if (eficiencia < 80) {
+                    recomendacion = '📈 Eficiencia aceptable. Considerar optimizar tiempos de producción y reducir defectos.';
+                } else {
+                    recomendacion = '🌟 Periodo con excelente producción. Mantener las condiciones actuales.';
+                }
+                
+            } else if (graficoId === 'grafico-defectos-productos') {
+                const producto = point.y || point.x;
+                const defectos = point.x || point.y;
+                const totalData = datosProduccion.filter(p => getNombreProducto(p.producto_id) === producto);
+                const totalProduccion = totalData.reduce((sum, p) => sum + (p.cantidad_producida || 0), 0);
+                const totalDefectos = totalData.reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+                const tasaDefectos = totalProduccion > 0 ? (totalDefectos / totalProduccion * 100) : 0;
+                const maquinas = [...new Set(totalData.map(p => getNombreMaquina(p.maquina_id)))];
+                
+                detalle = `
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-exclamation-triangle"></i> Producto: <strong>${producto}</strong></h6>
+                        <p><strong>⚠️ Defectos totales:</strong> ${defectos}</p>
+                        <p><strong>📦 Producción total:</strong> ${totalProduccion}</p>
+                        <p><strong>📊 Tasa de defectos:</strong> ${tasaDefectos.toFixed(2)}%</p>
+                        <p><strong>📋 Total producciones:</strong> ${totalData.length}</p>
+                        <p><strong>🏭 Máquinas utilizadas:</strong> ${maquinas.join(', ') || 'Sin máquinas'}</p>
+                    </div>
+                `;
+                
+                if (tasaDefectos > 10) {
+                    recomendacion = '🚨 ALTA tasa de defectos (>10%). Se recomienda una revisión inmediata del proceso, materiales y calibración de máquinas.';
+                } else if (tasaDefectos > 5) {
+                    recomendacion = '📊 Tasa de defectos moderada. Considere implementar controles de calidad adicionales y revisar procedimientos.';
+                } else {
+                    recomendacion = '✅ Buena calidad en este producto. Mantener el control actual.';
+                }
+            }
+            
+            const detalleModal = new bootstrap.Modal(document.getElementById('modalDetalle'));
+            document.getElementById('detalleContenido').innerHTML = detalle;
+            document.getElementById('detalleRecomendacion').innerHTML = recomendacion ? 
+                `<div class="alert alert-info"><i class="fas fa-lightbulb"></i> ${recomendacion}</div>` : '';
+            detalleModal.show();
+        }
+
+        // ============================================
+        // GENERAR ESTADÍSTICAS Y RECOMENDACIONES
         // ============================================
         function generarEstadisticasModal(graficoId) {
             const container = document.getElementById('modalGraficoEstadisticas');
@@ -676,7 +1604,9 @@
                 const totalUnidades = data.reduce((a, b) => a + (b.cantidad_producida || 0), 0);
                 const promedio = total > 0 ? totalUnidades / total : 0;
                 const maxProduccion = Math.max(...data.map(p => p.cantidad_producida || 0));
-                const maquinas = new Set(data.map(p => p.maquina_id)).size;
+                const maquinas = new Set(data.map(p => getNombreMaquina(p.maquina_id))).size;
+                const totalDefectos = data.reduce((a, b) => a + (b.cantidad_defectuosa || 0), 0);
+                const tasaDefectos = totalUnidades > 0 ? (totalDefectos / totalUnidades * 100) : 0;
                 
                 html += `
                     <div class="row mt-2">
@@ -685,23 +1615,29 @@
                         <div class="col-md-3 col-6"><span class="stat-label">Promedio por producción:</span><br><span class="stat-value">${promedio.toFixed(0)}</span></div>
                         <div class="col-md-3 col-6"><span class="stat-label">Líneas de producción:</span><br><span class="stat-value">${maquinas}</span></div>
                     </div>
+                    <div class="row mt-2">
+                        <div class="col-md-3 col-6"><span class="stat-label">Defectos totales:</span><br><span class="stat-value" style="color:#e74c3c;">${totalDefectos}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Tasa de defectos:</span><br><span class="stat-value" style="color:${tasaDefectos > 10 ? '#e74c3c' : tasaDefectos > 5 ? '#f39c12' : '#27ae60'};">${tasaDefectos.toFixed(2)}%</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Producción máxima:</span><br><span class="stat-value">${maxProduccion}</span></div>
+                    </div>
                 `;
             } else if (graficoId === 'grafico-produccion-producto') {
                 const porProducto = {};
                 data.forEach(p => {
-                    const key = p.producto_id || 'Sin producto';
+                    const key = getNombreProducto(p.producto_id);
                     porProducto[key] = (porProducto[key] || 0) + (p.cantidad_producida || 0);
                 });
                 const totalProductos = Object.keys(porProducto).length;
                 const totalUnidades = Object.values(porProducto).reduce((a, b) => a + b, 0);
                 const topProducto = Object.entries(porProducto).sort((a, b) => b[1] - a[1])[0];
                 const top3 = Object.entries(porProducto).sort((a, b) => b[1] - a[1]).slice(0, 3);
+                const promedioProducto = totalProductos > 0 ? totalUnidades / totalProductos : 0;
                 
                 html += `
                     <div class="row mt-2">
                         <div class="col-md-4 col-6"><span class="stat-label">Productos diferentes:</span><br><span class="stat-value">${totalProductos}</span></div>
                         <div class="col-md-4 col-6"><span class="stat-label">Unidades totales:</span><br><span class="stat-value">${totalUnidades}</span></div>
-                        <div class="col-md-4"><span class="stat-label">Producto más producido:</span><br><span class="stat-value">${topProducto ? topProducto[0] : '-'} (${topProducto ? topProducto[1] : 0})</span></div>
+                        <div class="col-md-4"><span class="stat-label">Promedio por producto:</span><br><span class="stat-value">${promedioProducto.toFixed(0)}</span></div>
                     </div>
                     <div class="mt-2">
                         <span class="stat-label">🏆 Top 3 productos más producidos:</span><br>
@@ -716,16 +1652,25 @@
                 const ultimaFecha = fechas.length > 0 ? fechas.reduce((a, b) => a > b ? a : b) : null;
                 const dias = primeraFecha && ultimaFecha ? Math.ceil((ultimaFecha - primeraFecha) / (1000 * 60 * 60 * 24)) : 0;
                 const promedioDiario = dias > 0 ? totalUnidades / dias : 0;
+                const totalDefectos = data.reduce((a, b) => a + (b.cantidad_defectuosa || 0), 0);
+                const tasaDefectos = totalUnidades > 0 ? (totalDefectos / totalUnidades * 100) : 0;
+                
+                const periodoTexto = periodoSeleccionado === 'semana' ? 'Semanal' : periodoSeleccionado === 'mes' ? 'Mensual' : 'Semestral';
                 
                 html += `
                     <div class="row mt-2">
-                        <div class="col-md-4 col-6"><span class="stat-label">Total producciones:</span><br><span class="stat-value">${total}</span></div>
-                        <div class="col-md-4 col-6"><span class="stat-label">Unidades totales:</span><br><span class="stat-value">${totalUnidades}</span></div>
-                        <div class="col-md-4"><span class="stat-label">Promedio diario:</span><br><span class="stat-value">${promedioDiario.toFixed(0)} unidades/día</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Total producciones:</span><br><span class="stat-value">${total}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Unidades totales:</span><br><span class="stat-value">${totalUnidades}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Promedio diario:</span><br><span class="stat-value">${promedioDiario.toFixed(0)} und/día</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Tasa de defectos:</span><br><span class="stat-value" style="color:${tasaDefectos > 10 ? '#e74c3c' : tasaDefectos > 5 ? '#f39c12' : '#27ae60'};">${tasaDefectos.toFixed(2)}%</span></div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-6"><span class="stat-label">📅 Periodo analizado:</span><br><span class="stat-value">${primeraFecha ? primeraFecha.toLocaleDateString() : '-'} - ${ultimaFecha ? ultimaFecha.toLocaleDateString() : '-'}</span></div>
                         <div class="col-md-6"><span class="stat-label">⏱️ Duración del periodo:</span><br><span class="stat-value">${dias} días</span></div>
+                    </div>
+                    <div class="mt-1">
+                        <span class="stat-label">📊 Agrupación actual:</span><br>
+                        <span class="stat-value">${periodoTexto}</span>
                     </div>
                 `;
             } else if (graficoId === 'grafico-defectos-productos') {
@@ -735,19 +1680,21 @@
                 
                 const porProductoDef = {};
                 data.forEach(p => {
-                    const key = p.producto_id || 'Sin producto';
+                    const key = getNombreProducto(p.producto_id);
                     porProductoDef[key] = (porProductoDef[key] || 0) + (p.cantidad_defectuosa || 0);
                 });
                 const topDefectuoso = Object.entries(porProductoDef)
                     .sort((a, b) => b[1] - a[1])[0];
                 
                 const productosConDefectos = Object.keys(porProductoDef).filter(k => porProductoDef[k] > 0).length;
+                const promedioDefectos = productosConDefectos > 0 ? totalDefectos / productosConDefectos : 0;
                 
                 html += `
                     <div class="row mt-2">
-                        <div class="col-md-4 col-6"><span class="stat-label">Total defectos:</span><br><span class="stat-value" style="color:#e74c3c;">${totalDefectos}</span></div>
-                        <div class="col-md-4 col-6"><span class="stat-label">Tasa de defectos:</span><br><span class="stat-value" style="color:${tasaDefectos > 10 ? '#e74c3c' : tasaDefectos > 5 ? '#f39c12' : '#27ae60'};">${tasaDefectos.toFixed(2)}%</span></div>
-                        <div class="col-md-4"><span class="stat-label">Productos con defectos:</span><br><span class="stat-value">${productosConDefectos}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Total defectos:</span><br><span class="stat-value" style="color:#e74c3c;">${totalDefectos}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Tasa de defectos:</span><br><span class="stat-value" style="color:${tasaDefectos > 10 ? '#e74c3c' : tasaDefectos > 5 ? '#f39c12' : '#27ae60'};">${tasaDefectos.toFixed(2)}%</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Productos con defectos:</span><br><span class="stat-value">${productosConDefectos}</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Promedio defectos/producto:</span><br><span class="stat-value">${promedioDefectos.toFixed(1)}</span></div>
                     </div>
                     <div class="mt-2">
                         <span class="stat-label">🔴 Producto más defectuoso:</span><br>
@@ -759,8 +1706,126 @@
             container.innerHTML = html;
         }
 
+        function generarRecomendacionesModal(graficoId) {
+            const container = document.getElementById('modalGraficoRecomendaciones');
+            const data = datosProduccion;
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let recomendaciones = [];
+            
+            if (graficoId === 'grafico-produccion-linea') {
+                const porMaquina = {};
+                data.forEach(p => {
+                    const key = getNombreMaquina(p.maquina_id);
+                    porMaquina[key] = (porMaquina[key] || 0) + (p.cantidad_producida || 0);
+                });
+                const sorted = Object.entries(porMaquina).sort((a, b) => b[1] - a[1]);
+                const total = Object.values(porMaquina).reduce((a, b) => a + b, 0);
+                
+                if (sorted.length > 0) {
+                    const mejor = sorted[0];
+                    const peor = sorted[sorted.length - 1];
+                    const porcentajeMejor = total > 0 ? (mejor[1] / total * 100) : 0;
+                    
+                    recomendaciones.push(`🏆 La línea <strong>${mejor[0]}</strong> produce el ${porcentajeMejor.toFixed(1)}% del total. Analizar su configuración para replicar en otras líneas.`);
+                    
+                    if (peor[1] < total / sorted.length * 0.5) {
+                        recomendaciones.push(`⚠️ La línea <strong>${peor[0]}</strong> tiene baja producción. Revisar mantenimiento y capacitación.`);
+                    }
+                }
+                
+                recomendaciones.push('📊 Monitorear las líneas con producción descendente para identificar oportunidades de mejora.');
+                
+            } else if (graficoId === 'grafico-produccion-producto') {
+                const porProducto = {};
+                data.forEach(p => {
+                    const key = getNombreProducto(p.producto_id);
+                    porProducto[key] = (porProducto[key] || 0) + (p.cantidad_producida || 0);
+                });
+                const sorted = Object.entries(porProducto).sort((a, b) => b[1] - a[1]);
+                
+                if (sorted.length > 1) {
+                    const top = sorted[0];
+                    const bottom = sorted[sorted.length - 1];
+                    recomendaciones.push(`⭐ <strong>${top[0]}</strong> es el producto más producido. Asegurar stock de materiales para este producto.`);
+                    
+                    if (bottom[1] > 0) {
+                        recomendaciones.push(`📦 El producto <strong>${bottom[0]}</strong> tiene baja producción. Evaluar si es estratégico mantenerlo o ajustar su producción.`);
+                    }
+                }
+                
+                recomendaciones.push('🎯 Identificar productos con alta demanda para optimizar la planificación de producción.');
+                
+            } else if (graficoId === 'grafico-produccion-periodo') {
+                const totalUnidades = data.reduce((a, b) => a + (b.cantidad_producida || 0), 0);
+                const promedioDiario = totalUnidades / (data.length || 1);
+                
+                recomendaciones.push(`📈 Producción promedio: ${promedioDiario.toFixed(0)} unidades por producción.`);
+                
+                const ultimos = data.slice(-5);
+                const tendencia = ultimos.length > 1 ? 
+                    ultimos[ultimos.length-1].cantidad_producida - ultimos[0].cantidad_producida : 0;
+                
+                if (tendencia > 0) {
+                    recomendaciones.push('📈 Tendencia positiva en la producción. Mantener estrategias actuales.');
+                } else if (tendencia < 0) {
+                    recomendaciones.push('📉 Tendencia negativa detectada. Revisar factores como mantenimiento, materiales o demanda.');
+                }
+                
+                if (periodoSeleccionado === 'semana') {
+                    recomendaciones.push('📅 Analizar días específicos de la semana con mejor rendimiento.');
+                } else if (periodoSeleccionado === 'mes') {
+                    recomendaciones.push('📆 Evaluar patrones mensuales de producción para planificar inventarios.');
+                } else {
+                    recomendaciones.push('📊 Analizar tendencias semestrales para planificación estratégica.');
+                }
+                
+            } else if (graficoId === 'grafico-defectos-productos') {
+                const totalDefectos = data.reduce((a, b) => a + (b.cantidad_defectuosa || 0), 0);
+                const totalUnidades = data.reduce((a, b) => a + (b.cantidad_producida || 0), 0);
+                const tasaDefectos = totalUnidades > 0 ? (totalDefectos / totalUnidades * 100) : 0;
+                
+                const porProductoDef = {};
+                data.forEach(p => {
+                    const key = getNombreProducto(p.producto_id);
+                    porProductoDef[key] = (porProductoDef[key] || 0) + (p.cantidad_defectuosa || 0);
+                });
+                const topDefectuoso = Object.entries(porProductoDef)
+                    .sort((a, b) => b[1] - a[1])[0];
+                
+                if (tasaDefectos > 10) {
+                    recomendaciones.push('🚨 <strong>ALERTA CRÍTICA:</strong> Tasa de defectos superior al 10%. Se requiere acción inmediata.');
+                } else if (tasaDefectos > 5) {
+                    recomendaciones.push('⚠️ Tasa de defectos moderada. Implementar controles de calidad en puntos críticos.');
+                } else {
+                    recomendaciones.push('✅ Buena calidad general. Mantener los controles actuales y documentar procesos.');
+                }
+                
+                if (topDefectuoso) {
+                    recomendaciones.push(`🔧 Enfocar esfuerzos de mejora en el producto <strong>${topDefectuoso[0]}</strong> que presenta ${topDefectuoso[1]} defectos.`);
+                }
+                
+                recomendaciones.push('📋 Considerar implementar análisis de causa raíz para los productos con mayor índice de defectos.');
+            }
+            
+            if (recomendaciones.length > 0) {
+                container.innerHTML = `
+                    <div class="rec-title"><i class="fas fa-lightbulb text-warning"></i> Recomendaciones:</div>
+                    <ul>
+                        ${recomendaciones.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                `;
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
         // ============================================
-        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
+        // EXPORTAR GRÁFICA
         // ============================================
         function exportarGraficoModal() {
             const container = document.getElementById('modalGraficoContenido');
@@ -812,6 +1877,7 @@
 
                 const result = await apiRequest('/produccion?limit=200');
                 datosProduccion = result.data || [];
+                datosFiltrados = [...datosProduccion];
                 const data = datosProduccion;
 
                 if (data.length === 0) {
@@ -819,20 +1885,7 @@
                     return;
                 }
 
-                tbody.innerHTML = data.map(p => `
-                    <tr>
-                        <td><span class="badge bg-primary">${p.produccion_id || p._id}</span></td>
-                        <td>${p.producto_id || '-'}</td>
-                        <td>${p.maquina_id || '-'}</td>
-                        <td><span class="badge bg-info">${p.operador_id || '-'}</span></td>
-                        <td>${p.cantidad_producida || 0}</td>
-                        <td><span class="badge ${(p.eficiencia||0)>=80?'bg-success':(p.eficiencia||0)>=60?'bg-warning':'bg-danger'}">${(p.eficiencia||0).toFixed(1)}%</span></td>
-                        <td><span class="badge ${(p.calidad||0)>=80?'bg-success':(p.calidad||0)>=60?'bg-warning':'bg-danger'}">${(p.calidad||0).toFixed(1)}%</span></td>
-                        <td>${p.fecha_inicio ? new Date(p.fecha_inicio).toLocaleDateString() : '-'}</td>
-                        <td><button class="btn btn-sm btn-danger" onclick="eliminarProduccion('${p.produccion_id||p._id}')"><i class="fas fa-trash"></i></button></td>
-                    </tr>
-                `).join('');
-
+                renderizarTabla(datosFiltrados);
                 await cargarGraficos(data);
 
             } catch (error) {
@@ -841,26 +1894,37 @@
         }
 
         // ============================================
-        // CARGAR GRÁFICOS
+        // CARGAR GRÁFICOS MEJORADOS
         // ============================================
         async function cargarGraficos(data) {
             if (data.length === 0) {
-                ['grafico-produccion-linea','grafico-produccion-producto','grafico-produccion-periodo','grafico-defectos-productos'].forEach(id => {
+                ['grafico-produccion-linea','grafico-produccion-producto','grafico-defectos-productos'].forEach(id => {
                     document.getElementById(id).innerHTML = `<div class="text-center text-muted py-5"><i class="fas fa-info-circle fa-3x mb-3"></i><p>No hay datos</p></div>`;
                 });
+                cargarGraficoPeriodo(data);
                 return;
             }
 
-            // ---- GRÁFICO 1: Producción por Línea (Máquina) ----
+            // ---- GRÁFICO 1: Producción por Línea (MEJORADO) ----
             const porMaquina = {};
             data.forEach(p => {
-                const key = p.maquina_id || 'Sin máquina';
+                const key = getNombreMaquina(p.maquina_id);
                 porMaquina[key] = (porMaquina[key] || 0) + (p.cantidad_producida || 0);
             });
             
             const sortedMaquinas = Object.entries(porMaquina).sort((a, b) => b[1] - a[1]);
             const maquinasKeys = sortedMaquinas.map(([k]) => k);
             const maquinasValues = sortedMaquinas.map(([, v]) => v);
+
+            const hoverTextMaquinas = maquinasKeys.map(k => {
+                const produccion = porMaquina[k];
+                const totalDefectos = data
+                    .filter(p => getNombreMaquina(p.maquina_id) === k)
+                    .reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+                const eficiencia = produccion > 0 ? ((produccion - totalDefectos) / produccion * 100) : 0;
+                const productos = [...new Set(data.filter(p => getNombreMaquina(p.maquina_id) === k).map(p => getNombreProducto(p.producto_id)))];
+                return `<b>🏭 Línea:</b> ${k}<br><b>📦 Producción:</b> ${produccion} unidades<br><b>⚠️ Defectos:</b> ${totalDefectos}<br><b>✅ Eficiencia:</b> ${eficiencia.toFixed(1)}%<br><b>📦 Productos:</b> ${productos.join(', ') || 'N/A'}`;
+            });
 
             Plotly.newPlot('grafico-produccion-linea', [{
                 type: 'bar',
@@ -871,94 +1935,180 @@
                     line: { color: 'white', width: 1.5 } 
                 },
                 text: maquinasValues.map(v => v.toString()),
-                textposition: 'auto',
-                hovertext: maquinasKeys.map(k => `Línea: ${k}<br>Producción: ${porMaquina[k]} unidades`),
-                hoverinfo: 'text'
+                textposition: 'outside',
+                hovertext: hoverTextMaquinas,
+                hoverinfo: 'text',
+                hoverlabel: { 
+                    bgcolor: 'white',
+                    font: { size: 14, family: 'Segoe UI' },
+                    bordercolor: '#3498db',
+                    borderwidth: 2
+                }
             }], {
-                margin: { t: 10, l: 60, r: 20, b: 50 },
+                margin: { t: 30, l: 60, r: 20, b: 80 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                yaxis: { title: 'Cantidad Producida', gridcolor: 'rgba(0,0,0,0.05)' },
-                xaxis: { tickangle: -30, gridcolor: 'rgba(0,0,0,0.05)' },
-                font: { family: 'Segoe UI, sans-serif' }
+                yaxis: { 
+                    title: 'Cantidad Producida', 
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    zeroline: true,
+                    zerolinecolor: 'rgba(0,0,0,0.1)'
+                },
+                xaxis: { 
+                    tickangle: -45, 
+                    gridcolor: 'rgba(0,0,0,0.05)',
+                    automargin: true
+                },
+                font: { family: 'Segoe UI, sans-serif' },
+                hovermode: 'closest',
+                showlegend: false,
+                bargap: 0.15
             });
 
-            // ---- GRÁFICO 2: Top Productos Más Producidos (Dona) ----
+            const containerLinea = document.getElementById('grafico-produccion-linea');
+            if (containerLinea) {
+                containerLinea.data = [{
+                    type: 'bar',
+                    x: maquinasKeys,
+                    y: maquinasValues,
+                    marker: { 
+                        color: maquinasValues.map(v => v > 500 ? '#e74c3c' : v > 300 ? '#f39c12' : '#3498db'),
+                        line: { color: 'white', width: 1.5 } 
+                    },
+                    text: maquinasValues.map(v => v.toString()),
+                    textposition: 'outside',
+                    hovertext: hoverTextMaquinas,
+                    hoverinfo: 'text',
+                    hoverlabel: { bgcolor: 'white', font: { size: 14, family: 'Segoe UI' }, bordercolor: '#3498db', borderwidth: 2 }
+                }];
+                containerLinea.layout = {
+                    margin: { t: 30, l: 60, r: 20, b: 80 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: 'Cantidad Producida', gridcolor: 'rgba(0,0,0,0.05)', zeroline: true, zerolinecolor: 'rgba(0,0,0,0.1)' },
+                    xaxis: { tickangle: -45, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                    font: { family: 'Segoe UI, sans-serif' },
+                    hovermode: 'closest',
+                    showlegend: false,
+                    bargap: 0.15
+                };
+            }
+
+            // ---- GRÁFICO 2: Top Productos (DONA MEJORADA con datos dentro) ----
             const porProducto = {};
             data.forEach(p => {
-                const key = p.producto_id || 'Sin producto';
+                const key = getNombreProducto(p.producto_id);
                 porProducto[key] = (porProducto[key] || 0) + (p.cantidad_producida || 0);
             });
             
-            const sortedProductos = Object.entries(porProducto).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const sortedProductos = Object.entries(porProducto).sort((a, b) => b[1] - a[1]).slice(0, 6);
             const prodLabels = sortedProductos.map(([k]) => k);
             const prodValues = sortedProductos.map(([, v]) => v);
-            const coloresProd = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c', '#9b59b6'];
+            const coloresProd = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c', '#9b59b6', '#1abc9c'];
+
+            const hoverTextProductos = prodLabels.map(k => {
+                const produccion = porProducto[k];
+                const totalDefectos = data
+                    .filter(p => getNombreProducto(p.producto_id) === k)
+                    .reduce((sum, p) => sum + (p.cantidad_defectuosa || 0), 0);
+                const eficiencia = produccion > 0 ? ((produccion - totalDefectos) / produccion * 100) : 0;
+                const maquinas = [...new Set(data.filter(p => getNombreProducto(p.producto_id) === k).map(p => getNombreMaquina(p.maquina_id)))];
+                return `<b>📦 Producto:</b> ${k}<br><b>📦 Producción:</b> ${produccion} unidades<br><b>⚠️ Defectos:</b> ${totalDefectos}<br><b>✅ Eficiencia:</b> ${eficiencia.toFixed(1)}%<br><b>🏭 Máquinas:</b> ${maquinas.join(', ') || 'N/A'}`;
+            });
+
+            // Crear texto para mostrar dentro de la dona (etiquetas con valores)
+            const textInside = prodLabels.map((label, i) => {
+                return `${label}\n${prodValues[i]} und`;
+            });
 
             Plotly.newPlot('grafico-produccion-producto', [{
                 type: 'pie',
                 labels: prodLabels,
                 values: prodValues,
-                marker: { colors: coloresProd.slice(0, prodLabels.length) },
-                textinfo: 'label+percent',
-                hovertext: prodLabels.map(k => `Producto: ${k}<br>Cantidad: ${porProducto[k]} unidades`),
+                marker: { 
+                    colors: coloresProd.slice(0, prodLabels.length),
+                    line: { color: 'white', width: 2 }
+                },
+                textinfo: 'label+value',
+                textposition: 'inside',
+                textfont: {
+                    size: 9,
+                    color: '#2c3e50',
+                    weight: 'bold'
+                },
+                hovertext: hoverTextProductos,
                 hoverinfo: 'text',
-                hole: 0.3
+                hole: 0.35,
+                hoverlabel: { 
+                    bgcolor: 'white',
+                    font: { size: 14, family: 'Segoe UI' },
+                    bordercolor: '#2ecc71',
+                    borderwidth: 2
+                },
+                insidetextorientation: 'horizontal'
             }], {
-                margin: { t: 10, l: 10, r: 10, b: 10 },
+                margin: { t: 20, l: 10, r: 10, b: 20 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                font: { family: 'Segoe UI, sans-serif' },
+                font: { family: 'Segoe UI, sans-serif', size: 10 },
                 showlegend: true,
-                legend: { orientation: 'h', y: -0.1 },
+                legend: { 
+                    orientation: 'h', 
+                    y: -0.1,
+                    font: { size: 9 }
+                },
                 annotations: [{
                     x: 0.5,
                     y: 0.5,
                     xref: 'paper',
                     yref: 'paper',
-                    text: `TOP 5<br>Productos`,
+                    text: `TOP ${prodLabels.length}<br>Productos`,
                     showarrow: false,
-                    font: { size: 14, color: '#2c3e50', weight: 'bold' }
-                }]
+                    font: { size: 12, color: '#2c3e50', weight: 'bold' }
+                }],
+                hovermode: 'closest'
             });
 
-            // ---- GRÁFICO 3: Producción por Periodo (Línea) ----
-            const porPeriodo = {};
-            data.forEach(p => {
-                if (p.fecha_inicio) {
-                    const fecha = new Date(p.fecha_inicio);
-                    const periodo = fecha.toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' });
-                    porPeriodo[periodo] = (porPeriodo[periodo] || 0) + (p.cantidad_producida || 0);
-                }
-            });
-            
-            const periodos = Object.keys(porPeriodo).sort((a,b) => new Date(a.split('/').reverse().join('/')) - new Date(b.split('/').reverse().join('/')));
-            const valoresPeriodo = periodos.map(p => porPeriodo[p]);
+            const containerProducto = document.getElementById('grafico-produccion-producto');
+            if (containerProducto) {
+                containerProducto.data = [{
+                    type: 'pie',
+                    labels: prodLabels,
+                    values: prodValues,
+                    marker: { colors: coloresProd.slice(0, prodLabels.length), line: { color: 'white', width: 2 } },
+                    textinfo: 'label+value',
+                    textposition: 'inside',
+                    textfont: { size: 9, color: '#2c3e50', weight: 'bold' },
+                    hovertext: hoverTextProductos,
+                    hoverinfo: 'text',
+                    hole: 0.35,
+                    hoverlabel: { bgcolor: 'white', font: { size: 14, family: 'Segoe UI' }, bordercolor: '#2ecc71', borderwidth: 2 },
+                    insidetextorientation: 'horizontal'
+                }];
+                containerProducto.layout = {
+                    margin: { t: 20, l: 10, r: 10, b: 20 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    font: { family: 'Segoe UI, sans-serif', size: 10 },
+                    showlegend: true,
+                    legend: { orientation: 'h', y: -0.1, font: { size: 9 } },
+                    annotations: [{
+                        x: 0.5,
+                        y: 0.5,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: `TOP ${prodLabels.length}<br>Productos`,
+                        showarrow: false,
+                        font: { size: 12, color: '#2c3e50', weight: 'bold' }
+                    }],
+                    hovermode: 'closest'
+                };
+            }
 
-            Plotly.newPlot('grafico-produccion-periodo', [{
-                type: 'scatter',
-                mode: 'lines+markers',
-                x: periodos,
-                y: valoresPeriodo,
-                marker: { color: '#f39c12', size: 10 },
-                line: { color: '#f39c12', width: 3 },
-                fill: 'tozeroy',
-                fillcolor: 'rgba(243, 156, 18, 0.2)',
-                hovertext: periodos.map(p => `Fecha: ${p}<br>Producción: ${porPeriodo[p]} unidades`),
-                hoverinfo: 'text'
-            }], {
-                margin: { t: 10, l: 60, r: 20, b: 50 },
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                yaxis: { title: 'Cantidad Producida', gridcolor: 'rgba(0,0,0,0.05)' },
-                xaxis: { title: 'Fecha', gridcolor: 'rgba(0,0,0,0.05)' },
-                font: { family: 'Segoe UI, sans-serif' }
-            });
-
-            // ---- GRÁFICO 4: Productos con más defectos (Barras horizontales) ----
+            // ---- GRÁFICO 4: Productos con más defectos ----
             const porProductoDefectos = {};
             data.forEach(p => {
-                const key = p.producto_id || 'Sin producto';
+                const key = getNombreProducto(p.producto_id);
                 const defectos = p.cantidad_defectuosa || 0;
                 porProductoDefectos[key] = (porProductoDefectos[key] || 0) + defectos;
             });
@@ -979,6 +2129,15 @@
                 return '#3498db';
             });
 
+            const hoverTextDefectos = defectosLabels.map((k, i) => {
+                const totalProd = data
+                    .filter(p => getNombreProducto(p.producto_id) === k)
+                    .reduce((sum, p) => sum + (p.cantidad_producida || 0), 0);
+                const tasa = totalProd > 0 ? (defectosValues[i] / totalProd * 100) : 0;
+                const maquinas = [...new Set(data.filter(p => getNombreProducto(p.producto_id) === k).map(p => getNombreMaquina(p.maquina_id)))];
+                return `<b>⚠️ Producto:</b> ${k}<br><b>⚠️ Defectos:</b> ${defectosValues[i]}<br><b>📦 Producción:</b> ${totalProd}<br><b>📊 Tasa:</b> ${tasa.toFixed(2)}%<br><b>🏭 Máquinas:</b> ${maquinas.join(', ') || 'N/A'}`;
+            });
+
             Plotly.newPlot('grafico-defectos-productos', [{
                 type: 'bar',
                 orientation: 'h',
@@ -990,12 +2149,16 @@
                 },
                 text: defectosValues.map(v => v.toString()),
                 textposition: 'outside',
-                hovertext: defectosLabels.map((k, i) => 
-                    `Producto: ${k}<br>Defectos: ${defectosValues[i]}<br>Total producido: ${porProducto[k] || 0}`
-                ),
-                hoverinfo: 'text'
+                hovertext: hoverTextDefectos,
+                hoverinfo: 'text',
+                hoverlabel: { 
+                    bgcolor: 'white',
+                    font: { size: 14, family: 'Segoe UI' },
+                    bordercolor: '#e74c3c',
+                    borderwidth: 2
+                }
             }], {
-                margin: { t: 10, l: 120, r: 80, b: 20 },
+                margin: { t: 30, l: 120, r: 80, b: 20 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 xaxis: { 
@@ -1018,8 +2181,55 @@
                     text: '⚠️ Productos con mayor índice de defectos',
                     showarrow: false,
                     font: { size: 12, color: '#e74c3c' }
-                }]
+                }],
+                hovermode: 'closest'
             });
+
+            const containerDefectos = document.getElementById('grafico-defectos-productos');
+            if (containerDefectos) {
+                containerDefectos.data = [{
+                    type: 'bar',
+                    orientation: 'h',
+                    x: defectosValues,
+                    y: defectosLabels,
+                    marker: { color: coloresDefectos, line: { color: 'white', width: 1.5 } },
+                    text: defectosValues.map(v => v.toString()),
+                    textposition: 'outside',
+                    hovertext: hoverTextDefectos,
+                    hoverinfo: 'text',
+                    hoverlabel: { bgcolor: 'white', font: { size: 14, family: 'Segoe UI' }, bordercolor: '#e74c3c', borderwidth: 2 }
+                }];
+                containerDefectos.layout = {
+                    margin: { t: 30, l: 120, r: 80, b: 20 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: { title: 'Cantidad de Defectos', gridcolor: 'rgba(0,0,0,0.05)', zeroline: true, zerolinecolor: 'rgba(0,0,0,0.1)' },
+                    yaxis: { tickangle: 0, gridcolor: 'rgba(0,0,0,0.05)', automargin: true },
+                    font: { family: 'Segoe UI, sans-serif' },
+                    annotations: [{
+                        x: 0.5,
+                        y: 1.05,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: '⚠️ Productos con mayor índice de defectos',
+                        showarrow: false,
+                        font: { size: 12, color: '#e74c3c' }
+                    }],
+                    hovermode: 'closest'
+                };
+            }
+
+            cargarGraficoPeriodo(data);
+        }
+
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = { headers: { 'Content-Type': 'application/json', ...options.headers }, ...options };
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) { const error = await response.json(); throw new Error(error.detail || error.message || 'Error'); }
+                return await response.json();
+            } catch (error) { console.error('API Error:', error); throw error; }
         }
 
         async function eliminarProduccion(id) {
@@ -1056,10 +2266,37 @@
         });
 
         // ============================================
-        // INICIALIZACIÓN CON ACTUALIZACIÓN EN TIEMPO REAL
+        // MODAL DE DETALLE (gráficos)
         // ============================================
-        document.addEventListener('DOMContentLoaded', cargarProducciones);
-        setInterval(cargarProducciones, 15000);
+        const detalleModalHTML = `
+            <div class="modal fade" id="modalDetalle" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                            <h5 class="modal-title"><i class="fas fa-info-circle"></i> Detalle del Dato Seleccionado</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="detalleContenido"></div>
+                            <div id="detalleRecomendacion"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', detalleModalHTML);
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async function() {
+            await cargarSelectores();
+            cargarProducciones();
+        });
+        setInterval(cargarProducciones, 30000);
     </script>
 </body>
 </html>

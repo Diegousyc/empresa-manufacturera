@@ -101,16 +101,6 @@
             font-size: 1.1rem;
         }
         .chart-container .chart-title i { margin-right: 8px; color: var(--secondary-color); }
-        .chart-container .chart-desc {
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 4px solid var(--secondary-color);
-        }
-        .chart-container .chart-desc strong { color: var(--primary-color); }
         .chart-container .click-hint {
             position: absolute;
             top: 15px;
@@ -126,6 +116,35 @@
         }
         .chart-container:hover .click-hint {
             opacity: 1;
+        }
+
+        /* ============================================
+           FILTROS
+           ============================================ */
+        .filtro-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filtro-container label {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        .filtro-container .form-select {
+            width: 200px;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            padding: 0.5rem 1rem;
+        }
+        .filtro-container .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
         }
 
         /* ============================================
@@ -170,6 +189,100 @@
         .modal-grafico .modal-estadisticas .stat-value {
             font-weight: 600;
             color: var(--primary-color);
+        }
+
+        /* ============================================
+           MODAL DETALLE MÁQUINA
+           ============================================ */
+        .maquina-detalle-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+        }
+        .maquina-detalle-card .maquina-nombre {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .maquina-detalle-card .maquina-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .maquina-detalle-card .maquina-grid .item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .maquina-detalle-card .maquina-grid .item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 1px;
+        }
+        .maquina-detalle-card .maquina-grid .item .value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        .maquina-detalle-card .maquina-info {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .maquina-detalle-card .maquina-info .info-item {
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .maquina-detalle-card .maquina-info .info-item .label {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+        .maquina-detalle-card .maquina-info .info-item .value {
+            font-weight: 600;
+        }
+
+        /* Recomendaciones */
+        .analisis-recomendacion {
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-radius: 8px;
+        }
+        .analisis-recomendacion h6 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .analisis-recomendacion ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .analisis-recomendacion ul li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+        .recomendacion-alta {
+            background: #d4edda;
+            border-left: 4px solid #27ae60;
+        }
+        .recomendacion-media {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+        }
+        .recomendacion-baja {
+            background: #f8d7da;
+            border-left: 4px solid #e74c3c;
+        }
+        .recomendacion-info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
         }
 
         /* ============================================
@@ -248,6 +361,12 @@
         @media (max-width: 992px) {
             .navbar-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; }
             .nav-link { font-size: 0.7rem; padding: 0.3rem 0.6rem !important; }
+            .maquina-detalle-card .maquina-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .maquina-detalle-card .maquina-info {
+                grid-template-columns: 1fr;
+            }
         }
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1rem; }
@@ -255,6 +374,13 @@
             .kpi-card .kpi-number { font-size: 1.5rem; }
             .kpi-card .kpi-icon { font-size: 2rem; }
             .modal-grafico .modal-contenido { min-height: 300px; }
+            .maquina-detalle-card .maquina-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .maquina-detalle-card .maquina-info {
+                grid-template-columns: 1fr;
+            }
+            .filtro-container .form-select { width: 100%; }
         }
         @media (max-width: 576px) {
             .nav-link { font-size: 0.55rem; padding: 0.15rem 0.3rem !important; }
@@ -263,11 +389,11 @@
             .table-container { padding: 0.5rem; }
             .table thead th, .table tbody td { padding: 0.5rem; font-size: 0.75rem; }
             .modal-grafico .modal-contenido { min-height: 250px; }
+            .maquina-detalle-card .maquina-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* ============================================
-           SCROLLBAR
-           ============================================ */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 10px; }
@@ -285,6 +411,41 @@
 
         .alert-success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
         .alert-danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .alert-warning { background: #fff3cd; border-color: #ffecb5; color: #856404; }
+
+        .highlight-row {
+            animation: highlightPulse 2s ease;
+        }
+        @keyframes highlightPulse {
+            0% { background-color: #fff3cd; }
+            50% { background-color: #ffeaa7; }
+            100% { background-color: transparent; }
+        }
+
+        .modal-backdrop {
+            z-index: 1040 !important;
+        }
+        .modal {
+            z-index: 1050 !important;
+        }
+        .modal.fade .modal-dialog {
+            transition: transform 0.3s ease-out;
+        }
+        .modal-backdrop.fade {
+            opacity: 0.5;
+        }
+        .modal-backdrop.show {
+            opacity: 0.5;
+        }
+
+        /* Contador de filtros */
+        .contador-filtro {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+        .contador-filtro strong {
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -354,19 +515,19 @@
             </div>
         </div>
 
-        <!-- GRÁFICAS DE MÁQUINAS CON MODAL -->
+        <!-- GRÁFICAS DE MÁQUINAS -->
         <div class="row">
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-fallas', 'Máquinas con Fallas', 'Esta gráfica de barras muestra únicamente las máquinas que presentan fallas (estado Inactiva o Fuera de Servicio). Permite identificar rápidamente qué equipos requieren atención inmediata.')">
+                <div class="chart-container">
                     <div class="chart-title"><i class="fas fa-exclamation-triangle text-danger"></i> Máquinas con Fallas</div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
                     <div id="grafico-fallas" style="height: 280px;"></div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-tiempo-funcionamiento', 'Tiempo de Funcionamiento por Máquina', 'Esta gráfica de barras muestra las horas de operación acumuladas por cada máquina. Permite evaluar el desgaste y la productividad de los equipos. Los colores indican nivel de desgaste: 🟢 Bajo, 🟡 Moderado, 🔴 Alto.')">
+                <div class="chart-container">
                     <div class="chart-title"><i class="fas fa-clock text-success"></i> Tiempo de Funcionamiento por Máquina</div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
                     <div id="grafico-tiempo-funcionamiento" style="height: 280px;"></div>
                 </div>
             </div>
@@ -374,9 +535,9 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="chart-container" onclick="abrirModalGrafico('grafico-mantenimientos', 'Top 3 Máquinas con Mayor Mantenimiento', 'Esta gráfica de dona muestra las 3 máquinas que han recibido más mantenimientos. Permite visualizar qué equipos requieren mayor atención y recursos.')">
-                    <div class="chart-title"><i class="fas fa-chart-pie text-warning"></i> Top 3 Máquinas con Mayor Mantenimiento</div>
-                    <span class="click-hint"><i class="fas fa-expand"></i> Clic para ampliar</span>
+                <div class="chart-container">
+                    <div class="chart-title"><i class="fas fa-tools text-warning"></i> Top 5 Máquinas con Mayor Mantenimiento</div>
+                    <span class="click-hint"><i class="fas fa-mouse-pointer"></i> Haz clic en cualquier barra</span>
                     <div id="grafico-mantenimientos" style="height: 280px;"></div>
                 </div>
             </div>
@@ -453,6 +614,24 @@
                         <button class="btn btn-sm btn-light float-end" onclick="cargarMaquinas()"><i class="fas fa-refresh"></i> Actualizar</button>
                     </div>
                     <div class="card-body">
+                        <!-- FILTROS -->
+                        <div class="filtro-container">
+                            <label><i class="fas fa-filter text-primary"></i> Filtros:</label>
+                            <select class="form-select form-select-sm" id="filtro-tipo" onchange="aplicarFiltro()">
+                                <option value="todos">Todos los tipos</option>
+                            </select>
+                            <select class="form-select form-select-sm" id="filtro-estado" onchange="aplicarFiltro()">
+                                <option value="todos">Todos los estados</option>
+                            </select>
+                            <select class="form-select form-select-sm" id="filtro-maquina" onchange="aplicarFiltro()">
+                                <option value="todos">Todas las máquinas</option>
+                            </select>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="limpiarFiltro()">
+                                <i class="fas fa-times"></i> Limpiar filtro
+                            </button>
+                            <span class="contador-filtro" id="contador-filtro">Mostrando: <strong>0</strong> máquinas</span>
+                        </div>
+
                         <div class="table-container">
                             <table class="table table-hover" id="tabla-maquinas">
                                 <thead>
@@ -480,9 +659,7 @@
         </div>
     </div>
 
-    <!-- ============================================
-    MODAL PARA GRÁFICOS COMPLETOS
-    ============================================ -->
+    <!-- MODAL PARA GRÁFICOS COMPLETOS -->
     <div class="modal fade" id="modalGrafico" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
@@ -494,9 +671,7 @@
                     <div class="modal-grafico">
                         <p class="modal-descripcion" id="modalGraficoDescripcion">Descripción de la gráfica</p>
                         <div class="modal-contenido" id="modalGraficoContenido" style="height: 550px;"></div>
-                        <div class="modal-estadisticas" id="modalGraficoEstadisticas">
-                            <!-- Estadísticas se generan dinámicamente -->
-                        </div>
+                        <div class="modal-estadisticas" id="modalGraficoEstadisticas"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -509,6 +684,24 @@
         </div>
     </div>
 
+    <!-- MODAL PARA DETALLE DE MÁQUINA -->
+    <div class="modal fade" id="modalDetalleMaquina" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white;">
+                    <h5 class="modal-title"><i class="fas fa-microchip"></i> Detalle de la Máquina</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModalMaquina()"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="detalle-maquina-contenido"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarModalMaquina()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // ============================================
@@ -516,7 +709,26 @@
         // ============================================
         const API_BASE = '/api';
         let datosMaquinas = [];
+        let datosFiltrados = [];
         let datosMantenimientos = [];
+        let modalMaquinaInstance = null;
+
+        function cerrarModalMaquina() {
+            const modalElement = document.getElementById('modalDetalleMaquina');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+            setTimeout(() => {
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => {
+                    backdrop.remove();
+                });
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            }, 100);
+        }
 
         async function apiRequest(endpoint, options = {}) {
             const url = `${API_BASE}${endpoint}`;
@@ -535,6 +747,186 @@
                 console.error('API Error:', error);
                 throw error;
             }
+        }
+
+        // ============================================
+        // MOSTRAR DETALLE DE MÁQUINA
+        // ============================================
+        function mostrarDetalleMaquina(identificador) {
+            const maquina = datosMaquinas.find(m => 
+                (m.nombre || m.maquina_id) === identificador || 
+                (m.maquina_id || m._id) === identificador
+            );
+            
+            if (!maquina) {
+                alert(`Máquina "${identificador}" no encontrada`);
+                return;
+            }
+
+            const horas = maquina.horas_operacion || 0;
+            const capacidad = maquina.capacidad_produccion || 0;
+            const consumo = maquina.consumo_energetico || 0;
+            const estado = maquina.estado || 'Desconocido';
+
+            const estadoColors = {
+                'Operativa': 'success',
+                'Mantenimiento': 'warning',
+                'Inactiva': 'danger',
+                'Fuera_servicio': 'secondary'
+            };
+            const estadoColor = estadoColors[estado] || 'secondary';
+            const estadoIcon = estado === 'Operativa' ? '✅' : estado === 'Mantenimiento' ? '🔧' : estado === 'Inactiva' ? '⚠️' : '❌';
+
+            // Recomendaciones
+            let recomendaciones = [];
+            let recomendacionClase = 'recomendacion-media';
+
+            if (estado === 'Inactiva' || estado === 'Fuera_servicio') {
+                recomendacionClase = 'recomendacion-baja';
+                recomendaciones.push({
+                    icono: '🚨',
+                    titulo: 'MÁQUINA FUERA DE SERVICIO',
+                    descripcion: `La máquina "${maquina.nombre}" se encuentra en estado ${estado}.`,
+                    accion: `Se recomienda programar URGENTE un mantenimiento correctivo. Revisar historial de fallas y componentes críticos.`
+                });
+            } else if (estado === 'Mantenimiento') {
+                recomendacionClase = 'recomendacion-media';
+                recomendaciones.push({
+                    icono: '🔧',
+                    titulo: 'MÁQUINA EN MANTENIMIENTO',
+                    descripcion: `La máquina "${maquina.nombre}" está actualmente en mantenimiento.`,
+                    accion: `Verificar que el mantenimiento se complete en el tiempo estimado. Realizar pruebas de funcionamiento antes de reactivar.`
+                });
+            } else {
+                recomendacionClase = 'recomendacion-alta';
+                recomendaciones.push({
+                    icono: '✅',
+                    titulo: 'MÁQUINA OPERATIVA',
+                    descripcion: `La máquina "${maquina.nombre}" se encuentra operativa.`,
+                    accion: `Mantener programa de mantenimiento preventivo regular. Monitorear indicadores de desempeño.`
+                });
+            }
+
+            if (horas > 5000) {
+                recomendaciones.push({
+                    icono: '⏰',
+                    titulo: 'ALTO DESGASTE POR HORAS DE OPERACIÓN',
+                    descripcion: `La máquina tiene ${horas} horas de operación acumuladas.`,
+                    accion: `Se recomienda revisión de componentes críticos (rodamientos, motores, sistemas hidráulicos).`
+                });
+            } else if (horas > 2000) {
+                recomendaciones.push({
+                    icono: '⏰',
+                    titulo: 'DESGASTE MODERADO',
+                    descripcion: `La máquina tiene ${horas} horas de operación.`,
+                    accion: `Programar mantenimiento preventivo en los próximos 3 meses.`
+                });
+            }
+
+            if (consumo > 10) {
+                recomendaciones.push({
+                    icono: '⚡',
+                    titulo: 'ALTO CONSUMO ENERGÉTICO',
+                    descripcion: `Consumo de ${consumo} kWh.`,
+                    accion: `Revisar eficiencia energética. Considerar optimización de procesos.`
+                });
+            }
+
+            const mantMaquina = datosMantenimientos.filter(m => 
+                m.maquina_id === maquina.maquina_id || 
+                m.maquina_id === maquina._id
+            );
+            const totalMant = mantMaquina.length;
+
+            if (totalMant > 10) {
+                recomendaciones.push({
+                    icono: '🛠️',
+                    titulo: 'ALTA FRECUENCIA DE MANTENIMIENTOS',
+                    descripcion: `La máquina ha recibido ${totalMant} mantenimientos registrados.`,
+                    accion: `Analizar causa raíz de los mantenimientos frecuentes.`
+                });
+            }
+
+            const container = document.getElementById('detalle-maquina-contenido');
+
+            let recomendacionesHTML = recomendaciones.map(r => `
+                <div style="margin-top: 8px; padding: 12px 15px; border-radius: 8px; background: #f8f9fa; border-left: 4px solid ${r.icono === '🚨' ? '#e74c3c' : r.icono === '🔧' ? '#f39c12' : '#3498db'};">
+                    <h6 style="margin-bottom: 4px; font-weight: 700;">${r.icono} ${r.titulo}</h6>
+                    <p style="margin-bottom: 2px; font-size: 0.9rem;"><strong>Descripción:</strong> ${r.descripcion}</p>
+                    <p style="margin-bottom: 0; font-size: 0.9rem; color: #2c3e50;"><strong>Acción recomendada:</strong> ${r.accion}</p>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="maquina-detalle-card">
+                    <div class="maquina-nombre">
+                        <i class="fas fa-microchip"></i> ${maquina.nombre || 'Sin nombre'}
+                    </div>
+                    <div class="text-muted mb-3">ID: ${maquina.maquina_id || maquina._id}</div>
+                    
+                    <div class="maquina-grid">
+                        <div class="item">
+                            <div class="label">Tipo</div>
+                            <div class="value">${maquina.tipo || '-'}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Modelo</div>
+                            <div class="value">${maquina.modelo || '-'}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Fabricante</div>
+                            <div class="value">${maquina.fabricante || '-'}</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Estado</div>
+                            <div class="value"><span class="badge bg-${estadoColor}">${estadoIcon} ${estado}</span></div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Horas de Operación</div>
+                            <div class="value">${horas} h</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Capacidad</div>
+                            <div class="value">${capacidad} u/h</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Consumo Energético</div>
+                            <div class="value">${consumo} kWh</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">Mantenimientos</div>
+                            <div class="value">${totalMant}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="maquina-info">
+                        <div class="info-item">
+                            <span class="label">Año de Fabricación</span>
+                            <span class="value">${maquina.año_fabricacion || '-'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Fecha de Instalación</span>
+                            <span class="value">${maquina.fecha_instalacion ? new Date(maquina.fecha_instalacion).toLocaleDateString() : '-'}</span>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h6><i class="fas fa-lightbulb text-warning"></i> Recomendaciones detalladas</h6>
+                    <div class="${recomendacionClase}" style="padding: 10px 15px; border-radius: 8px; margin-top: 10px;">
+                        ${recomendacionesHTML}
+                    </div>
+                </div>
+            `;
+
+            const modalElement = document.getElementById('modalDetalleMaquina');
+            if (!modalMaquinaInstance) {
+                modalMaquinaInstance = new bootstrap.Modal(modalElement, {
+                    backdrop: true,
+                    keyboard: true
+                });
+            }
+            modalMaquinaInstance.show();
         }
 
         // ============================================
@@ -563,13 +955,9 @@
             modal.show();
         }
 
-        // ============================================
-        // GENERAR ESTADÍSTICAS PARA EL MODAL
-        // ============================================
         function generarEstadisticasModal(graficoId) {
             const container = document.getElementById('modalGraficoEstadisticas');
             const maquinas = datosMaquinas;
-            const mantenimientos = datosMantenimientos;
             
             if (!maquinas || maquinas.length === 0) {
                 container.innerHTML = '<div class="text-center text-muted">No hay datos para mostrar estadísticas</div>';
@@ -582,7 +970,6 @@
                 const conFallas = maquinas.filter(m => m.estado === 'Inactiva' || m.estado === 'Fuera_servicio');
                 const totalConFallas = conFallas.length;
                 const total = maquinas.length;
-                const porcentajeFallas = total > 0 ? (totalConFallas / total * 100).toFixed(1) : 0;
                 
                 if (totalConFallas === 0) {
                     html += `<div class="alert alert-success mt-2"><i class="fas fa-check-circle"></i> ¡Excelente! No hay máquinas con fallas registradas.</div>`;
@@ -591,11 +978,8 @@
                         <div class="row mt-2">
                             <div class="col-md-4 col-6"><span class="stat-label">Máquinas con fallas:</span><br><span class="stat-value">${totalConFallas}</span></div>
                             <div class="col-md-4 col-6"><span class="stat-label">Total máquinas:</span><br><span class="stat-value">${total}</span></div>
-                            <div class="col-md-4"><span class="stat-label">% de máquinas con fallas:</span><br><span class="stat-value">${porcentajeFallas}%</span></div>
-                        </div>
-                        <div class="mt-2">
-                            <span class="stat-label">Máquinas que requieren atención:</span><br>
-                            <span class="stat-value">${conFallas.map(m => m.nombre || m.maquina_id).join(', ')}</span>
+                            <div class="col-md-4"><span class="stat-label">Máquinas que requieren atención:</span><br>
+                            <span class="stat-value">${conFallas.map(m => m.nombre || m.maquina_id).join(', ')}</span></div>
                         </div>
                     `;
                 }
@@ -605,63 +989,38 @@
                 const totalHoras = horas.reduce((a, b) => a + b, 0);
                 const promedio = total > 0 ? totalHoras / total : 0;
                 const maxHoras = Math.max(...horas);
-                const minHoras = Math.min(...horas);
                 
                 html += `
                     <div class="row mt-2">
                         <div class="col-md-3 col-6"><span class="stat-label">Total máquinas:</span><br><span class="stat-value">${total}</span></div>
                         <div class="col-md-3 col-6"><span class="stat-label">Horas totales:</span><br><span class="stat-value">${totalHoras.toFixed(0)} h</span></div>
-                        <div class="col-md-3 col-6"><span class="stat-label">Promedio por máquina:</span><br><span class="stat-value">${promedio.toFixed(0)} h</span></div>
+                        <div class="col-md-3 col-6"><span class="stat-label">Promedio:</span><br><span class="stat-value">${promedio.toFixed(0)} h</span></div>
                         <div class="col-md-3 col-6"><span class="stat-label">Máquina con más horas:</span><br><span class="stat-value">${maxHoras.toFixed(0)} h</span></div>
                     </div>
                 `;
             } else if (graficoId === 'grafico-mantenimientos') {
-                // Calcular mantenimientos por máquina
                 const porMaquina = {};
-                mantenimientos.forEach(m => {
+                datosMantenimientos.forEach(m => {
                     const key = m.maquina_id || 'Sin máquina';
                     porMaquina[key] = (porMaquina[key] || 0) + 1;
                 });
                 
-                // Obtener TOP 3 máquinas con más mantenimientos
-                const top3 = Object.entries(porMaquina)
-                    .filter(([key, value]) => value > 0)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 3);
+                const totalMant = datosMantenimientos.length;
+                const top5 = Object.entries(porMaquina).sort((a,b) => b[1]-a[1]).slice(0,5);
                 
-                const totalConMant = Object.keys(porMaquina).filter(k => porMaquina[k] > 0).length;
-                const totalMant = mantenimientos.length;
-                const totalMaquinas = maquinas.length;
-                const porcentajeConMant = totalMaquinas > 0 ? (totalConMant / totalMaquinas * 100).toFixed(1) : 0;
-                
-                if (top3.length === 0) {
-                    html += `<div class="alert alert-info mt-2"><i class="fas fa-info-circle"></i> No hay mantenimientos registrados para ninguna máquina.</div>`;
-                } else {
-                    html += `
-                        <div class="row mt-2">
-                            <div class="col-md-4 col-6"><span class="stat-label">Máquinas con mantenimiento:</span><br><span class="stat-value">${totalConMant}</span></div>
-                            <div class="col-md-4 col-6"><span class="stat-label">Total mantenimientos:</span><br><span class="stat-value">${totalMant}</span></div>
-                            <div class="col-md-4"><span class="stat-label">% con mantenimiento:</span><br><span class="stat-value">${porcentajeConMant}%</span></div>
-                        </div>
-                        <div class="mt-2">
-                            <span class="stat-label">🏆 Top 3 máquinas con más mantenimientos:</span><br>
-                            <span class="stat-value">
-                                ${top3.map(([k, v], i) => {
-                                    const medallas = ['🥇', '🥈', '🥉'];
-                                    return `${medallas[i]} ${k} (${v} mantenimientos)`;
-                                }).join(' | ')}
-                            </span>
-                        </div>
-                    `;
-                }
+                html += `
+                    <div class="row mt-2">
+                        <div class="col-md-4 col-6"><span class="stat-label">Total mantenimientos:</span><br><span class="stat-value">${totalMant}</span></div>
+                        <div class="col-md-4 col-6"><span class="stat-label">Máquinas con mantenimiento:</span><br><span class="stat-value">${Object.keys(porMaquina).length}</span></div>
+                        <div class="col-md-4"><span class="stat-label">Top 5 máquinas:</span><br>
+                        <span class="stat-value">${top5.map(([k,v]) => `${k} (${v})`).join(' | ')}</span></div>
+                    </div>
+                `;
             }
             
             container.innerHTML = html;
         }
 
-        // ============================================
-        // EXPORTAR GRÁFICA DEL MODAL COMO PNG
-        // ============================================
         function exportarGraficoModal() {
             const container = document.getElementById('modalGraficoContenido');
             Plotly.downloadImage(container, {
@@ -682,43 +1041,24 @@
             try {
                 const result = await apiRequest('/maquinas?limit=100');
                 datosMaquinas = result.data || [];
-                const data = datosMaquinas;
+                datosFiltrados = [...datosMaquinas];
 
                 const mantResult = await apiRequest('/mantenimiento?limit=100');
                 datosMantenimientos = mantResult.data || [];
 
-                if (data.length === 0) {
+                if (datosMaquinas.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted"><i class="fas fa-inbox"></i> No hay máquinas registradas</td></tr>`;
-                    actualizarKPIs(data, datosMantenimientos);
+                    actualizarKPIs(datosMaquinas, datosMantenimientos);
                     return;
                 }
 
-                const estadoColors = {
-                    'Operativa': 'success',
-                    'Mantenimiento': 'warning',
-                    'Inactiva': 'danger',
-                    'Fuera_servicio': 'secondary'
-                };
+                // Actualizar filtros
+                actualizarFiltros();
 
-                tbody.innerHTML = data.map(m => `
-                    <tr>
-                        <td><span class="badge bg-primary">${m.maquina_id || m._id}</span></td>
-                        <td><strong>${m.nombre || '-'}</strong></td>
-                        <td>${m.tipo || '-'}</td>
-                        <td>${m.modelo || '-'}</td>
-                        <td><span class="badge bg-${estadoColors[m.estado] || 'secondary'}">${m.estado || 'Desconocido'}</span></td>
-                        <td>${m.capacidad_produccion || 0} u/h</td>
-                        <td>${m.horas_operacion || 0} h</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" onclick="eliminarMaquina('${m.maquina_id || m._id}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `).join('');
-
-                actualizarKPIs(data, datosMantenimientos);
-                await cargarGraficos(data, datosMantenimientos);
+                // Cargar tabla con datos filtrados
+                cargarTabla(datosFiltrados);
+                actualizarKPIs(datosMaquinas, datosMantenimientos);
+                await cargarGraficos(datosMaquinas, datosMantenimientos);
 
             } catch (error) {
                 console.error('Error cargando máquinas:', error);
@@ -727,8 +1067,136 @@
         }
 
         // ============================================
-        // ACTUALIZAR KPIs
+        // ACTUALIZAR FILTROS
         // ============================================
+        function actualizarFiltros() {
+            // Filtro de tipos
+            const selectTipo = document.getElementById('filtro-tipo');
+            while (selectTipo.options.length > 1) {
+                selectTipo.remove(1);
+            }
+            const tiposSet = new Set(datosMaquinas.map(m => m.tipo));
+            Array.from(tiposSet).sort().forEach(tipo => {
+                if (tipo) {
+                    const option = document.createElement('option');
+                    option.value = tipo;
+                    option.textContent = tipo;
+                    selectTipo.appendChild(option);
+                }
+            });
+
+            // Filtro de estados
+            const selectEstado = document.getElementById('filtro-estado');
+            while (selectEstado.options.length > 1) {
+                selectEstado.remove(1);
+            }
+            const estadosSet = new Set(datosMaquinas.map(m => m.estado));
+            Array.from(estadosSet).sort().forEach(estado => {
+                if (estado) {
+                    const option = document.createElement('option');
+                    option.value = estado;
+                    option.textContent = estado;
+                    selectEstado.appendChild(option);
+                }
+            });
+
+            // Filtro de máquinas por nombre
+            const selectMaquina = document.getElementById('filtro-maquina');
+            while (selectMaquina.options.length > 1) {
+                selectMaquina.remove(1);
+            }
+            const nombres = datosMaquinas.map(m => m.nombre || m.maquina_id).filter(n => n).sort();
+            nombres.forEach(nombre => {
+                const option = document.createElement('option');
+                option.value = nombre;
+                option.textContent = nombre;
+                selectMaquina.appendChild(option);
+            });
+        }
+
+        // ============================================
+        // APLICAR FILTRO
+        // ============================================
+        function aplicarFiltro() {
+            const tipo = document.getElementById('filtro-tipo').value;
+            const estado = document.getElementById('filtro-estado').value;
+            const maquina = document.getElementById('filtro-maquina').value;
+            
+            datosFiltrados = [...datosMaquinas];
+            
+            if (tipo !== 'todos') {
+                datosFiltrados = datosFiltrados.filter(m => m.tipo === tipo);
+            }
+            
+            if (estado !== 'todos') {
+                datosFiltrados = datosFiltrados.filter(m => m.estado === estado);
+            }
+            
+            if (maquina !== 'todos') {
+                datosFiltrados = datosFiltrados.filter(m => (m.nombre || m.maquina_id) === maquina);
+            }
+            
+            cargarTabla(datosFiltrados);
+            
+            // Si solo hay una máquina filtrada, mostrar su detalle
+            if (datosFiltrados.length === 1) {
+                const m = datosFiltrados[0];
+                mostrarDetalleMaquina(m.nombre || m.maquina_id);
+            }
+        }
+
+        // ============================================
+        // LIMPIAR FILTRO
+        // ============================================
+        function limpiarFiltro() {
+            document.getElementById('filtro-tipo').value = 'todos';
+            document.getElementById('filtro-estado').value = 'todos';
+            document.getElementById('filtro-maquina').value = 'todos';
+            aplicarFiltro();
+        }
+
+        // ============================================
+        // CARGAR TABLA
+        // ============================================
+        function cargarTabla(data) {
+            const tbody = document.getElementById('tbody-maquinas');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted"><i class="fas fa-inbox"></i> No hay máquinas que coincidan con el filtro</td></tr>`;
+                document.getElementById('contador-filtro').innerHTML = 'Mostrando: <strong>0</strong> máquinas';
+                return;
+            }
+
+            const estadoColors = {
+                'Operativa': 'success',
+                'Mantenimiento': 'warning',
+                'Inactiva': 'danger',
+                'Fuera_servicio': 'secondary'
+            };
+
+            tbody.innerHTML = data.map(m => `
+                <tr class="maquina-fila" data-id="${m.maquina_id || m._id}">
+                    <td><span class="badge bg-primary">${m.maquina_id || m._id}</span></td>
+                    <td><strong>${m.nombre || '-'}</strong></td>
+                    <td>${m.tipo || '-'}</td>
+                    <td>${m.modelo || '-'}</td>
+                    <td><span class="badge bg-${estadoColors[m.estado] || 'secondary'}">${m.estado || 'Desconocido'}</span></td>
+                    <td>${m.capacidad_produccion || 0} u/h</td>
+                    <td>${m.horas_operacion || 0} h</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="mostrarDetalleMaquina('${m.nombre || m.maquina_id}')" title="Ver detalle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarMaquina('${m.maquina_id || m._id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            document.getElementById('contador-filtro').innerHTML = `Mostrando: <strong>${data.length}</strong> máquinas`;
+        }
+
         function actualizarKPIs(maquinas, mantenimientos) {
             const total = maquinas.length;
             const operativas = maquinas.filter(m => m.estado === 'Operativa').length;
@@ -757,7 +1225,7 @@
                 return;
             }
 
-            // ---- GRÁFICO 1: SOLO MÁQUINAS CON FALLAS ----
+            // ---- GRÁFICO 1: MÁQUINAS CON FALLAS ----
             const maquinasConFallas = maquinas.filter(m => m.estado === 'Inactiva' || m.estado === 'Fuera_servicio');
             
             if (maquinasConFallas.length === 0) {
@@ -766,18 +1234,11 @@
                         <i class="fas fa-check-circle fa-4x mb-3" style="color: #27ae60;"></i>
                         <h5 style="color: #27ae60;">✅ ¡Excelente!</h5>
                         <p class="text-muted">No hay máquinas con fallas registradas en el sistema.</p>
-                        <p class="text-muted small">Todas las máquinas están operativas.</p>
                     </div>
                 `;
             } else {
-                const fallasMap = {};
-                maquinasConFallas.forEach(m => {
-                    const key = m.nombre || m.maquina_id;
-                    fallasMap[key] = 1;
-                });
-
-                const fallasKeys = Object.keys(fallasMap);
-                const fallasValues = Object.values(fallasMap);
+                const fallasKeys = maquinasConFallas.map(m => m.nombre || m.maquina_id);
+                const fallasValues = maquinasConFallas.map(() => 1);
 
                 Plotly.newPlot('grafico-fallas', [{
                     type: 'bar',
@@ -789,10 +1250,8 @@
                     },
                     text: fallasValues.map(v => '⚠️ Con falla'),
                     textposition: 'outside',
-                    hovertext: fallasKeys.map(k => 
-                        `Máquina: ${k}\nEstado: ⚠️ Con falla\nRevisión necesaria: Sí\nAcción recomendada: Programar mantenimiento correctivo`
-                    ),
-                    hoverinfo: 'text'
+                    customdata: maquinasConFallas.map(m => m.nombre || m.maquina_id),
+                    hovertemplate: '<b>%{x}</b><br>⚠️ Con falla<br>🔍 Clic para ver detalle<extra></extra>'
                 }], {
                     margin: { t: 10, l: 60, r: 20, b: 80 },
                     paper_bgcolor: 'rgba(0,0,0,0)',
@@ -809,35 +1268,31 @@
                         gridcolor: 'rgba(0,0,0,0.05)'
                     },
                     font: { family: 'Segoe UI, sans-serif' },
-                    showlegend: false,
-                    annotations: [{
-                        x: 0.5,
-                        y: 1.1,
-                        xref: 'paper',
-                        yref: 'paper',
-                        text: `⚠️ ${maquinasConFallas.length} máquina(s) requieren atención inmediata`,
-                        showarrow: false,
-                        font: { size: 12, color: '#e74c3c' }
-                    }]
+                    showlegend: false
+                });
+
+                document.getElementById('grafico-fallas').on('plotly_click', function(data) {
+                    if (data.points && data.points.length > 0) {
+                        const point = data.points[0];
+                        const nombre = point.customdata;
+                        if (nombre) {
+                            mostrarDetalleMaquina(nombre);
+                        }
+                    }
                 });
             }
 
-            // ---- GRÁFICO 2: Tiempo de Funcionamiento por Máquina ----
+            // ---- GRÁFICO 2: TIEMPO DE FUNCIONAMIENTO ----
             const tiempoMap = {};
             maquinas.forEach(m => {
                 const key = m.nombre || m.maquina_id;
                 tiempoMap[key] = m.horas_operacion || 0;
             });
 
-            const tiempoKeys = Object.keys(tiempoMap);
-            const tiempoValues = Object.values(tiempoMap);
-            const maxTiempo = Math.max(...tiempoValues, 1);
-
-            // Ordenar por tiempo de mayor a menor
-            const sorted = tiempoKeys.map((k, i) => ({ key: k, value: tiempoValues[i] }))
-                .sort((a, b) => b.value - a.value);
-            const sortedKeys = sorted.map(s => s.key);
-            const sortedValues = sorted.map(s => s.value);
+            const sorted = Object.entries(tiempoMap).sort((a, b) => b[1] - a[1]);
+            const sortedKeys = sorted.map(s => s[0]);
+            const sortedValues = sorted.map(s => s[1]);
+            const maxTiempo = Math.max(...sortedValues, 1);
 
             Plotly.newPlot('grafico-tiempo-funcionamiento', [{
                 type: 'bar',
@@ -849,10 +1304,8 @@
                 },
                 text: sortedValues.map(v => v + ' h'),
                 textposition: 'outside',
-                hovertext: sortedKeys.map((k, i) => 
-                    `Máquina: ${k}\nHoras de operación: ${sortedValues[i]} horas\nEstado: ${sortedValues[i] > maxTiempo * 0.7 ? '🔴 Alto desgaste' : sortedValues[i] > maxTiempo * 0.4 ? '🟡 Desgaste moderado' : '🟢 Bajo desgaste'}`
-                ),
-                hoverinfo: 'text'
+                customdata: sortedKeys,
+                hovertemplate: '<b>%{x}</b><br>Horas: %{y:.0f} h<br>🔍 Clic para ver detalle<extra></extra>'
             }], {
                 margin: { t: 10, l: 60, r: 20, b: 80 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
@@ -869,7 +1322,17 @@
                 showlegend: false
             });
 
-            // ---- GRÁFICO 3: TOP 3 MÁQUINAS CON MÁS MANTENIMIENTOS (Dona) ----
+            document.getElementById('grafico-tiempo-funcionamiento').on('plotly_click', function(data) {
+                if (data.points && data.points.length > 0) {
+                    const point = data.points[0];
+                    const nombre = point.customdata;
+                    if (nombre) {
+                        mostrarDetalleMaquina(nombre);
+                    }
+                }
+            });
+
+            // ---- GRÁFICO 3: TOP 5 MÁQUINAS CON MÁS MANTENIMIENTOS ----
             if (mantenimientos.length > 0) {
                 const mantPorMaquina = {};
                 mantenimientos.forEach(m => {
@@ -877,13 +1340,12 @@
                     mantPorMaquina[key] = (mantPorMaquina[key] || 0) + 1;
                 });
 
-                // Obtener TOP 3 máquinas con más mantenimientos
-                const top3 = Object.entries(mantPorMaquina)
+                const top5 = Object.entries(mantPorMaquina)
                     .filter(([key, value]) => value > 0)
                     .sort((a, b) => b[1] - a[1])
-                    .slice(0, 3);
+                    .slice(0, 5);
 
-                if (top3.length === 0) {
+                if (top5.length === 0) {
                     document.getElementById('grafico-mantenimientos').innerHTML = `
                         <div class="text-center text-muted py-5">
                             <i class="fas fa-info-circle fa-3x mb-3"></i>
@@ -891,37 +1353,49 @@
                         </div>
                     `;
                 } else {
-                    const mantKeys = top3.map(([k]) => k);
-                    const mantValues = top3.map(([, v]) => v);
-                    const coloresMant = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c', '#9b59b6', '#1abc9c', '#e67e22'];
+                    const mantKeys = top5.map(([k]) => k);
+                    const mantValues = top5.map(([, v]) => v);
+                    const coloresMant = ['#e74c3c', '#f39c12', '#3498db', '#2ecc71', '#9b59b6'];
 
                     Plotly.newPlot('grafico-mantenimientos', [{
-                        type: 'pie',
-                        labels: mantKeys,
-                        values: mantValues,
-                        marker: { colors: coloresMant.slice(0, mantKeys.length) },
-                        textinfo: 'label+percent',
-                        hovertext: mantKeys.map((k, i) => 
-                            `Máquina: ${k}\nMantenimientos: ${mantValues[i]}\nTotal de mantenimientos realizados: ${mantValues[i]}`
-                        ),
-                        hoverinfo: 'text',
-                        hole: 0.3
+                        type: 'bar',
+                        orientation: 'h',
+                        y: mantKeys,
+                        x: mantValues,
+                        marker: {
+                            color: coloresMant.slice(0, mantKeys.length),
+                            line: { color: 'white', width: 1.5 }
+                        },
+                        text: mantValues.map(v => v + ' mantenimientos'),
+                        textposition: 'outside',
+                        customdata: mantKeys,
+                        hovertemplate: '<b>%{y}</b><br>Mantenimientos: %{x}<br>🔍 Clic para ver detalle<extra></extra>'
                     }], {
-                        margin: { t: 10, l: 10, r: 10, b: 10 },
+                        margin: { t: 10, l: 120, r: 20, b: 40 },
                         paper_bgcolor: 'rgba(0,0,0,0)',
                         plot_bgcolor: 'rgba(0,0,0,0)',
+                        xaxis: { 
+                            title: 'Número de Mantenimientos',
+                            gridcolor: 'rgba(0,0,0,0.05)'
+                        },
+                        yaxis: { 
+                            title: 'Máquina',
+                            automargin: true,
+                            gridcolor: 'rgba(0,0,0,0.05)',
+                            autorange: 'reversed'
+                        },
                         font: { family: 'Segoe UI, sans-serif' },
-                        showlegend: true,
-                        legend: { orientation: 'h', y: -0.1 },
-                        annotations: [{
-                            x: 0.5,
-                            y: 0.5,
-                            xref: 'paper',
-                            yref: 'paper',
-                            text: `TOP 3<br>Mantenimientos`,
-                            showarrow: false,
-                            font: { size: 14, color: '#2c3e50', weight: 'bold' }
-                        }]
+                        showlegend: false
+                    });
+
+                    document.getElementById('grafico-mantenimientos').on('plotly_click', function(data) {
+                        if (data.points && data.points.length > 0) {
+                            const point = data.points[0];
+                            const nombre = point.customdata;
+                            if (nombre) {
+                                mostrarDetalleMaquina(nombre);
+                            }
+                        }
                     });
                 }
             } else {
@@ -938,9 +1412,10 @@
         // ELIMINAR MÁQUINA
         // ============================================
         async function eliminarMaquina(id) {
-            if (!confirm('¿Estás seguro de eliminar esta máquina? Esta acción no se puede deshacer.')) return;
+            if (!confirm('¿Estás seguro de eliminar esta máquina?')) return;
             try {
                 await apiRequest(`/maquinas/${id}`, { method: 'DELETE' });
+                cerrarModalMaquina();
                 cargarMaquinas();
             } catch (error) {
                 alert('Error al eliminar: ' + error.message);
@@ -987,10 +1462,7 @@
             };
 
             try {
-                const result = await apiRequest('/maquinas', { 
-                    method: 'POST', 
-                    body: JSON.stringify(data) 
-                });
+                await apiRequest('/maquinas', { method: 'POST', body: JSON.stringify(data) });
                 
                 document.getElementById('mensaje-form').innerHTML = `
                     <div class="alert alert-success mt-2">
@@ -1014,8 +1486,10 @@
         // ============================================
         // INICIALIZACIÓN
         // ============================================
-        document.addEventListener('DOMContentLoaded', cargarMaquinas);
-        setInterval(cargarMaquinas, 30000);
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarMaquinas();
+            setInterval(cargarMaquinas, 30000);
+        });
     </script>
 </body>
 </html>
